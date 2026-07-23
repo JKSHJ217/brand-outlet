@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>brand_outlet.tm</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:white;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:#000;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#fff;
+}
+
+.hero{
+height:80vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+color:#ccc;
+margin-bottom:30px;
+}
+
+button{
+padding:15px 35px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#fff;
+color:#000;
+cursor:pointer;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+padding:40px;
+}
+
+.card{
+background:#1c1c1c;
+border-radius:20px;
+padding:20px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:15px;
+}
+
+.price{
+font-size:24px;
+margin:15px 0;
+}
+
+footer{
+padding:30px;
+text-align:center;
+color:#888;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="logo">brand_outlet.tm</div>
+
+<div>🛒 Корзина (0)</div>
+</header>
+
+<section class="hero">
+
+<h1>Стиль начинается с часов</h1>
+
+<p>Оригинальные брендовые часы по выгодным ценам.</p>
+
+<button>Смотреть каталог</button>
+
+</section>
+
+<section class="products">
+
+<div class="card">
+<img src="https://picsum.photos/300/300?1">
+<h2>Luxury Watch</h2>
+<div class="price">$199</div>
+<button>Добавить в корзину</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/300/300?2">
+<h2>Classic Watch</h2>
+<div class="price">$149</div>
+<button>Добавить в корзину</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/300/300?3">
+<h2>Premium Watch</h2>
+<div class="price">$249</div>
+<button>Добавить в корзину</button>
+</div>
+
+</section>
+
+<footer>
+
+© 2026 brand_outlet.tm
+
+</footer>
+
+</body>
+</html>
