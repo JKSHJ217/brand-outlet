@@ -2,6 +2,16 @@ function addToFavorites(name, price, image){
 
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+    // Проверяем, есть ли уже такой товар
+    let exists = favorites.some(function(item){
+        return item.name === name;
+    });
+
+    if(exists){
+        alert("❤️ Этот товар уже находится в избранном!");
+        return;
+    }
+
     favorites.push({
         name: name,
         price: price,
@@ -10,9 +20,10 @@ function addToFavorites(name, price, image){
 
     localStorage.setItem("favorites", JSON.stringify(favorites));
 
-    alert(name + " добавлены в избранное!");
+    alert(name + " добавлен в избранное ❤️");
 
-    location.reload();
+    updateFavoritesCount();
+
 }
 
 function updateFavoritesCount(){
