@@ -2,32 +2,77 @@
 <html>
 <head>
 <title>Корзина Brand Outlet</title>
+
 <style>
-body {
-    font-family: Arial;
-    background: #111;
-    color: white;
-    text-align: center;
+body{
+    font-family:Arial;
+    background:#111;
+    color:white;
+    text-align:center;
 }
 
-.box {
-    margin: 50px auto;
-    background: #222;
-    padding: 30px;
-    width: 300px;
-    border-radius: 15px;
+.item{
+    background:#222;
+    width:320px;
+    margin:20px auto;
+    padding:20px;
+    border-radius:15px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
 }
 </style>
+
 </head>
 
 <body>
 
 <h1>🛒 Корзина</h1>
 
-<div class="box">
-    <h2>Ваша корзина пуста</h2>
-    <p>Добавьте товары из каталога</p>
+<div id="cart"></div>
+
+<button onclick="clearCart()">
+Очистить корзину
+</button>
+
+<script>
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let container=document.getElementById("cart");
+
+if(cart.length==0){
+
+container.innerHTML="<h2>Корзина пуста</h2>";
+
+}else{
+
+cart.forEach(function(item){
+
+container.innerHTML+=`
+<div class="item">
+<h2>${item.name}</h2>
+<p>${item.price} TMT</p>
 </div>
+`;
+
+});
+
+}
+
+function clearCart(){
+
+localStorage.removeItem("cart");
+
+location.reload();
+
+}
+
+</script>
 
 </body>
 </html>
