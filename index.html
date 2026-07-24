@@ -161,5 +161,11 @@ color:#888;
 
 <script src="cart.js"></script>
 
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("cart-count").innerHTML =
+"🛒 Корзина (" + cart.length + ")";
+</script>
+
 </body>
 </html>
