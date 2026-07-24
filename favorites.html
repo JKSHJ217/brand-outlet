@@ -79,7 +79,7 @@ box.innerHTML = "Пока здесь нет товаров ❤️";
 
 box.innerHTML = "";
 
-favorites.forEach(function(item){
+favorites.forEach(function(item,index){
 
 box.innerHTML += `
 
@@ -91,11 +91,25 @@ box.innerHTML += `
 
 <p>${item.price} TMT</p>
 
+<button onclick="removeFavorite(${index})">
+❌ Удалить
+</button>
+
 </div>
 
 `;
 
 });
+
+}
+
+function removeFavorite(index){
+
+favorites.splice(index,1);
+
+localStorage.setItem("favorites", JSON.stringify(favorites));
+
+location.reload();
 
 }
 
