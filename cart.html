@@ -1,78 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+
 <head>
+<meta charset="UTF-8">
 <title>Корзина Brand Outlet</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-    font-family:Arial;
-    background:#111;
-    color:white;
-    text-align:center;
+background:#111;
+color:white;
+}
+
+header{
+background:#000;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+}
+
+a{
+color:white;
+text-decoration:none;
+}
+
+h1{
+text-align:center;
+margin:30px;
+}
+
+.cart{
+padding:40px;
 }
 
 .item{
-    background:#222;
-    width:320px;
-    margin:20px auto;
-    padding:20px;
-    border-radius:15px;
+background:#1c1c1c;
+padding:20px;
+margin:20px auto;
+max-width:500px;
+border-radius:15px;
+text-align:center;
+}
+
+.total{
+text-align:center;
+font-size:25px;
+margin:30px;
 }
 
 button{
-    padding:10px 20px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+background:white;
+color:black;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+cursor:pointer;
 }
+
+button:hover{
+background:#ddd;
+}
+
 </style>
 
 </head>
 
+
 <body>
 
-<h1>🛒 Корзина</h1>
 
-<div id="cart"></div>
+<header>
 
-<button onclick="clearCart()">
-Очистить корзину
-</button>
+<div>brand_outlet.tm</div>
+
+<a href="index.html">
+🏠 Главная
+</a>
+
+</header>
+
+
+<h1>🛒 Ваша корзина</h1>
+
+
+<div class="cart" id="cart"></div>
+
+
+<div class="total" id="total"></div>
+
 
 <script>
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let container=document.getElementById("cart");
+let box = document.getElementById("cart");
+let total = 0;
 
-if(cart.length==0){
 
-container.innerHTML="<h2>Корзина пуста</h2>";
+if(cart.length == 0){
+
+box.innerHTML = "<h2 style='text-align:center'>Корзина пуста</h2>";
 
 }else{
 
-cart.forEach(function(item){
 
-container.innerHTML+=`
+cart.forEach(function(item,index){
+
+
+box.innerHTML += `
+
 <div class="item">
+
 <h2>${item.name}</h2>
+
 <p>${item.price} TMT</p>
+
+<button onclick="removeItem(${index})">
+Удалить
+</button>
+
 </div>
+
 `;
+
+
+total += item.price;
+
 
 });
 
+
+document.getElementById("total").innerHTML =
+"Итого: " + total + " TMT";
+
+
 }
 
-function clearCart(){
 
-localStorage.removeItem("cart");
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem("cart",JSON.stringify(cart));
 
 location.reload();
 
 }
 
+
 </script>
+
 
 </body>
 </html>
