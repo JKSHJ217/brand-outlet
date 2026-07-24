@@ -60,9 +60,46 @@ border-radius:15px;
 
 <h1>❤️ Ваше избранное</h1>
 
-<div class="box">
-Пока здесь нет товаров ❤️
+<div class="box" id="favorites">
+Проверка...
 </div>
+
+<script>
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+let box = document.getElementById("favorites");
+
+
+if(favorites.length == 0){
+
+box.innerHTML = "Пока здесь нет товаров ❤️";
+
+}else{
+
+box.innerHTML = "";
+
+favorites.forEach(function(item){
+
+box.innerHTML += `
+
+<div style="background:#222;padding:20px;margin:20px;border-radius:15px;">
+
+<img src="${item.image}" width="200">
+
+<h2>${item.name}</h2>
+
+<p>${item.price} TMT</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
