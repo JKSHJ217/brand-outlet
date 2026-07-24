@@ -31,6 +31,11 @@
         button:hover{
             background:#ddd;
         }
+
+        img{
+            width:250px;
+            border-radius:10px;
+        }
     </style>
 </head>
 
@@ -38,25 +43,39 @@
 
 <h1>⌚ Каталог Brand Outlet</h1>
 
+
 <div class="product">
-    <h2>Часы Classic</h2>
+    <h2>Casio Vintage</h2>
+    <p>Классические часы Casio</p>
+    <p>199 TMT</p>
+
+    <button onclick="addToCart('Casio Vintage',199)">
+        Добавить в корзину
+    </button>
+</div>
+
+
+<div class="product">
+    <h2>Fossil Men Watch</h2>
     <p>Стильные мужские часы</p>
-    <p>150 TMT</p>
+    <p>350 TMT</p>
 
-    <button onclick="addToCart('Часы Classic',150)">
+    <button onclick="addToCart('Fossil Men Watch',350)">
         Добавить в корзину
     </button>
 </div>
+
 
 <div class="product">
-    <h2>Часы Premium</h2>
+    <h2>Premium Watch</h2>
     <p>Элегантный дизайн</p>
-    <p>250 TMT</p>
+    <p>500 TMT</p>
 
-    <button onclick="addToCart('Часы Premium',250)">
+    <button onclick="addToCart('Premium Watch',500)">
         Добавить в корзину
     </button>
 </div>
+
 
 <script src="cart.js"></script>
 
