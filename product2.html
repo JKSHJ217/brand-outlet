@@ -166,14 +166,43 @@ French Connection Men FCWGG7008603 Stainless Steel Analog Watch 45 mm, Silver
 
 <script>
 
+const images = [
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_02.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_2.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_3.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_4.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_5.JPG"
+];
+
+let currentImage = 0;
+
 function changeImage(src){
+    document.getElementById("mainImage").src = src;
+    currentImage = images.indexOf(src);
+}
 
-document.getElementById("mainImage").src = src;
+function nextImage(){
+    currentImage++;
 
+    if(currentImage >= images.length){
+        currentImage = 0;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
+}
+
+function prevImage(){
+    currentImage--;
+
+    if(currentImage < 0){
+        currentImage = images.length - 1;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
 }
 
 </script>
-
 
 </body>
 
