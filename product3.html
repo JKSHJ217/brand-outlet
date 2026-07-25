@@ -2,6 +2,7 @@
 <html lang="ru">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -53,10 +54,6 @@ margin:10px;
 cursor:pointer;
 }
 
-h1{
-margin:20px;
-}
-
 .price{
 font-size:30px;
 margin:20px;
@@ -80,7 +77,9 @@ margin-left:10px;
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -93,75 +92,88 @@ margin-left:10px;
 </header>
 
 
+
 <div class="product">
 
 
-<script>
+<div style="display:flex;align-items:center;justify-content:center;gap:15px;">
 
-const images = [
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_1.JPG",
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_02.JPG",
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_2.JPG",
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_3.JPG",
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_4.JPG",
-"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_5.JPG"
-];
+<button onclick="prevImage()">◀️</button>
 
-let currentImage = 0;
 
-function changeImage(src){
-    document.getElementById("mainImage").src = src;
-    currentImage = images.indexOf(src);
-}
-
-function nextImage(){
-    currentImage++;
-
-    if(currentImage >= images.length){
-        currentImage = 0;
-    }
-
-    document.getElementById("mainImage").src = images[currentImage];
-}
-
-function prevImage(){
-    currentImage--;
-
-    if(currentImage < 0){
-        currentImage = images.length - 1;
-    }
-
-    document.getElementById("mainImage").src = images[currentImage];
-}
-
-</script>
-
-<div class="gallery">
-
-<img onclick="changeImage(this.src)"
+<img id="mainImage" class="main-img"
 src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG">
 
-<img onclick="changeImage(this.src)"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_02.JPG">
 
-<img onclick="changeImage(this.src)"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_ANGLE_1.JPG">
+<button onclick="nextImage()">▶️</button>
 
-<img onclick="changeImage(this.src)"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BACK_1.JPG">
-
-<img onclick="changeImage(this.src)"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BOX_1.JPG">
-
-<img onclick="changeImage(this.src)"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_SIDE_1.JPG">
 
 </div>
 
 
+
+<div class="gallery">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_02.JPG">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_ANGLE_1.JPG">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BACK_1.JPG">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BOX_1.JPG">
+
+
+<img onclick="changeImage(this.src)"
+src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_SIDE_1.JPG">
+
+
+</div>
+
+
+
+<h3 style="color:#aaa;">
+Бренд
+</h3>
+
+<h2>
+Eliz
+</h2>
+
+
 <h1>
-Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black
+Men ES8926G1SGN Leather Analog Watch 42 mm, Black
 </h1>
+
+
+
+<h3 style="color:#aaa;margin-top:25px;">
+Описание
+</h3>
+
+
+<p style="max-width:650px;margin:20px auto;line-height:1.8;">
+Стильные мужские часы Eliz с кожаным ремешком.
+Классический чёрный дизайн подходит для повседневного
+использования и делового стиля.
+</p>
+
+
+
+<h3 style="color:#aaa;">
+Цена
+</h3>
 
 
 <div class="price">
@@ -169,12 +181,14 @@ Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black
 </div>
 
 
+
 <button onclick="addToCart('Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black',1400,'https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG')">
 🛒 Добавить в корзину
 </button>
 
 
-<button class="favorite-btn" onclick="addToFavorites('Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black',1400,'https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG')">
+<button class="favorite-btn"
+onclick="addToFavorites('Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black',1400,'https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG')">
 ❤️ В избранное
 </button>
 
@@ -182,47 +196,74 @@ Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black
 </div>
 
 
+
 <script src="cart.js"></script>
+
 <script src="favorites.js"></script>
+
 
 
 <script>
 
 const images = [
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG",
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_02.JPG",
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_ANGLE_1.JPG",
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BACK_1.JPG",
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BOX_1.JPG",
+
 "https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_SIDE_1.JPG"
+
 ];
+
 
 let currentImage = 0;
 
+
 function changeImage(src){
-    document.getElementById("mainImage").src = src;
-    currentImage = images.indexOf(src);
+
+document.getElementById("mainImage").src = src;
+
+currentImage = images.indexOf(src);
+
 }
+
 
 function nextImage(){
-    currentImage++;
 
-    if(currentImage >= images.length){
-        currentImage = 0;
-    }
+currentImage++;
 
-    document.getElementById("mainImage").src = images[currentImage];
+if(currentImage >= images.length){
+
+currentImage = 0;
+
 }
+
+document.getElementById("mainImage").src = images[currentImage];
+
+}
+
+
 
 function prevImage(){
-    currentImage--;
 
-    if(currentImage < 0){
-        currentImage = images.length - 1;
-    }
+currentImage--;
 
-    document.getElementById("mainImage").src = images[currentImage];
+if(currentImage < 0){
+
+currentImage = images.length - 1;
+
 }
+
+document.getElementById("mainImage").src = images[currentImage];
+
+}
+
 
 </script>
 
