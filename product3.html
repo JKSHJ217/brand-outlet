@@ -96,9 +96,45 @@ margin-left:10px;
 <div class="product">
 
 
-<img id="mainImage" class="main-img"
-src="https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG">
+<script>
 
+const images = [
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_02.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_2.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_3.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_4.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/7/887038069588_FRONT_5.JPG"
+];
+
+let currentImage = 0;
+
+function changeImage(src){
+    document.getElementById("mainImage").src = src;
+    currentImage = images.indexOf(src);
+}
+
+function nextImage(){
+    currentImage++;
+
+    if(currentImage >= images.length){
+        currentImage = 0;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
+}
+
+function prevImage(){
+    currentImage--;
+
+    if(currentImage < 0){
+        currentImage = images.length - 1;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
+}
+
+</script>
 
 <div class="gallery">
 
@@ -152,8 +188,40 @@ Eliz Men ES8926G1SGN Leather Analog Watch 42 mm, Black
 
 <script>
 
+const images = [
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_FRONT_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_02.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_ANGLE_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BACK_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_BOX_1.JPG",
+"https://f.bflcdn.com/f_auto,q_auto/products/26/6/6294016723419_SIDE_1.JPG"
+];
+
+let currentImage = 0;
+
 function changeImage(src){
-document.getElementById("mainImage").src = src;
+    document.getElementById("mainImage").src = src;
+    currentImage = images.indexOf(src);
+}
+
+function nextImage(){
+    currentImage++;
+
+    if(currentImage >= images.length){
+        currentImage = 0;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
+}
+
+function prevImage(){
+    currentImage--;
+
+    if(currentImage < 0){
+        currentImage = images.length - 1;
+    }
+
+    document.getElementById("mainImage").src = images[currentImage];
 }
 
 </script>
