@@ -15,7 +15,6 @@ font-family:Arial,sans-serif;
 padding:40px;
 }
 
-
 .box{
 max-width:500px;
 margin:auto;
@@ -24,11 +23,9 @@ padding:30px;
 border-radius:20px;
 }
 
-
 h1{
 text-align:center;
 }
-
 
 input, textarea{
 
@@ -37,10 +34,8 @@ padding:12px;
 margin-top:10px;
 border-radius:10px;
 border:none;
-font-size:16px;
 
 }
-
 
 button{
 
@@ -54,11 +49,6 @@ font-size:18px;
 
 }
 
-
-#adminPanel{
-display:none;
-}
-
 </style>
 
 </head>
@@ -70,31 +60,8 @@ display:none;
 <div class="box">
 
 
-<div id="login">
-
-
 <h1>
-🔒 Вход
-</h1>
-
-
-<input id="password" type="password" placeholder="Пароль">
-
-
-<button onclick="login()">
-Войти
-</button>
-
-
-</div>
-
-
-
-<div id="adminPanel">
-
-
-<h1>
-⌚ Добавить часы
+🔒 Добавить часы
 </h1>
 
 
@@ -104,59 +71,18 @@ display:none;
 <input id="price" placeholder="Цена TMT">
 
 
-<input id="image" placeholder="Ссылка на фото">
+<textarea id="images" placeholder="Ссылки на фото (каждая с новой строки)"></textarea>
 
 
 <textarea id="description" placeholder="Описание"></textarea>
 
 
 <button onclick="addWatch()">
-Добавить товар
+Добавить часы
 </button>
 
 
 </div>
-
-
-</div>
-
-
-
-
-<script>
-
-
-function login(){
-
-
-let pass = document.getElementById("password").value;
-
-
-
-if(pass === "YusupAli99361809453$"){
-
-
-document.getElementById("login").style.display="none";
-
-document.getElementById("adminPanel").style.display="block";
-
-
-}
-
-else{
-
-
-alert("Неверный пароль ❌");
-
-
-}
-
-
-}
-
-
-</script>
-
 
 
 
@@ -181,9 +107,7 @@ storageBucket: "brand-outlet-tm.firebasestorage.app",
 
 messagingSenderId: "1083598839585",
 
-appId: "1:1083598839585:web:31d6c55768a25a60732860",
-
-measurementId: "G-DTR2Y6C5YB"
+appId: "1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
@@ -198,19 +122,36 @@ const db = getFirestore(app);
 window.addWatch = async function(){
 
 
+let photoText = document.getElementById("images").value;
+
+
+let images = photoText
+.split("\n")
+.filter(x => x.trim() !== "");
+
+
+
 await addDoc(collection(db,"watches"),{
 
 
 name:document.getElementById("name").value,
 
+
 price:Number(document.getElementById("price").value),
 
-image:document.getElementById("image").value,
+
+images:images,
+
+
+image:images[0],
+
 
 description:document.getElementById("description").value
 
 
+
 });
+
 
 
 alert("Часы добавлены ✅");
@@ -223,7 +164,6 @@ location.reload();
 
 
 </script>
-
 
 
 </body>
