@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Избранное</title>
+<title>Избранное - Brand Outlet</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -17,103 +20,276 @@ background:#111;
 color:white;
 }
 
+
 header{
+
 background:#000;
 padding:20px 40px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 }
+
+
+.logo{
+
+font-size:28px;
+font-weight:bold;
+
+}
+
 
 a{
+
 color:white;
 text-decoration:none;
+
 }
 
-h1{
-text-align:center;
-margin:30px;
+
+.favorites{
+
+padding:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+
 }
 
-.box{
-max-width:800px;
-margin:auto;
-padding:30px;
-text-align:center;
-font-size:24px;
+
+.card{
+
 background:#1c1c1c;
-border-radius:15px;
+border-radius:20px;
+padding:20px;
+text-align:center;
+
 }
+
+
+.card img{
+
+width:100%;
+border-radius:15px;
+
+}
+
+
+.price{
+
+font-size:24px;
+margin:15px;
+
+}
+
+
+button{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:16px;
+
+}
+
+
+.remove{
+
+background:#ff5555;
+color:white;
+
+}
+
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
-<div>❤️ Избранное</div>
 
-<a href="index.html">🏠 Главная</a>
+<div class="logo">
+brand_outlet.tm
+</div>
+
+
+
+<div style="display:flex;gap:20px;">
+
+
+<a href="index.html">
+🏠 Главная
+</a>
+
+
+<a href="cart.html">
+🛒 Корзина
+</a>
+
+
+</div>
+
 
 </header>
 
-<h1>❤️ Ваше избранное</h1>
 
-<div class="box" id="favorites">
-Проверка...
-</div>
 
-<script>
+
+<h1 style="text-align:center;margin:30px;">
+❤️ Избранное
+</h1>
+
+
+
+
+<section class="favorites">
+
+</section>
+
+
+
+
+
+<script type="module">
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain: "brand-outlet-tm.firebaseapp.com",
+
+projectId: "brand-outlet-tm",
+
+storageBucket: "brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId: "1083598839585",
+
+appId: "1:1083598839585:web:31d6c55768a25a60732860",
+
+measurementId: "G-DTR2Y6C5YB"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+
+const favBox = document.querySelector(".favorites");
+
+
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-let box = document.getElementById("favorites");
 
 
-if(favorites.length == 0){
+const snapshot = await getDocs(collection(db,"watches"));
 
-box.innerHTML = "Пока здесь нет товаров ❤️";
 
-}else{
 
-box.innerHTML = "";
+snapshot.forEach((doc)=>{
 
-favorites.forEach(function(item,index){
 
-box.innerHTML += `
+if(favorites.includes(doc.id)){
 
-<div style="background:#222;padding:20px;margin:20px;border-radius:15px;">
 
-<img src="${item.image}" width="200">
+const watch = doc.data();
 
-<h2>${item.name}</h2>
 
-<p>${item.price} TMT</p>
 
-<button onclick="removeFavorite(${index})">
+favBox.innerHTML += `
+
+
+<div class="card">
+
+
+<img src="${watch.image}">
+
+
+<h2>
+${watch.name}
+</h2>
+
+
+<div class="price">
+${watch.price} TMT
+</div>
+
+
+
+<button class="remove" onclick="removeFavorite('${doc.id}')">
 ❌ Удалить
 </button>
 
+
 </div>
+
 
 `;
 
+}
+
+
 });
 
-}
 
-function removeFavorite(index){
 
-favorites.splice(index,1);
+if(favBox.innerHTML === ""){
 
-localStorage.setItem("favorites", JSON.stringify(favorites));
-
-location.reload();
+favBox.innerHTML = "<h2>Избранное пустое ❤️</h2>";
 
 }
+
+
 
 </script>
 
+
+
+
+<script>
+
+
+function removeFavorite(id){
+
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+favorites = favorites.filter(item => item !== id);
+
+
+localStorage.setItem("favorites",JSON.stringify(favorites));
+
+
+location.reload();
+
+
+}
+
+
+</script>
+
+
+
 </body>
+
 </html>
