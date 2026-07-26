@@ -216,13 +216,12 @@ brand_outlet.tm
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
 
-apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-v7Z3ywUfiTsnPQ",
 
 authDomain:"brand-outlet-tm.firebaseapp.com",
 
@@ -237,40 +236,51 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 
-
 const cartBox = document.getElementById("cart");
-
+const totalPrice = document.getElementById("totalPrice");
 
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 
+// исправление старого формата корзины
+if(cart.length && typeof cart[0] === "string"){
 
-let total = 0;
+cart = cart.map(id => ({
+id:id,
+quantity:1
+}));
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+}
 
 
 
 const snapshot = await getDocs(collection(db,"watches"));
 
 
+function renderCart(){
+
+cartBox.innerHTML="";
+
+let total=0;
+
 
 snapshot.forEach((doc)=>{
 
 
-const item = cart.find(x => x.id === doc.id);
-
+let item = cart.find(x=>x.id===doc.id);
 
 
 if(item){
 
 
-const watch = doc.data();
+let watch = doc.data();
 
 
 let sum = watch.price * item.quantity;
@@ -282,53 +292,34 @@ total += sum;
 
 cartBox.innerHTML += `
 
-
 <div class="card">
 
-
-<img src="${watch.image}">
-
+<img src="${watch.images ? watch.images[0] : watch.image}">
 
 
 <div class="info">
 
-
-<h2>
-${watch.name}
-</h2>
-
+<h2>${watch.name}</h2>
 
 
 <div class="price">
-
-Цена:
-${watch.price} TMT
-
+Цена: ${watch.price} TMT
 </div>
-
 
 
 <div class="price">
-
-Итого:
-<span id="sum-${doc.id}">
-${sum}
-
-</span> TMT
-
+Итого: ${sum} TMT
 </div>
-
 
 
 <div class="quantity">
-
 
 <button onclick="minus('${doc.id}')">
 −
 </button>
 
 
-<span id="qty-${doc.id}">
+<span>
 ${item.quantity}
 </span>
 
@@ -337,27 +328,19 @@ ${item.quantity}
 +
 </button>
 
-
 </div>
-
 
 
 <button class="remove" onclick="removeItem('${doc.id}')">
-
 🗑 Удалить
-
 </button>
 
 
-
 </div>
 
-
 </div>
-
 
 `;
-
 
 }
 
@@ -365,37 +348,23 @@ ${item.quantity}
 });
 
 
-
-
-document.getElementById("totalPrice").innerText = total;
-
+totalPrice.innerText = total;
 
 
 if(cartBox.innerHTML===""){
 
+cartBox.innerHTML="<h2>Корзина пустая 🛒</h2>";
 
-cartBox.innerHTML = `
-
-<h2>
-Корзина пустая 🛒
-</h2>
-
-`;
+}
 
 
 }
 
 
 
-window.plus = function(id){
-
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+window.plus=function(id){
 
 let item = cart.find(x=>x.id===id);
-
-
 
 if(item){
 
@@ -403,34 +372,20 @@ item.quantity++;
 
 }
 
-
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-
-location.reload();
-
+save();
 
 }
 
 
 
-
-window.minus = function(id){
-
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+window.minus=function(id){
 
 let item = cart.find(x=>x.id===id);
 
 
-
 if(item){
 
-
 item.quantity--;
-
 
 
 if(item.quantity<=0){
@@ -439,36 +394,36 @@ cart = cart.filter(x=>x.id!==id);
 
 }
 
+}
+
+
+save();
 
 }
 
 
 
-localStorage.setItem("cart",JSON.stringify(cart));
-
-
-location.reload();
-
-
-}
-
-window.removeItem = function(id){
-
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+window.removeItem=function(id){
 
 cart = cart.filter(x=>x.id!==id);
 
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-
-location.reload();
-
+save();
 
 }
 
+
+
+function save(){
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+renderCart();
+
+}
+
+
+
+renderCart();
 
 
 </script>
