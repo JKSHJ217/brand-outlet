@@ -8,6 +8,7 @@
 
 <title>brand_outlet.tm</title>
 
+
 <style>
 
 *{
@@ -17,50 +18,71 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
+
 body{
 background:#111;
 color:white;
 }
 
+
 header{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 40px;
 background:#000;
+
 }
+
 
 .logo{
+
 font-size:28px;
 font-weight:bold;
+
 }
 
-header a{
+
+a{
+
 color:white;
 text-decoration:none;
+
 }
 
+
 .hero{
-height:80vh;
+
+height:60vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 text-align:center;
+
 }
+
 
 .hero h1{
+
 font-size:50px;
 margin-bottom:20px;
+
 }
 
+
 .hero p{
+
 font-size:20px;
 color:#ccc;
 margin-bottom:30px;
+
 }
 
+
 button{
+
 padding:12px 25px;
 font-size:16px;
 border:none;
@@ -68,42 +90,61 @@ border-radius:10px;
 background:white;
 color:black;
 cursor:pointer;
+
 }
 
+
 .products{
+
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 padding:40px;
+
 }
 
+
 .card{
+
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
+cursor:pointer;
+
 }
+
 
 .card img{
+
 width:100%;
 border-radius:15px;
+
 }
+
 
 .price{
+
 font-size:24px;
 margin:15px 0;
+
 }
 
-.buy-btn,
-.favorite-btn{
+
+.card button{
+
 width:100%;
 margin-top:10px;
+
 }
 
+
 footer{
+
 padding:30px;
 text-align:center;
 color:#888;
+
 }
 
 </style>
@@ -116,12 +157,14 @@ color:#888;
 
 <header>
 
+
 <div class="logo">
 brand_outlet.tm
 </div>
 
 
 <div style="display:flex;gap:20px;">
+
 
 <a href="favorites.html">
 ❤️ Избранное (<span id="favCount">0</span>)
@@ -135,11 +178,13 @@ brand_outlet.tm
 
 </div>
 
+
 </header>
 
 
 
 <section class="hero">
+
 
 <h1>
 Стиль начинается с часов
@@ -164,19 +209,15 @@ brand_outlet.tm
 
 
 
+<h1 style="text-align:center;">
+⌚ Новинки
+</h1>
+
+
+
 <section class="products" id="products">
 
 </section>
-
-
-
-<footer>
-
-© 2026 brand_outlet.tm
-
-</footer>
-
-
 
 <script type="module">
 
@@ -205,7 +246,6 @@ measurementId: "G-DTR2Y6C5YB"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
@@ -214,9 +254,7 @@ const db = getFirestore(app);
 const products = document.getElementById("products");
 
 
-
 const snapshot = await getDocs(collection(db,"watches"));
-
 
 
 snapshot.forEach((doc)=>{
@@ -225,11 +263,10 @@ snapshot.forEach((doc)=>{
 const watch = doc.data();
 
 
-
 products.innerHTML += `
 
 
-<div class="card">
+<div class="card" onclick="openWatch('${doc.id}')">
 
 
 <img src="${watch.image}">
@@ -250,12 +287,12 @@ ${watch.description || ""}
 </p>
 
 
-<button class="buy-btn" onclick="addToCart('${doc.id}')">
+<button onclick="event.stopPropagation();addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
 
-<button class="favorite-btn" onclick="addToFavorites('${doc.id}')">
+<button onclick="event.stopPropagation();addToFavorites('${doc.id}')">
 ❤️ В избранное
 </button>
 
@@ -269,13 +306,19 @@ ${watch.description || ""}
 });
 
 
-
 </script>
 
 
 
-
 <script>
+
+
+function openWatch(id){
+
+window.location.href="watch.html?id="+id;
+
+}
+
 
 
 function addToCart(id){
@@ -300,7 +343,6 @@ updateCount();
 alert("Добавлено в корзину 🛒");
 
 }
-
 
 
 
@@ -350,6 +392,14 @@ updateCount();
 
 
 </script>
+
+
+
+<footer>
+
+© 2026 brand_outlet.tm
+
+</footer>
 
 
 
