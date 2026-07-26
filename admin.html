@@ -1,133 +1,173 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Brand Outlet Admin</title>
+<title>Admin - Brand Outlet</title>
 
 <style>
 
 body{
-    background:#111;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:40px;
-}
-
-h1{
-    text-align:center;
+background:#111;
+color:white;
+font-family:Arial,sans-serif;
+padding:40px;
 }
 
 .box{
-    max-width:500px;
-    margin:auto;
-    background:#1c1c1c;
-    padding:25px;
-    border-radius:15px;
+max-width:500px;
+margin:auto;
+background:#1c1c1c;
+padding:30px;
+border-radius:20px;
 }
 
-input, button{
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    border-radius:8px;
-    border:none;
-    box-sizing:border-box;
+h1{
+text-align:center;
 }
+
+
+input, textarea{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:none;
+font-size:16px;
+
+}
+
 
 button{
-    background:white;
-    color:black;
-    font-weight:bold;
-    cursor:pointer;
-}
 
-#status{
-    text-align:center;
-    margin-top:15px;
+width:100%;
+padding:15px;
+margin-top:20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:18px;
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="box">
 
-<h1>Brand Outlet Admin</h1>
+
+<h1>
+⌚ Добавить часы
+</h1>
+
 
 <input id="name" placeholder="Название часов">
 
-<input id="price" placeholder="Цена">
+
+<input id="price" placeholder="Цена TMT">
+
 
 <input id="image" placeholder="Ссылка на фото">
 
-<button onclick="addWatch()">Добавить часы</button>
 
-<p id="status"></p>
+<textarea id="description" placeholder="Описание"></textarea>
+
+
+<button onclick="addWatch()">
+Добавить товар
+</button>
+
 
 </div>
 
 
+
+
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
-  authDomain: "brand-outlet-tm.firebaseapp.com",
-  projectId: "brand-outlet-tm",
-  storageBucket: "brand-outlet-tm.firebasestorage.app",
-  messagingSenderId: "1083598839585",
-  appId: "1:1083598839585:web:31d6c55768a25a60732860",
-  measurementId: "G-DTR2Y6C5YB"
+
+apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain: "brand-outlet-tm.firebaseapp.com",
+
+projectId: "brand-outlet-tm",
+
+storageBucket: "brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId: "1083598839585",
+
+appId: "1:1083598839585:web:31d6c55768a25a60732860",
+
+measurementId: "G-DTR2Y6C5YB"
+
 };
+
+
 
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
 
+
 window.addWatch = async function(){
 
+
 let name = document.getElementById("name").value;
+
 let price = document.getElementById("price").value;
+
 let image = document.getElementById("image").value;
 
-
-if(name==="" || price==="" || image===""){
-document.getElementById("status").innerHTML="Заполни все поля";
-return;
-}
+let description = document.getElementById("description").value;
 
 
-try{
 
 await addDoc(collection(db,"watches"),{
+
+
 name:name,
-price:price,
-image:image
+
+price:Number(price),
+
+image:image,
+
+description:description
+
+
 });
 
 
-document.getElementById("status").innerHTML="Часы добавлены ✅";
 
-document.getElementById("name").value="";
-document.getElementById("price").value="";
-document.getElementById("image").value="";
+alert("Часы добавлены ✅");
 
 
-}catch(error){
 
-document.getElementById("status").innerHTML="Ошибка: "+error;
+location.reload();
+
 
 }
 
-}
+
 
 </script>
 
+
 </body>
+
 </html>
