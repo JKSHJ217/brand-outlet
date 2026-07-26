@@ -175,7 +175,61 @@ background:#ddd;
 
 <script type="module">
 
-// код Firebase сюда
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+  authDomain: "brand-outlet-tm.firebaseapp.com",
+  projectId: "brand-outlet-tm",
+  storageBucket: "brand-outlet-tm.firebasestorage.app",
+  messagingSenderId: "1083598839585",
+  appId: "1:1083598839585:web:31d6c55768a25a60732860",
+  measurementId: "G-DTR2Y6C5YB"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+const catalog = document.querySelector(".catalog");
+
+catalog.innerHTML = "";
+
+
+const querySnapshot = await getDocs(collection(db, "watches"));
+
+
+querySnapshot.forEach((doc) => {
+
+const watch = doc.data();
+
+
+catalog.innerHTML += `
+
+<div class="card">
+
+<img src="${watch.image}">
+
+<h2>${watch.name}</h2>
+
+<div class="price">
+${watch.price} TMT
+</div>
+
+<p>${watch.description}</p>
+
+<button onclick="addToCart('${watch.name}',${watch.price},'${watch.image}')">
+Добавить в корзину
+</button>
+
+</div>
+
+`;
+
+});
 
 
 </script>
