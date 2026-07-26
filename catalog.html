@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <title>Brand Outlet - Каталог</title>
 
@@ -64,7 +65,10 @@ font-size:24px;
 margin:15px;
 }
 
+
 button{
+
+width:100%;
 background:white;
 color:black;
 border:none;
@@ -72,27 +76,51 @@ padding:12px 25px;
 border-radius:10px;
 cursor:pointer;
 font-size:16px;
+margin-top:10px;
+
 }
+
 
 button:hover{
 background:#ddd;
 }
 
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
-<div class="logo">brand_outlet.tm</div>
+<div class="logo">
+brand_outlet.tm
+</div>
+
+
+<div style="display:flex;gap:20px;">
 
 <a href="index.html">
 🏠 Главная
 </a>
 
+
+<a href="favorites.html">
+❤️ Избранное
+</a>
+
+
+<a href="cart.html">
+🛒 Корзина
+</a>
+
+</div>
+
 </header>
+
 
 
 <h1 style="text-align:center;margin:30px;">
@@ -100,74 +128,147 @@ background:#ddd;
 </h1>
 
 
+
 <section class="catalog">
 
 </section>
 
 
+
 <script src="cart.js"></script>
+
 
 
 <script type="module">
 
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
-  authDomain: "brand-outlet-tm.firebaseapp.com",
-  projectId: "brand-outlet-tm",
-  storageBucket: "brand-outlet-tm.firebasestorage.app",
-  messagingSenderId: "1083598839585",
-  appId: "1:1083598839585:web:31d6c55768a25a60732860",
-  measurementId: "G-DTR2Y6C5YB"
+
+apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain: "brand-outlet-tm.firebaseapp.com",
+
+projectId: "brand-outlet-tm",
+
+storageBucket: "brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId: "1083598839585",
+
+appId: "1:1083598839585:web:31d6c55768a25a60732860",
+
+measurementId: "G-DTR2Y6C5YB"
+
 };
 
 
+
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
+
 
 
 const catalog = document.querySelector(".catalog");
 
-catalog.innerHTML = "";
 
 
-const querySnapshot = await getDocs(collection(db, "watches"));
+const querySnapshot = await getDocs(collection(db,"watches"));
 
 
-querySnapshot.forEach((doc) => {
+
+querySnapshot.forEach((doc)=>{
+
 
 const watch = doc.data();
 
 
+
 catalog.innerHTML += `
+
 
 <div class="card">
 
+
 <img src="${watch.image}">
 
-<h2>${watch.name}</h2>
+
+<h2>
+${watch.name}
+</h2>
+
 
 <div class="price">
 ${watch.price} TMT
 </div>
 
-<p>${watch.description}</p>
+
+<p>
+${watch.description || ""}
+</p>
+
+
 
 <button onclick="addToCart('${watch.name}',${watch.price},'${watch.image}')">
-Добавить в корзину
+🛒 Добавить в корзину
 </button>
+
+
+
+<button onclick="addToFavorites('${doc.id}')">
+❤️ В избранное
+</button>
+
 
 </div>
 
+
 `;
+
+
 
 });
 
 
+
 </script>
+
+
+
+
+<script>
+
+
+function addToFavorites(id){
+
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+if(!favorites.includes(id)){
+
+favorites.push(id);
+
+}
+
+
+localStorage.setItem("favorites",JSON.stringify(favorites));
+
+
+alert("Добавлено в избранное ❤️");
+
+
+}
+
+
+</script>
+
+
 
 </body>
 </html>
