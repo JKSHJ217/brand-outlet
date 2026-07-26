@@ -15,6 +15,7 @@ font-family:Arial,sans-serif;
 padding:40px;
 }
 
+
 .box{
 max-width:500px;
 margin:auto;
@@ -22,6 +23,7 @@ background:#1c1c1c;
 padding:30px;
 border-radius:20px;
 }
+
 
 h1{
 text-align:center;
@@ -52,6 +54,11 @@ font-size:18px;
 
 }
 
+
+#adminPanel{
+display:none;
+}
+
 </style>
 
 </head>
@@ -61,6 +68,29 @@ font-size:18px;
 
 
 <div class="box">
+
+
+<div id="login">
+
+
+<h1>
+🔒 Вход
+</h1>
+
+
+<input id="password" type="password" placeholder="Пароль">
+
+
+<button onclick="login()">
+Войти
+</button>
+
+
+</div>
+
+
+
+<div id="adminPanel">
 
 
 <h1>
@@ -86,6 +116,46 @@ font-size:18px;
 
 
 </div>
+
+
+</div>
+
+
+
+
+<script>
+
+
+function login(){
+
+
+let pass = document.getElementById("password").value;
+
+
+
+if(pass === "12345"){
+
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("adminPanel").style.display="block";
+
+
+}
+
+else{
+
+
+alert("Неверный пароль ❌");
+
+
+}
+
+
+}
+
+
+</script>
 
 
 
@@ -128,34 +198,22 @@ const db = getFirestore(app);
 window.addWatch = async function(){
 
 
-let name = document.getElementById("name").value;
-
-let price = document.getElementById("price").value;
-
-let image = document.getElementById("image").value;
-
-let description = document.getElementById("description").value;
-
-
-
 await addDoc(collection(db,"watches"),{
 
 
-name:name,
+name:document.getElementById("name").value,
 
-price:Number(price),
+price:Number(document.getElementById("price").value),
 
-image:image,
+image:document.getElementById("image").value,
 
-description:description
+description:document.getElementById("description").value
 
 
 });
 
 
-
 alert("Часы добавлены ✅");
-
 
 
 location.reload();
@@ -164,8 +222,8 @@ location.reload();
 }
 
 
-
 </script>
+
 
 
 </body>
