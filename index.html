@@ -17,7 +17,6 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-
 body{
 background:#111;
 color:white;
@@ -25,71 +24,57 @@ color:white;
 
 
 header{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 40px;
 background:#000;
-
 }
 
 
 .logo{
-
 font-size:28px;
 font-weight:bold;
-
 }
 
 
 header a{
-
 color:white;
 text-decoration:none;
-
 }
 
 
 .hero{
-
 height:80vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 text-align:center;
-
 }
 
 
 .hero h1{
-
 font-size:50px;
 margin-bottom:20px;
-
 }
 
 
 .hero p{
-
 font-size:20px;
 color:#ccc;
 margin-bottom:30px;
-
 }
 
 
 button{
-
-padding:15px 35px;
-font-size:18px;
+padding:12px 25px;
+font-size:16px;
 border:none;
 border-radius:10px;
 background:white;
 color:black;
 cursor:pointer;
-
 }
 
 
@@ -129,10 +114,11 @@ margin:15px 0;
 }
 
 
+.buy-btn,
 .favorite-btn{
 
-padding:8px 15px;
-font-size:14px;
+width:100%;
+margin-top:10px;
 
 }
 
@@ -144,6 +130,7 @@ text-align:center;
 color:#888;
 
 }
+
 
 </style>
 
@@ -162,7 +149,6 @@ brand_outlet.tm
 
 <div style="display:flex;gap:20px;">
 
-
 <a href="favorites.html">
 ❤️ Избранное
 </a>
@@ -171,7 +157,6 @@ brand_outlet.tm
 <a href="cart.html">
 🛒 Корзина
 </a>
-
 
 </div>
 
@@ -204,13 +189,9 @@ brand_outlet.tm
 
 
 
-
 <section class="products" id="products">
 
-
 </section>
-
-
 
 
 <footer>
@@ -220,23 +201,16 @@ brand_outlet.tm
 </footer>
 
 
-
-
 <script src="cart.js"></script>
 
 <script src="favorites.js"></script>
 
 
-
-
-
 <script type="module">
-
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -258,16 +232,12 @@ measurementId: "G-DTR2Y6C5YB"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
-
 
 const db = getFirestore(app);
 
 
-
 const products = document.getElementById("products");
-
 
 
 async function loadWatches(){
@@ -276,12 +246,10 @@ async function loadWatches(){
 const snapshot = await getDocs(collection(db,"watches"));
 
 
-
 snapshot.forEach((doc)=>{
 
 
 const watch = doc.data();
-
 
 
 products.innerHTML += `
@@ -299,7 +267,7 @@ ${watch.name}
 
 
 <div class="price">
-${watch.price} ТМТ
+${watch.price} TMT
 </div>
 
 
@@ -308,7 +276,12 @@ ${watch.description || ""}
 </p>
 
 
-<button class="favorite-btn">
+<button class="buy-btn" onclick="addToCart('${doc.id}')">
+🛒 В корзину
+</button>
+
+
+<button class="favorite-btn" onclick="addToFavorites('${doc.id}')">
 ❤️ В избранное
 </button>
 
@@ -325,13 +298,63 @@ ${watch.description || ""}
 }
 
 
-
 loadWatches();
 
 
 
 </script>
 
+
+
+<script>
+
+
+function addToCart(id){
+
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+if(!cart.includes(id)){
+
+cart.push(id);
+
+}
+
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+
+alert("Добавлено в корзину 🛒");
+
+
+}
+
+
+
+function addToFavorites(id){
+
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+if(!favorites.includes(id)){
+
+favorites.push(id);
+
+}
+
+
+localStorage.setItem("favorites", JSON.stringify(favorites));
+
+
+alert("Добавлено в избранное ❤️");
+
+
+}
+
+
+</script>
 
 
 </body>
