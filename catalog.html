@@ -4,6 +4,8 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Brand Outlet - Каталог</title>
 
 <style>
@@ -39,50 +41,35 @@ text-decoration:none;
 }
 
 .catalog{
-
 padding:40px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
-
 }
 
-
 .card{
-
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
-
+cursor:pointer;
 }
-
 
 .card img{
-
 width:100%;
 border-radius:15px;
-
 }
-
 
 .card h2{
-
 margin:15px 0;
-
 }
-
 
 .price{
-
 font-size:24px;
 margin:15px;
-
 }
 
-
 button{
-
 width:100%;
 background:white;
 color:black;
@@ -92,9 +79,11 @@ border-radius:10px;
 cursor:pointer;
 font-size:16px;
 margin-top:10px;
-
 }
 
+button:hover{
+background:#ddd;
+}
 
 </style>
 
@@ -106,15 +95,12 @@ margin-top:10px;
 
 <header>
 
-
 <div class="logo">
 brand_outlet.tm
 </div>
 
 
-
 <div style="display:flex;gap:20px;">
-
 
 <a href="index.html">
 🏠 Главная
@@ -126,17 +112,13 @@ brand_outlet.tm
 </a>
 
 
-
 <a href="cart.html">
 🛒 Корзина (<span id="cartCount">0</span>)
 </a>
 
-
 </div>
 
-
 </header>
-
 
 
 
@@ -151,15 +133,11 @@ brand_outlet.tm
 </section>
 
 
-
-
 <script type="module">
-
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -181,32 +159,25 @@ measurementId: "G-DTR2Y6C5YB"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
 
-
 const catalog = document.querySelector(".catalog");
-
 
 
 const snapshot = await getDocs(collection(db,"watches"));
 
 
-
 snapshot.forEach((doc)=>{
-
 
 const watch = doc.data();
 
 
-
 catalog.innerHTML += `
 
-
-<div class="card">
+<div class="card" onclick="openWatch('${doc.id}')">
 
 
 <img src="${watch.image}">
@@ -227,38 +198,34 @@ ${watch.description || ""}
 </p>
 
 
-
-<button onclick="addToCart('${doc.id}')">
+<button onclick="event.stopPropagation();addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
 
-
-<button onclick="addToFavorites('${doc.id}')">
+<button onclick="event.stopPropagation();addToFavorites('${doc.id}')">
 ❤️ В избранное
 </button>
 
 
 </div>
 
-
 `;
 
-
 });
-
-
-
-</script>
-
-
-
 
 <script>
 
 
-function addToCart(id){
+function openWatch(id){
 
+window.location.href = "watch.html?id=" + id;
+
+}
+
+
+
+function addToCart(id){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -278,14 +245,12 @@ updateCount();
 
 alert("Добавлено в корзину 🛒");
 
-
 }
 
 
 
 
 function addToFavorites(id){
-
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -305,14 +270,12 @@ updateCount();
 
 alert("Добавлено в избранное ❤️");
 
-
 }
 
 
 
 
 function updateCount(){
-
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -324,7 +287,6 @@ document.getElementById("cartCount").innerText = cart.length;
 
 document.getElementById("favCount").innerText = favorites.length;
 
-
 }
 
 
@@ -332,9 +294,7 @@ document.getElementById("favCount").innerText = favorites.length;
 updateCount();
 
 
-
 </script>
-
 
 
 </body>
