@@ -149,14 +149,16 @@ brand_outlet.tm
 
 <div style="display:flex;gap:20px;">
 
+
 <a href="favorites.html">
-❤️ Избранное
+❤️ Избранное (<span id="favCount">0</span>)
 </a>
 
 
 <a href="cart.html">
-🛒 Корзина
+🛒 Корзина (<span id="cartCount">0</span>)
 </a>
+
 
 </div>
 
@@ -201,16 +203,20 @@ brand_outlet.tm
 </footer>
 
 
+
 <script src="cart.js"></script>
 
 <script src="favorites.js"></script>
 
 
+
 <script type="module">
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 
 const firebaseConfig = {
@@ -232,12 +238,14 @@ measurementId: "G-DTR2Y6C5YB"
 };
 
 
+
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
 
 const products = document.getElementById("products");
+
 
 
 async function loadWatches(){
@@ -276,9 +284,11 @@ ${watch.description || ""}
 </p>
 
 
+
 <button class="buy-btn" onclick="addToCart('${doc.id}')">
 🛒 В корзину
 </button>
+
 
 
 <button class="favorite-btn" onclick="addToFavorites('${doc.id}')">
@@ -298,11 +308,13 @@ ${watch.description || ""}
 }
 
 
+
 loadWatches();
 
 
 
 </script>
+
 
 
 
@@ -322,13 +334,18 @@ cart.push(id);
 }
 
 
-localStorage.setItem("cart", JSON.stringify(cart));
+localStorage.setItem("cart",JSON.stringify(cart));
+
+
+updateCount();
 
 
 alert("Добавлено в корзину 🛒");
 
 
 }
+
+
 
 
 
@@ -345,7 +362,10 @@ favorites.push(id);
 }
 
 
-localStorage.setItem("favorites", JSON.stringify(favorites));
+localStorage.setItem("favorites",JSON.stringify(favorites));
+
+
+updateCount();
 
 
 alert("Добавлено в избранное ❤️");
@@ -354,7 +374,33 @@ alert("Добавлено в избранное ❤️");
 }
 
 
+
+
+
+function updateCount(){
+
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+document.getElementById("cartCount").innerText = cart.length;
+
+
+document.getElementById("favCount").innerText = favorites.length;
+
+
+}
+
+
+
+updateCount();
+
+
+
 </script>
+
 
 
 </body>
