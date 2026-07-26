@@ -2,9 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel - Brand Outlet</title>
+<title>Brand Outlet Admin</title>
 
 <style>
+
 body{
     background:#111;
     color:white;
@@ -21,89 +22,87 @@ h1{
     margin:auto;
     background:#1c1c1c;
     padding:25px;
-    border-radius:20px;
+    border-radius:15px;
 }
 
-input, textarea{
+input, button{
     width:100%;
     padding:12px;
-    margin:10px 0;
-    border-radius:10px;
+    margin-top:12px;
+    border-radius:8px;
     border:none;
+    box-sizing:border-box;
 }
 
 button{
-    width:100%;
-    padding:15px;
     background:white;
     color:black;
-    border:none;
-    border-radius:10px;
+    font-weight:bold;
     cursor:pointer;
-    font-size:16px;
 }
+
+#status{
+    text-align:center;
+    margin-top:15px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h1>⌚ Админ-панель</h1>
-
 <div class="box">
+
+<h1>Brand Outlet Admin</h1>
 
 <input id="name" placeholder="Название часов">
 
 <input id="price" placeholder="Цена">
 
-<textarea id="description" placeholder="Описание"></textarea>
-
 <input id="image" placeholder="Ссылка на фото">
 
 <button onclick="addWatch()">Добавить часы</button>
+
+<p id="status"></p>
 
 </div>
 
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+// Firebase подключим сюда после твоего firebaseConfig
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
-  authDomain: "brand-outlet-tm.firebaseapp.com",
-  projectId: "brand-outlet-tm",
-  storageBucket: "brand-outlet-tm.firebasestorage.app",
-  messagingSenderId: "1083598839585",
-  appId: "1:1083598839585:web:31d6c55768a25a60732860",
-  measurementId: "G-DTR2C6Y5B"
-};
+function addWatch(){
+
+let name = document.getElementById("name").value;
+let price = document.getElementById("price").value;
+let image = document.getElementById("image").value;
 
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+if(name === "" || price === "" || image === ""){
 
+document.getElementById("status").innerHTML = "Заполни все поля";
 
-window.addWatch = async function(){
-
-await addDoc(collection(db,"watches"),{
-
-name: document.getElementById("name").value,
-price: document.getElementById("price").value,
-description: document.getElementById("description").value,
-image: document.getElementById("image").value
-
-});
-
-
-alert("Часы добавлены!");
+return;
 
 }
 
-</script>
 
+// Пока проверка работает без базы
+
+document.getElementById("status").innerHTML = 
+"Часы добавлены!";
+
+document.getElementById("name").value="";
+document.getElementById("price").value="";
+document.getElementById("image").value="";
+
+}
+
+
+</script>
 
 </body>
 </html>
