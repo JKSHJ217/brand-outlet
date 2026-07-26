@@ -22,7 +22,6 @@ background:#111;
 color:white;
 }
 
-
 header{
 background:#000;
 padding:20px 40px;
@@ -31,183 +30,127 @@ justify-content:space-between;
 align-items:center;
 }
 
-
 .logo{
 font-size:28px;
 font-weight:bold;
 }
-
 
 a{
 color:white;
 text-decoration:none;
 }
 
-
-
 .container{
-
 max-width:900px;
 margin:auto;
 padding:40px;
-
 }
-
-
 
 .photo-box{
-
 position:relative;
 display:flex;
-align-items:center;
 justify-content:center;
-
+align-items:center;
 }
 
-
-
 .main-img{
-
 width:100%;
 height:500px;
 object-fit:contain;
 background:#1c1c1c;
 border-radius:20px;
-
 }
 
-
-
 .arrow{
-
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-
 background:white;
 color:black;
-
 border:none;
 width:50px;
 height:50px;
-
 border-radius:50%;
-
 font-size:30px;
 cursor:pointer;
-
 }
-
-
 
 .left{
-
 left:20px;
-
 }
-
 
 .right{
-
 right:20px;
-
 }
 
-
-
 .gallery{
-
 display:flex;
 gap:10px;
 margin-top:20px;
 overflow-x:auto;
+}
 
+.gallery img{
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+cursor:pointer;
+}
+
+h1{
+margin-top:30px;
+}
+
+.price{
+font-size:30px;
+margin:20px 0;
+}
+
+.description{
+color:#ccc;
+font-size:18px;
 }
 
 
+.quantity{
+text-align:center;
+font-size:22px;
+margin:20px;
+}
 
-.gallery img{
+.quantity button{
 
-width:90px;
-height:90px;
-
-object-fit:cover;
-
-border-radius:10px;
-
+width:45px;
+height:40px;
+font-size:25px;
 cursor:pointer;
 
 }
 
 
-
-.gallery img:hover{
-
-opacity:0.7;
-
-}
-
-
-
-h1{
-
-margin-top:30px;
-
-}
-
-
-
-.price{
-
-font-size:30px;
-margin:20px 0;
-
-}
-
-
-
-.description{
-
-color:#ccc;
-font-size:18px;
-
-}
-
-
-
-button.action{
+.action{
 
 width:100%;
 padding:15px;
-
 margin-top:15px;
-
 border:none;
-
 border-radius:10px;
-
 font-size:18px;
-
 cursor:pointer;
 
 }
 
 
-
 .cart{
-
 background:white;
 color:black;
-
 }
 
 
-
 .fav{
-
 background:#333;
 color:white;
-
 }
 
 
@@ -225,14 +168,11 @@ color:white;
 brand_outlet.tm
 </div>
 
-
 <a href="index.html">
 🏠 Главная
 </a>
 
-
 </header>
-
 
 
 
@@ -241,14 +181,12 @@ brand_outlet.tm
 
 <div class="photo-box">
 
-
 <button class="arrow left" onclick="prevPhoto()">
 ⬅️
 </button>
 
 
 <img id="mainImage" class="main-img">
-
 
 
 <button class="arrow right" onclick="nextPhoto()">
@@ -264,7 +202,6 @@ brand_outlet.tm
 
 
 
-
 <h1 id="name"></h1>
 
 
@@ -272,6 +209,20 @@ brand_outlet.tm
 
 
 <div class="description" id="description"></div>
+
+
+
+<div class="quantity">
+
+Количество:
+
+<button onclick="minusCount()">-</button>
+
+<span id="quantity">1</span>
+
+<button onclick="plusCount()">+</button>
+
+</div>
 
 
 
@@ -283,7 +234,6 @@ brand_outlet.tm
 <button class="action fav" id="favBtn">
 ❤️ В избранное
 </button>
-
 
 
 </div>
@@ -298,7 +248,6 @@ brand_outlet.tm
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 import {getFirestore,doc,getDoc} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 
 
 const firebaseConfig={
@@ -318,7 +267,6 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-
 const app=initializeApp(firebaseConfig);
 
 const db=getFirestore(app);
@@ -333,6 +281,8 @@ let images=[];
 
 let current=0;
 
+let quantity=1;
+
 
 
 const snap=await getDoc(doc(db,"watches",id));
@@ -345,7 +295,6 @@ if(snap.exists()){
 const watch=snap.data();
 
 
-
 document.getElementById("name").innerText=watch.name;
 
 document.getElementById("price").innerText=watch.price+" TMT";
@@ -353,33 +302,26 @@ document.getElementById("price").innerText=watch.price+" TMT";
 document.getElementById("description").innerText=watch.description || "";
 
 
-
 images=watch.images || [watch.image];
-
 
 
 showPhoto();
 
 
 
-let gallery=document.getElementById("gallery");
-
-
-
 images.forEach((img,index)=>{
 
-
-gallery.innerHTML+=`
+gallery.innerHTML += `
 
 <img src="${img}" onclick="selectPhoto(${index})">
 
 `;
 
-
 });
 
 
 }
+
 
 
 
@@ -395,13 +337,11 @@ window.nextPhoto=function(){
 
 current++;
 
-
 if(current>=images.length){
 
 current=0;
 
 }
-
 
 showPhoto();
 
@@ -413,13 +353,11 @@ window.prevPhoto=function(){
 
 current--;
 
-
 if(current<0){
 
 current=images.length-1;
 
 }
-
 
 showPhoto();
 
@@ -437,17 +375,56 @@ showPhoto();
 
 
 
+window.plusCount=function(){
+
+quantity++;
+
+document.getElementById("quantity").innerText=quantity;
+
+}
+
+
+
+window.minusCount=function(){
+
+if(quantity>1){
+
+quantity--;
+
+}
+
+document.getElementById("quantity").innerText=quantity;
+
+}
+
+
 
 
 document.getElementById("cartBtn").onclick=function(){
 
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
 
 
-if(!cart.includes(id)){
+let item=cart.find(x=>x.id===id);
 
-cart.push(id);
+
+
+if(item){
+
+item.quantity += quantity;
+
+}else{
+
+
+cart.push({
+
+id:id,
+
+quantity:quantity
+
+});
+
 
 }
 
@@ -466,7 +443,7 @@ alert("Добавлено в корзину 🛒");
 document.getElementById("favBtn").onclick=function(){
 
 
-let fav=JSON.parse(localStorage.getItem("favorites"))||[];
+let fav=JSON.parse(localStorage.getItem("favorites")) || [];
 
 
 if(!fav.includes(id)){
@@ -479,32 +456,10 @@ fav.push(id);
 localStorage.setItem("favorites",JSON.stringify(fav));
 
 
-document.getElementById("favBtn").onclick=function(){
-
-let fav = JSON.parse(localStorage.getItem("favorites")) || [];
-
-
-if(fav.includes(id)){
-
-alert("Эти часы уже есть в избранном ❤️");
-return;
-
-}
-
-
-fav.push(id);
-
-
-localStorage.setItem("favorites",JSON.stringify(fav));
-
-
 alert("Добавлено в избранное ❤️");
 
-}
-
 
 }
-
 
 
 </script>
