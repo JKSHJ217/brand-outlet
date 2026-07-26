@@ -71,36 +71,61 @@ button{
 
 <script type="module">
 
-// Firebase подключим сюда после твоего firebaseConfig
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-function addWatch(){
+const firebaseConfig = {
+  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+  authDomain: "brand-outlet-tm.firebaseapp.com",
+  projectId: "brand-outlet-tm",
+  storageBucket: "brand-outlet-tm.firebasestorage.app",
+  messagingSenderId: "1083598839585",
+  appId: "1:1083598839585:web:31d6c55768a25a60732860",
+  measurementId: "G-DTR2Y6C5YB"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+window.addWatch = async function(){
 
 let name = document.getElementById("name").value;
 let price = document.getElementById("price").value;
 let image = document.getElementById("image").value;
 
 
-if(name === "" || price === "" || image === ""){
-
-document.getElementById("status").innerHTML = "Заполни все поля";
-
+if(name==="" || price==="" || image===""){
+document.getElementById("status").innerHTML="Заполни все поля";
 return;
-
 }
 
 
-// Пока проверка работает без базы
+try{
 
-document.getElementById("status").innerHTML = 
-"Часы добавлены!";
+await addDoc(collection(db,"watches"),{
+name:name,
+price:price,
+image:image
+});
+
+
+document.getElementById("status").innerHTML="Часы добавлены ✅";
 
 document.getElementById("name").value="";
 document.getElementById("price").value="";
 document.getElementById("image").value="";
 
+
+}catch(error){
+
+document.getElementById("status").innerHTML="Ошибка: "+error;
+
 }
 
+}
 
 </script>
 
