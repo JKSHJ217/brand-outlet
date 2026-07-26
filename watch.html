@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Часы - Brand Outlet</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:white;
+}
+
+header{
+background:#000;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+}
+
+header a{
+color:white;
+text-decoration:none;
+}
+
+.container{
+max-width:1200px;
+margin:40px auto;
+padding:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+.gallery{
+position:relative;
+}
+
+.gallery img{
+width:100%;
+border-radius:20px;
+}
+
+.arrow{
+position:absolute;
+top:45%;
+transform:translateY(-50%);
+background:white;
+color:black;
+border:none;
+width:45px;
+height:45px;
+border-radius:50%;
+cursor:pointer;
+font-size:20px;
+}
+
+.left{
+left:10px;
+}
+
+.right{
+right:10px;
+}
+
+.info h1{
+font-size:38px;
+margin-bottom:20px;
+}
+
+.price{
+font-size:32px;
+margin:20px 0;
+font-weight:bold;
+}
+
+.description{
+color:#ccc;
+line-height:1.6;
+margin-bottom:25px;
+}
+
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.buy{
+background:white;
+color:black;
+}
+
+.favorite{
+background:#ff2d55;
+color:white;
+}
+
+@media(max-width:900px){
+
+.container{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+brand_outlet.tm
+</div>
+
+<div style="display:flex;gap:20px;">
+
+<a href="index.html">
+🏠 Главная
+</a>
+
+<a href="catalog.html">
+⌚ Каталог
+</a>
+
+<a href="favorites.html">
+❤️ Избранное
+</a>
+
+<a href="cart.html">
+🛒 Корзина
+</a>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="gallery">
+
+<img id="photo">
+
+<button class="arrow left" onclick="prevPhoto()">◀</button>
+
+<button class="arrow right" onclick="nextPhoto()">▶</button>
+
+</div>
+
+<div class="info">
+
+<h1 id="name"></h1>
+
+<div class="price" id="price"></div>
+
+<p class="description" id="description"></p>
+
+<button class="buy" onclick="addCart()">
+🛒 Добавить в корзину
+</button>
+
+<button class="favorite" onclick="addFavorite()">
+❤️ Добавить в избранное
+</button>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain:"brand-outlet-tm.firebaseapp.com",
+
+projectId:"brand-outlet-tm",
+
+storageBucket:"brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId:"1083598839585",
+
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+let images = [];
+
+let current = 0;
+
+const snap = await getDoc(doc(db,"watches",id));
+
+if(!snap.exists()){
+
+document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;'>❌ Товар не найден</h1>";
+
+throw new Error("Товар не найден");
+
+}
+
+const watch = snap.data();
+
+images = watch.images || [watch.image];
+
+document.getElementById("photo").src = images[0];
+
+document.getElementById("name").innerText = watch.name;
+
+document.getElementById("price").innerText = watch.price + " TMT";
+
+document.getElementById("description").innerText = watch.description || "";
+
+window.nextPhoto = function(){
+
+current++;
+
+if(current >= images.length){
+
+current = 0;
+
+}
+
+document.getElementById("photo").src = images[current];
+
+}
+
+window.prevPhoto = function(){
+
+current--;
+
+if(current < 0){
+
+current = images.length - 1;
+
+}
+
+document.getElementById("photo").src = images[current];
+
+}
+
+window.addCart = function(){
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+if(!cart.includes(id)){
+
+cart.push(id);
+
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert("Добавлено в корзину 🛒");
+
+}
+
+window.addFavorite = function(){
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+if(!favorites.includes(id)){
+
+favorites.push(id);
+
+}
+
+localStorage.setItem("favorites",JSON.stringify(favorites));
+
+alert("Добавлено в избранное ❤️");
+
+}
+
+</script>
+
+</body>
+
+</html>
