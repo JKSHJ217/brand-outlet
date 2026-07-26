@@ -479,7 +479,28 @@ fav.push(id);
 localStorage.setItem("favorites",JSON.stringify(fav));
 
 
+document.getElementById("favBtn").onclick=function(){
+
+let fav = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+if(fav.includes(id)){
+
+alert("Эти часы уже есть в избранном ❤️");
+return;
+
+}
+
+
+fav.push(id);
+
+
+localStorage.setItem("favorites",JSON.stringify(fav));
+
+
 alert("Добавлено в избранное ❤️");
+
+}
 
 
 }
