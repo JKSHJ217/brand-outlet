@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>brand_outlet.tm</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -13,145 +17,323 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
+
 body{
 background:#111;
 color:white;
 }
 
+
 header{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 40px;
 background:#000;
+
 }
+
 
 .logo{
+
 font-size:28px;
 font-weight:bold;
-color:#fff;
+
 }
 
+
+header a{
+
+color:white;
+text-decoration:none;
+
+}
+
+
 .hero{
+
 height:80vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 text-align:center;
+
 }
+
 
 .hero h1{
+
 font-size:50px;
 margin-bottom:20px;
+
 }
 
+
 .hero p{
+
 font-size:20px;
 color:#ccc;
 margin-bottom:30px;
+
 }
 
+
 button{
+
 padding:15px 35px;
 font-size:18px;
 border:none;
 border-radius:10px;
-background:#fff;
-color:#000;
+background:white;
+color:black;
 cursor:pointer;
+
 }
 
-.favorite-btn{
-padding:6px 12px !important;
-font-size:13px !important;
-margin-top:10px;
-width:auto !important;
-display:inline-block;
-}
 
 .products{
+
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 padding:40px;
+
 }
 
+
 .card{
+
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
+
 }
+
 
 .card img{
+
 width:100%;
 border-radius:15px;
+
 }
+
 
 .price{
+
 font-size:24px;
 margin:15px 0;
+
 }
 
+
+.favorite-btn{
+
+padding:8px 15px;
+font-size:14px;
+
+}
+
+
 footer{
+
 padding:30px;
 text-align:center;
 color:#888;
+
 }
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
-<div class="logo">brand_outlet.tm</div>
+<div class="logo">
+brand_outlet.tm
+</div>
 
-<div style="display:flex;gap:20px;align-items:center;">
 
-<a href="favorites.html" style="color:white;text-decoration:none;">
-    <div id="favorites-count">❤️ Избранное (0)</div>
+<div style="display:flex;gap:20px;">
+
+
+<a href="favorites.html">
+❤️ Избранное
 </a>
 
-<a href="cart.html" style="color:white;text-decoration:none;">
-    <div id="cart-count">🛒 Корзина (0)</div>
+
+<a href="cart.html">
+🛒 Корзина
 </a>
+
 
 </div>
 
 </header>
+
+
+
 <section class="hero">
 
-<h1>Стиль начинается с часов</h1>
+<h1>
+Стиль начинается с часов
+</h1>
 
-<p>Оригинальные брендовые часы по выгодным ценам.</p>
+
+<p>
+Оригинальные брендовые часы по выгодным ценам.
+</p>
+
 
 <a href="catalog.html">
-  <button>Смотреть каталог</button>
+
+<button>
+Смотреть каталог
+</button>
+
 </a>
 
-</section>
-
-<section class="products">
 
 </section>
+
+
+
+
+<section class="products" id="products">
+
+
+</section>
+
+
+
+
 <footer>
 
 © 2026 brand_outlet.tm
 
 </footer>
 
+
+
+
 <script src="cart.js"></script>
 
 <script src="favorites.js"></script>
 
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-document.getElementById("cart-count").innerHTML =
-"🛒 Корзина (" + cart.length + ")";
+
+
+
+
+<script type="module">
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain: "brand-outlet-tm.firebaseapp.com",
+
+projectId: "brand-outlet-tm",
+
+storageBucket: "brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId: "1083598839585",
+
+appId: "1:1083598839585:web:31d6c55768a25a60732860",
+
+measurementId: "G-DTR2Y6C5YB"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const db = getFirestore(app);
+
+
+
+const products = document.getElementById("products");
+
+
+
+async function loadWatches(){
+
+
+const snapshot = await getDocs(collection(db,"watches"));
+
+
+
+snapshot.forEach((doc)=>{
+
+
+const watch = doc.data();
+
+
+
+products.innerHTML += `
+
+
+<div class="card">
+
+
+<img src="${watch.image}">
+
+
+<h2>
+${watch.name}
+</h2>
+
+
+<div class="price">
+${watch.price} ₼
+</div>
+
+
+<p>
+${watch.description || ""}
+</p>
+
+
+<button class="favorite-btn">
+❤️ В избранное
+</button>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+
+
+
+loadWatches();
+
+
+
 </script>
 
+
+
 </body>
+
 </html>
