@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Часы - Brand Outlet</title>
+<title>Brand Outlet - Часы</title>
 
 <style>
 
@@ -44,6 +44,7 @@ text-decoration:none;
 }
 
 
+
 .container{
 
 max-width:900px;
@@ -53,10 +54,22 @@ padding:40px;
 }
 
 
+
+.photo-box{
+
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+
+
 .main-img{
 
 width:100%;
-max-height:500px;
+height:500px;
 object-fit:contain;
 background:#1c1c1c;
 border-radius:20px;
@@ -64,25 +77,68 @@ border-radius:20px;
 }
 
 
-.gallery{
 
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:10px;
-margin-top:20px;
+.arrow{
+
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+
+background:white;
+color:black;
+
+border:none;
+width:50px;
+height:50px;
+
+border-radius:50%;
+
+font-size:30px;
+cursor:pointer;
 
 }
+
+
+
+.left{
+
+left:20px;
+
+}
+
+
+.right{
+
+right:20px;
+
+}
+
+
+
+.gallery{
+
+display:flex;
+gap:10px;
+margin-top:20px;
+overflow-x:auto;
+
+}
+
 
 
 .gallery img{
 
-width:100%;
+width:90px;
 height:90px;
+
 object-fit:cover;
+
 border-radius:10px;
+
 cursor:pointer;
 
 }
+
 
 
 .gallery img:hover{
@@ -92,11 +148,13 @@ opacity:0.7;
 }
 
 
+
 h1{
 
 margin-top:30px;
 
 }
+
 
 
 .price{
@@ -107,26 +165,33 @@ margin:20px 0;
 }
 
 
+
 .description{
 
 color:#ccc;
 font-size:18px;
-margin-bottom:20px;
 
 }
 
 
-button{
+
+button.action{
 
 width:100%;
 padding:15px;
-margin-top:10px;
+
+margin-top:15px;
+
 border:none;
+
 border-radius:10px;
+
 font-size:18px;
+
 cursor:pointer;
 
 }
+
 
 
 .cart{
@@ -135,6 +200,7 @@ background:white;
 color:black;
 
 }
+
 
 
 .fav{
@@ -155,29 +221,42 @@ color:white;
 
 <header>
 
-
 <div class="logo">
 brand_outlet.tm
 </div>
 
 
-<div>
-
 <a href="index.html">
 🏠 Главная
 </a>
-
-</div>
 
 
 </header>
 
 
 
+
 <div class="container">
 
 
+<div class="photo-box">
+
+
+<button class="arrow left" onclick="prevPhoto()">
+⬅️
+</button>
+
+
 <img id="mainImage" class="main-img">
+
+
+
+<button class="arrow right" onclick="nextPhoto()">
+➡️
+</button>
+
+
+</div>
 
 
 
@@ -185,30 +264,26 @@ brand_outlet.tm
 
 
 
-<h1 id="name">
-</h1>
+
+<h1 id="name"></h1>
+
+
+<div class="price" id="price"></div>
+
+
+<div class="description" id="description"></div>
 
 
 
-<div class="price" id="price">
-</div>
-
-
-
-<div class="description" id="description">
-</div>
-
-
-
-<button class="cart" id="cartBtn">
+<button class="action cart" id="cartBtn">
 🛒 В корзину
 </button>
 
 
-
-<button class="fav" id="favBtn">
+<button class="action fav" id="favBtn">
 ❤️ В избранное
 </button>
+
 
 
 </div>
@@ -220,80 +295,83 @@ brand_outlet.tm
 <script type="module">
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import {getFirestore,doc,getDoc} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 
-const firebaseConfig = {
+const firebaseConfig={
 
-apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
 
-authDomain: "brand-outlet-tm.firebaseapp.com",
+authDomain:"brand-outlet-tm.firebaseapp.com",
 
-projectId: "brand-outlet-tm",
+projectId:"brand-outlet-tm",
 
-storageBucket: "brand-outlet-tm.firebasestorage.app",
+storageBucket:"brand-outlet-tm.firebasestorage.app",
 
-messagingSenderId: "1083598839585",
+messagingSenderId:"1083598839585",
 
-appId: "1:1083598839585:web:31d6c55768a25a60732860"
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
 
 
-const app = initializeApp(firebaseConfig);
+const app=initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
-
-
-
-const params = new URLSearchParams(window.location.search);
-
-const id = params.get("id");
+const db=getFirestore(app);
 
 
 
-const snap = await getDoc(doc(db,"watches",id));
+const id=new URLSearchParams(location.search).get("id");
+
+
+
+let images=[];
+
+let current=0;
+
+
+
+const snap=await getDoc(doc(db,"watches",id));
+
 
 
 if(snap.exists()){
 
 
-const watch = snap.data();
+const watch=snap.data();
 
 
 
-document.getElementById("name").innerText = watch.name;
+document.getElementById("name").innerText=watch.name;
 
+document.getElementById("price").innerText=watch.price+" TMT";
 
-document.getElementById("price").innerText = watch.price + " TMT";
-
-
-document.getElementById("description").innerText = watch.description || "";
-
-
-
-let images = watch.images || [watch.image];
+document.getElementById("description").innerText=watch.description || "";
 
 
 
-document.getElementById("mainImage").src = images[0];
+images=watch.images || [watch.image];
 
 
 
-const gallery = document.getElementById("gallery");
+showPhoto();
 
 
 
-images.forEach((img)=>{
+let gallery=document.getElementById("gallery");
 
 
-gallery.innerHTML += `
 
-<img src="${img}" onclick="changeImage('${img}')">
+images.forEach((img,index)=>{
+
+
+gallery.innerHTML+=`
+
+<img src="${img}" onclick="selectPhoto(${index})">
 
 `;
 
@@ -301,18 +379,70 @@ gallery.innerHTML += `
 });
 
 
-window.changeImage = function(img){
+}
 
-document.getElementById("mainImage").src = img;
+
+
+function showPhoto(){
+
+document.getElementById("mainImage").src=images[current];
 
 }
+
+
+
+window.nextPhoto=function(){
+
+current++;
+
+
+if(current>=images.length){
+
+current=0;
+
+}
+
+
+showPhoto();
+
+}
+
+
+
+window.prevPhoto=function(){
+
+current--;
+
+
+if(current<0){
+
+current=images.length-1;
+
+}
+
+
+showPhoto();
+
+}
+
+
+
+window.selectPhoto=function(index){
+
+current=index;
+
+showPhoto();
+
+}
+
+
 
 
 
 document.getElementById("cartBtn").onclick=function(){
 
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
 
 if(!cart.includes(id)){
@@ -332,20 +462,21 @@ alert("Добавлено в корзину 🛒");
 
 
 
+
 document.getElementById("favBtn").onclick=function(){
 
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let fav=JSON.parse(localStorage.getItem("favorites"))||[];
 
 
-if(!favorites.includes(id)){
+if(!fav.includes(id)){
 
-favorites.push(id);
+fav.push(id);
 
 }
 
 
-localStorage.setItem("favorites",JSON.stringify(favorites));
+localStorage.setItem("favorites",JSON.stringify(fav));
 
 
 alert("Добавлено в избранное ❤️");
@@ -353,9 +484,6 @@ alert("Добавлено в избранное ❤️");
 
 }
 
-
-
-}
 
 
 </script>
