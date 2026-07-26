@@ -41,35 +41,51 @@ text-decoration:none;
 }
 
 .catalog{
+
 padding:40px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
+
 }
 
+
 .card{
+
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
 cursor:pointer;
+
 }
+
 
 .card img{
+
 width:100%;
 border-radius:15px;
+
 }
+
 
 .card h2{
+
 margin:15px 0;
+
 }
+
 
 .price{
+
 font-size:24px;
 margin:15px;
+
 }
 
+
 button{
+
 width:100%;
 background:white;
 color:black;
@@ -79,10 +95,14 @@ border-radius:10px;
 cursor:pointer;
 font-size:16px;
 margin-top:10px;
+
 }
 
+
 button:hover{
+
 background:#ddd;
+
 }
 
 </style>
@@ -102,6 +122,7 @@ brand_outlet.tm
 
 <div style="display:flex;gap:20px;">
 
+
 <a href="index.html">
 🏠 Главная
 </a>
@@ -116,6 +137,7 @@ brand_outlet.tm
 🛒 Корзина (<span id="cartCount">0</span>)
 </a>
 
+
 </div>
 
 </header>
@@ -128,12 +150,14 @@ brand_outlet.tm
 
 
 
-<section class="catalog">
+<section class="catalog" id="catalog">
 
 </section>
 
 
+
 <script type="module">
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
@@ -164,7 +188,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-const catalog = document.querySelector(".catalog");
+const catalog = document.getElementById("catalog");
 
 
 const snapshot = await getDocs(collection(db,"watches"));
@@ -172,10 +196,12 @@ const snapshot = await getDocs(collection(db,"watches"));
 
 snapshot.forEach((doc)=>{
 
+
 const watch = doc.data();
 
 
 catalog.innerHTML += `
+
 
 <div class="card" onclick="openWatch('${doc.id}')">
 
@@ -183,9 +209,7 @@ catalog.innerHTML += `
 <img src="${watch.image}">
 
 
-<h2>
-${watch.name}
-</h2>
+<h2>${watch.name}</h2>
 
 
 <div class="price">
@@ -198,21 +222,26 @@ ${watch.description || ""}
 </p>
 
 
-<button onclick="event.stopPropagation();addToCart('${doc.id}')">
+<button onclick="event.stopPropagation(); addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
 
-<button onclick="event.stopPropagation();addToFavorites('${doc.id}')">
+<button onclick="event.stopPropagation(); addToFavorites('${doc.id}')">
 ❤️ В избранное
 </button>
 
 
 </div>
 
+
 `;
 
+
 });
+
+</script>
+
 
 <script>
 
@@ -237,7 +266,7 @@ cart.push(id);
 }
 
 
-localStorage.setItem("cart",JSON.stringify(cart));
+localStorage.setItem("cart", JSON.stringify(cart));
 
 
 updateCount();
@@ -262,7 +291,7 @@ favorites.push(id);
 }
 
 
-localStorage.setItem("favorites",JSON.stringify(favorites));
+localStorage.setItem("favorites", JSON.stringify(favorites));
 
 
 updateCount();
