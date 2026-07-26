@@ -1,1 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel - Brand Outlet</title>
 
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+}
+
+.box{
+    max-width:500px;
+    margin:auto;
+    background:#1c1c1c;
+    padding:25px;
+    border-radius:20px;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:white;
+    color:black;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>⌚ Админ-панель</h1>
+
+<div class="box">
+
+<input id="name" placeholder="Название часов">
+
+<input id="price" placeholder="Цена">
+
+<textarea id="description" placeholder="Описание"></textarea>
+
+<input id="image" placeholder="Ссылка на фото">
+
+<button onclick="addWatch()">Добавить часы</button>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+  authDomain: "brand-outlet-tm.firebaseapp.com",
+  projectId: "brand-outlet-tm",
+  storageBucket: "brand-outlet-tm.firebasestorage.app",
+  messagingSenderId: "1083598839585",
+  appId: "1:1083598839585:web:31d6c55768a25a60732860",
+  measurementId: "G-DTR2C6Y5B"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+window.addWatch = async function(){
+
+await addDoc(collection(db,"watches"),{
+
+name: document.getElementById("name").value,
+price: document.getElementById("price").value,
+description: document.getElementById("description").value,
+image: document.getElementById("image").value
+
+});
+
+
+alert("Часы добавлены!");
+
+}
+
+</script>
+
+
+</body>
+</html>
