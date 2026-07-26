@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 
 <meta charset="UTF-8">
@@ -38,34 +39,50 @@ text-decoration:none;
 }
 
 .catalog{
+
 padding:40px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
+
 }
 
+
 .card{
+
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
+
 }
+
 
 .card img{
+
 width:100%;
 border-radius:15px;
+
 }
+
 
 .card h2{
+
 margin:15px 0;
+
 }
+
 
 .price{
+
 font-size:24px;
 margin:15px;
+
 }
 
+
 button{
+
 width:100%;
 background:white;
 color:black;
@@ -75,7 +92,9 @@ border-radius:10px;
 cursor:pointer;
 font-size:16px;
 margin-top:10px;
+
 }
+
 
 </style>
 
@@ -87,35 +106,44 @@ margin-top:10px;
 
 <header>
 
+
 <div class="logo">
 brand_outlet.tm
 </div>
 
 
+
 <div style="display:flex;gap:20px;">
+
 
 <a href="index.html">
 🏠 Главная
 </a>
+
 
 <a href="favorites.html">
 ❤️ Избранное (<span id="favCount">0</span>)
 </a>
 
 
+
 <a href="cart.html">
 🛒 Корзина (<span id="cartCount">0</span>)
 </a>
 
+
 </div>
 
+
 </header>
+
 
 
 
 <h1 style="text-align:center;margin:30px;">
 ⌚ Каталог часов
 </h1>
+
 
 
 <section class="catalog">
@@ -125,15 +153,13 @@ brand_outlet.tm
 
 
 
-<script src="cart.js"></script>
-
-
 <script type="module">
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
 
 
 const firebaseConfig = {
@@ -155,21 +181,26 @@ measurementId: "G-DTR2Y6C5YB"
 };
 
 
+
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
 
+
 const catalog = document.querySelector(".catalog");
 
 
-const querySnapshot = await getDocs(collection(db,"watches"));
+
+const snapshot = await getDocs(collection(db,"watches"));
 
 
-querySnapshot.forEach((doc)=>{
+
+snapshot.forEach((doc)=>{
 
 
 const watch = doc.data();
+
 
 
 catalog.innerHTML += `
@@ -181,7 +212,9 @@ catalog.innerHTML += `
 <img src="${watch.image}">
 
 
-<h2>${watch.name}</h2>
+<h2>
+${watch.name}
+</h2>
 
 
 <div class="price">
@@ -195,7 +228,7 @@ ${watch.description || ""}
 
 
 
-<button onclick="addToCart('${watch.name}',${watch.price},'${watch.image}')">
+<button onclick="addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
@@ -215,12 +248,40 @@ ${watch.description || ""}
 });
 
 
+
 </script>
 
 
 
 
 <script>
+
+
+function addToCart(id){
+
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+if(!cart.includes(id)){
+
+cart.push(id);
+
+}
+
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+
+updateCount();
+
+
+alert("Добавлено в корзину 🛒");
+
+
+}
+
+
 
 
 function addToFavorites(id){
@@ -244,6 +305,7 @@ updateCount();
 
 alert("Добавлено в избранное ❤️");
 
+
 }
 
 
@@ -266,6 +328,7 @@ document.getElementById("favCount").innerText = favorites.length;
 }
 
 
+
 updateCount();
 
 
@@ -275,4 +338,5 @@ updateCount();
 
 
 </body>
+
 </html>
