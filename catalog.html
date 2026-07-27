@@ -206,7 +206,7 @@ catalog.innerHTML += `
 <div class="card" onclick="openWatch('${doc.id}')">
 
 
-<img src="${watch.image}">
+<img src="${watch.images ? watch.images[0] : watch.image}">
 
 
 <h2>${watch.name}</h2>
@@ -259,9 +259,18 @@ function addToCart(id){
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 
-if(!cart.includes(id)){
+let item = cart.find(x=>x.id===id);
 
-cart.push(id);
+if(item){
+
+item.quantity++;
+
+}else{
+
+cart.push({
+id:id,
+quantity:1
+});
 
 }
 
@@ -325,6 +334,7 @@ updateCount();
 
 </script>
 
+<script src="counter.js"></script>
 
 </body>
 
