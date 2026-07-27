@@ -278,7 +278,6 @@ quantity:1
 localStorage.setItem("cart", JSON.stringify(cart));
 
 
-updateCount();
 
 
 alert("Добавлено в корзину 🛒");
@@ -303,8 +302,6 @@ favorites.push(id);
 localStorage.setItem("favorites", JSON.stringify(favorites));
 
 
-updateCount();
-
 
 alert("Добавлено в избранное ❤️");
 
@@ -313,23 +310,6 @@ alert("Добавлено в избранное ❤️");
 
 
 
-function updateCount(){
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-
-document.getElementById("cartCount").innerText = cart.length;
-
-
-document.getElementById("favCount").innerText = favorites.length;
-
-}
-
-
-
-updateCount();
 
 
 </script>
