@@ -8,7 +8,6 @@
 
 <title>brand_outlet.tm</title>
 
-
 <style>
 
 *{
@@ -18,71 +17,50 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-
 body{
 background:#111;
 color:white;
 }
 
-
 header{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 40px;
 background:#000;
-
 }
-
 
 .logo{
-
 font-size:28px;
 font-weight:bold;
-
 }
-
 
 a{
-
 color:white;
 text-decoration:none;
-
 }
 
-
 .hero{
-
 height:60vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 text-align:center;
-
 }
-
 
 .hero h1{
-
 font-size:50px;
 margin-bottom:20px;
-
 }
 
-
 .hero p{
-
 font-size:20px;
 color:#ccc;
 margin-bottom:30px;
-
 }
 
-
 button{
-
 padding:12px 25px;
 font-size:16px;
 border:none;
@@ -90,130 +68,91 @@ border-radius:10px;
 background:white;
 color:black;
 cursor:pointer;
-
 }
 
-
 .products{
-
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 padding:40px;
-
 }
 
-
 .card{
-
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
 cursor:pointer;
-
 }
-
 
 .card img{
-
 width:100%;
 border-radius:15px;
-
 }
-
 
 .price{
-
 font-size:24px;
 margin:15px 0;
-
 }
-
 
 .card button{
-
 width:100%;
 margin-top:10px;
-
 }
 
-
 footer{
-
 padding:30px;
 text-align:center;
 color:#888;
-
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-
 <header>
-
 
 <div class="logo">
 brand_outlet.tm
 </div>
 
-
 <div style="display:flex;gap:20px;">
-
 
 <a href="favorites.html">
 ❤️ Избранное (<span id="favCount">0</span>)
 </a>
 
-
 <a href="cart.html">
 🛒 Корзина (<span id="cartCount">0</span>)
 </a>
 
-
 </div>
-
 
 </header>
 
-
-
 <section class="hero">
-
 
 <h1>
 Стиль начинается с часов
 </h1>
 
-
 <p>
 Оригинальные брендовые часы по выгодным ценам.
 </p>
 
-
 <a href="catalog.html">
-
 <button>
 Смотреть каталог
 </button>
-
 </a>
 
-
 </section>
-
-
 
 <h1 style="text-align:center;">
 ⌚ Новинки
 </h1>
-
-
 
 <section class="products" id="products">
 
@@ -221,97 +160,65 @@ brand_outlet.tm
 
 <script type="module">
 
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
 
-authDomain: "brand-outlet-tm.firebaseapp.com",
+authDomain:"brand-outlet-tm.firebaseapp.com",
 
-projectId: "brand-outlet-tm",
+projectId:"brand-outlet-tm",
 
-storageBucket: "brand-outlet-tm.firebasestorage.app",
+storageBucket:"brand-outlet-tm.firebasestorage.app",
 
-messagingSenderId: "1083598839585",
+messagingSenderId:"1083598839585",
 
-appId: "1:1083598839585:web:31d6c55768a25a60732860",
-
-measurementId: "G-DTR2Y6C5YB"
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
-
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-
 
 const products = document.getElementById("products");
 
-
 const snapshot = await getDocs(collection(db,"watches"));
-
 
 snapshot.forEach((doc)=>{
 
-
 const watch = doc.data();
-
 
 products.innerHTML += `
 
-
 <div class="card" onclick="openWatch('${doc.id}')">
 
+<img src="${watch.images ? watch.images[0] : watch.image}">
 
-<img src="${watch.image}">
+<h2>${watch.name}</h2>
 
+<div class="price">${watch.price} TMT</div>
 
-<h2>
-${watch.name}
-</h2>
-
-
-<div class="price">
-${watch.price} TMT
-</div>
-
-
-<p>
-${watch.description || ""}
-</p>
-
+<p>${watch.description || ""}</p>
 
 <button onclick="event.stopPropagation();addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
-
 <button onclick="event.stopPropagation();addToFavorites('${doc.id}')">
 ❤️ В избранное
 </button>
 
-
 </div>
-
 
 `;
 
-
 });
-
 
 </script>
 
-
-
 <script>
-
 
 function openWatch(id){
 
@@ -319,81 +226,90 @@ window.location.href="watch.html?id="+id;
 
 }
 
-
-
 function addToCart(id){
-
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+let item = cart.find(x=>x.id===id);
 
-if(!cart.includes(id)){
+if(item){
 
-cart.push(id);
+item.quantity++;
+
+}else{
+
+cart.push({
+
+id:id,
+quantity:1
+
+});
 
 }
 
-
 localStorage.setItem("cart",JSON.stringify(cart));
 
-
 updateCount();
-
 
 alert("Добавлено в корзину 🛒");
 
 }
 
-
-
 function addToFavorites(id){
-
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-
 if(!favorites.includes(id)){
-
 favorites.push(id);
-
 }
-
 
 localStorage.setItem("favorites",JSON.stringify(favorites));
 
-
 updateCount();
-
 
 alert("Добавлено в избранное ❤️");
 
 }
 
 
-
-
 function updateCount(){
 
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+// Совместимость со старым форматом корзины
+if(cart.length && typeof cart[0] === "string"){
+cart = cart.map(id=>({
+id:id,
+quantity:1
+}));
+localStorage.setItem("cart",JSON.stringify(cart));
+}
 
-document.getElementById("cartCount").innerText = cart.length;
+let count = 0;
 
-document.getElementById("favCount").innerText = favorites.length;
+cart.forEach(item=>{
 
+if(typeof item === "object"){
+
+count += item.quantity;
+
+}else{
+
+count++;
 
 }
 
+});
+
+document.getElementById("cartCount").innerText = count;
+document.getElementById("favCount").innerText = favorites.length;
+
+}
 
 updateCount();
 
-
 </script>
-
-
 
 <footer>
 
@@ -401,8 +317,5 @@ updateCount();
 
 </footer>
 
-
-
 </body>
-
 </html>
