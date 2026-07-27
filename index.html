@@ -249,7 +249,6 @@ quantity:1
 
 localStorage.setItem("cart",JSON.stringify(cart));
 
-updateCount();
 
 alert("Добавлено в корзину 🛒");
 
@@ -265,49 +264,12 @@ favorites.push(id);
 
 localStorage.setItem("favorites",JSON.stringify(favorites));
 
-updateCount();
 
 alert("Добавлено в избранное ❤️");
 
 }
 
 
-function updateCount(){
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-// Совместимость со старым форматом корзины
-if(cart.length && typeof cart[0] === "string"){
-cart = cart.map(id=>({
-id:id,
-quantity:1
-}));
-localStorage.setItem("cart",JSON.stringify(cart));
-}
-
-let count = 0;
-
-cart.forEach(item=>{
-
-if(typeof item === "object"){
-
-count += item.quantity;
-
-}else{
-
-count++;
-
-}
-
-});
-
-document.getElementById("cartCount").innerText = count;
-document.getElementById("favCount").innerText = favorites.length;
-
-}
-
-updateCount();
 
 </script>
 
