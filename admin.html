@@ -4,48 +4,140 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin - Brand Outlet</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
 background:#111;
 color:white;
-font-family:Arial,sans-serif;
-padding:40px;
+padding:30px;
 }
 
+
 .box{
-max-width:500px;
+max-width:700px;
 margin:auto;
 background:#1c1c1c;
 padding:30px;
 border-radius:20px;
 }
 
-h1{
+
+h1,h2{
 text-align:center;
+margin-bottom:20px;
 }
 
-input, textarea{
+
+input,textarea{
 
 width:100%;
 padding:12px;
 margin-top:10px;
-border-radius:10px;
 border:none;
+border-radius:10px;
+font-size:16px;
 
 }
+
 
 button{
 
 width:100%;
-padding:15px;
-margin-top:20px;
+padding:14px;
+margin-top:15px;
 border:none;
 border-radius:10px;
 cursor:pointer;
-font-size:18px;
+font-size:17px;
+
+}
+
+
+.add{
+
+background:white;
+color:black;
+
+}
+
+
+.login{
+
+max-width:400px;
+margin:100px auto;
+background:#1c1c1c;
+padding:30px;
+border-radius:20px;
+text-align:center;
+
+}
+
+
+.products{
+
+margin-top:40px;
+
+}
+
+
+.item{
+
+background:#222;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+
+}
+
+
+.item img{
+
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+
+}
+
+
+.actions{
+
+display:flex;
+gap:10px;
+
+}
+
+
+.edit{
+
+background:#ddd;
+color:black;
+
+}
+
+
+.delete{
+
+background:#ff4444;
+color:white;
+
+}
+
+
+.hidden{
+
+display:none;
 
 }
 
@@ -57,12 +149,33 @@ font-size:18px;
 <body>
 
 
-<div class="box">
+<div class="login" id="loginBox">
+
+<h2>
+🔒 Вход
+</h2>
+
+
+<input id="password" type="password" placeholder="Пароль">
+
+
+<button onclick="login()">
+Войти
+</button>
+
+
+</div>
+
+
+
+
+<div class="box hidden" id="adminPanel">
 
 
 <h1>
-🔒 Добавить часы
+⚙️ Админ-панель
 </h1>
+
 
 
 <input id="name" placeholder="Название часов">
@@ -77,9 +190,18 @@ font-size:18px;
 <textarea id="description" placeholder="Описание"></textarea>
 
 
-<button onclick="addWatch()">
-Добавить часы
+<button class="add" onclick="addWatch()">
+➕ Добавить часы
 </button>
+
+<h2>
+📦 Все часы
+</h2>
+
+
+<div class="products" id="products">
+
+</div>
 
 
 </div>
@@ -91,23 +213,32 @@ font-size:18px;
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { 
+getFirestore,
+collection,
+addDoc,
+getDocs,
+doc,
+deleteDoc,
+updateDoc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
 
-authDomain: "brand-outlet-tm.firebaseapp.com",
+authDomain:"brand-outlet-tm.firebaseapp.com",
 
-projectId: "brand-outlet-tm",
+projectId:"brand-outlet-tm",
 
-storageBucket: "brand-outlet-tm.firebasestorage.app",
+storageBucket:"brand-outlet-tm.firebasestorage.app",
 
-messagingSenderId: "1083598839585",
+messagingSenderId:"1083598839585",
 
-appId: "1:1083598839585:web:31d6c55768a25a60732860"
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
@@ -119,15 +250,49 @@ const db = getFirestore(app);
 
 
 
+let editId = null;
+
+
+
+window.login=function(){
+
+
+let pass=document.getElementById("password").value;
+
+
+if(pass==="YusupAli99361809453$"){
+
+
+document.getElementById("loginBox").classList.add("hidden");
+
+document.getElementById("adminPanel").classList.remove("hidden");
+
+
+loadWatches();
+
+
+}else{
+
+
+alert("Неверный пароль ❌");
+
+
+}
+
+
+}
+
+
+
+
 window.addWatch = async function(){
 
 
-let photoText = document.getElementById("images").value;
-
-
-let images = photoText
+let images = document
+.getElementById("images")
+.value
 .split("\n")
-.filter(x => x.trim() !== "");
+.filter(x=>x.trim()!=="");
 
 
 
@@ -149,7 +314,6 @@ image:images[0],
 description:document.getElementById("description").value
 
 
-
 });
 
 
@@ -157,13 +321,194 @@ description:document.getElementById("description").value
 alert("Часы добавлены ✅");
 
 
-location.reload();
+clearForm();
+
+loadWatches();
 
 
 }
 
 
+
+async function loadWatches(){
+
+
+const box=document.getElementById("products");
+
+
+box.innerHTML="";
+
+
+const snap=await getDocs(collection(db,"watches"));
+
+
+
+snap.forEach((item)=>{
+
+
+let watch=item.data();
+
+
+
+box.innerHTML += `
+
+<div class="item">
+
+
+<img src="${watch.images ? watch.images[0] : watch.image}">
+
+
+<h3>${watch.name}</h3>
+
+
+<p>
+${watch.price} TMT
+</p>
+
+
+
+<div class="actions">
+
+
+<button class="edit" onclick="editWatch('${item.id}')">
+
+✏️ Изменить
+
+</button>
+
+
+
+<button class="delete" onclick="deleteWatch('${item.id}')">
+
+🗑️ Удалить
+
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+});
+
+
+}
+
+window.deleteWatch = async function(id){
+
+let ok = confirm("Удалить эти часы?");
+
+if(!ok) return;
+
+await deleteDoc(doc(db,"watches",id));
+
+alert("Часы удалены 🗑️");
+
+loadWatches();
+
+}
+
+
+
+window.editWatch = async function(id){
+
+const snap = await getDoc(doc(db,"watches",id));
+
+if(snap.exists()){
+
+const watch = snap.data();
+
+document.getElementById("name").value = watch.name;
+
+document.getElementById("price").value = watch.price;
+
+document.getElementById("images").value =
+(watch.images || []).join("\n");
+
+document.getElementById("description").value =
+watch.description || "";
+
+
+editId = id;
+
+
+document.querySelector(".add").innerText =
+"💾 Сохранить изменения";
+
+
+document.querySelector(".add").onclick =
+saveEdit;
+
+}
+
+}
+
+
+
+async function saveEdit(){
+
+let images = document
+.getElementById("images")
+.value
+.split("\n")
+.filter(x=>x.trim()!=="");
+
+
+await updateDoc(doc(db,"watches",editId),{
+
+name:document.getElementById("name").value,
+
+price:Number(document.getElementById("price").value),
+
+images:images,
+
+image:images[0],
+
+description:document.getElementById("description").value
+
+});
+
+
+alert("Изменения сохранены ✅");
+
+
+editId=null;
+
+
+document.querySelector(".add").innerText =
+"➕ Добавить часы";
+
+
+document.querySelector(".add").onclick =
+addWatch;
+
+
+clearForm();
+
+loadWatches();
+
+}
+
+
+function clearForm(){
+
+document.getElementById("name").value="";
+
+document.getElementById("price").value="";
+
+document.getElementById("images").value="";
+
+document.getElementById("description").value="";
+
+}
+
 </script>
+
+
 
 
 </body>
