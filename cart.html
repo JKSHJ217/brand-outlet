@@ -246,6 +246,16 @@ const totalPrice = document.getElementById("totalPrice");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+if(cart.length && typeof cart[0] === "string"){
+
+cart = cart.map(id=>({
+id:id,
+quantity:1
+}));
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+}
 
 // исправление старого формата корзины
 if(cart.length && typeof cart[0] === "string"){
@@ -417,10 +427,11 @@ function save(){
 
 localStorage.setItem("cart",JSON.stringify(cart));
 
+window.dispatchEvent(new Event("storage"));
+
 location.reload();
 
 }
-
 
 renderCart();
 
