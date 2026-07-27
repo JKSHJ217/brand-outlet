@@ -190,6 +190,22 @@ display:none;
 <textarea id="description" placeholder="Описание"></textarea>
 
 
+<input id="brandLink" placeholder="Ссылка Brands For Less">
+
+
+<select id="status">
+
+<option value="available">
+🟢 В наличии
+</option>
+
+<option value="out_of_stock">
+🔴 Закончились
+</option>
+
+</select>
+
+
 <button class="add" onclick="addWatch()">
 ➕ Добавить часы
 </button>
@@ -311,7 +327,11 @@ images:images,
 image:images[0],
 
 
-description:document.getElementById("description").value
+description:document.getElementById("description").value,
+
+brandLink:document.getElementById("brandLink").value,
+
+status:document.getElementById("status").value
 
 
 });
@@ -503,6 +523,10 @@ document.getElementById("price").value="";
 document.getElementById("images").value="";
 
 document.getElementById("description").value="";
+
+document.getElementById("brandLink").value="";
+
+document.getElementById("status").value="available";
 
 }
 
