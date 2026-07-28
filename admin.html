@@ -452,6 +452,11 @@ document.getElementById("images").value =
 document.getElementById("description").value =
 watch.description || "";
 
+document.getElementById("brandLink").value =
+watch.brandLink || "";
+
+document.getElementById("status").value =
+watch.status || "available";
 
 editId = id;
 
@@ -488,7 +493,11 @@ images:images,
 
 image:images[0],
 
-description:document.getElementById("description").value
+description:document.getElementById("description").value,
+
+brandLink:document.getElementById("brandLink").value,
+
+status:document.getElementById("status").value
 
 });
 
