@@ -310,7 +310,24 @@ let images = document
 .split("\n")
 .filter(x=>x.trim()!=="");
 
+const brandLink = document.getElementById("brandLink").value.trim();
 
+const snapshot = await getDocs(collection(db,"watches"));
+
+let duplicate = false;
+
+snapshot.forEach((item)=>{
+    const watch = item.data();
+
+    if ((watch.brandLink || "").trim() === brandLink) {
+        duplicate = true;
+    }
+});
+
+if (duplicate) {
+    alert("⚠️ Эти часы уже добавлены!");
+    return;
+}
 
 await addDoc(collection(db,"watches"),{
 
