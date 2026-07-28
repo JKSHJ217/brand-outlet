@@ -190,6 +190,8 @@ snapshot.forEach((doc)=>{
 
 const watch = doc.data();
 
+if (watch.status === "out_of_stock") return;
+
 products.innerHTML += `
 
 <div class="card" onclick="openWatch('${doc.id}')">
