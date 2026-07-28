@@ -199,6 +199,7 @@ snapshot.forEach((doc)=>{
 
 const watch = doc.data();
 
+if (watch.status === "out_of_stock") return;
 
 catalog.innerHTML += `
 
