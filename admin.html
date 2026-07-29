@@ -134,6 +134,20 @@ color:white;
 
 }
 
+.search{
+width:100%;
+padding:12px;
+margin:15px 0;
+border:none;
+border-radius:10px;
+font-size:16px;
+background:#222;
+color:white;
+}
+
+.search::placeholder{
+color:#aaa;
+}
 
 .hidden{
 
@@ -214,6 +228,12 @@ display:none;
 📦 Все часы
 </h2>
 
+<input
+id="searchAdmin"
+class="search"
+type="text"
+placeholder="🔍 Поиск часов..."
+oninput="searchAdmin()">
 
 <div class="products" id="products">
 
@@ -389,8 +409,10 @@ let watch=item.data();
 
 box.innerHTML += `
 
-<div class="item">
-
+<div class="item"
+data-name="${(watch.name || "").toLowerCase()}"
+data-price="${watch.price}"
+data-description="${(watch.description || "").toLowerCase()}">
 
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
@@ -432,6 +454,7 @@ ${watch.price} TMT
 
 });
 
+searchAdmin();
 
 }
 
@@ -539,6 +562,39 @@ loadWatches();
 
 }
 
+window.searchAdmin = function(){
+
+const text = document
+.getElementById("searchAdmin")
+.value
+.toLowerCase()
+.trim();
+
+const items = document.querySelectorAll(".item");
+
+items.forEach(item=>{
+
+const name = item.dataset.name || "";
+const price = item.dataset.price || "";
+const description = item.dataset.description || "";
+
+if(
+name.includes(text) ||
+price.includes(text) ||
+description.includes(text)
+){
+
+item.style.display = "";
+
+}else{
+
+item.style.display = "none";
+
+}
+
+});
+
+}
 
 function clearForm(){
 
