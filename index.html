@@ -154,6 +154,15 @@ brand_outlet.tm
 ⌚ Новинки
 </h1>
 
+<div style="padding:20px 40px;">
+    <input
+        id="search"
+        type="text"
+        placeholder="🔍 Поиск часов..."
+        oninput="searchWatches()"
+        style="width:100%;padding:12px;font-size:16px;">
+</div>
+
 <section class="products" id="products">
 
 </section>
@@ -186,15 +195,54 @@ const products = document.getElementById("products");
 
 const snapshot = await getDocs(collection(db,"watches"));
 
+let allWatches = [];
+
 snapshot.forEach((doc)=>{
 
 const watch = doc.data();
 
-if (watch.status === "out_of_stock") return;
+watch.id = doc.id;
+
+allWatches.push(watch);
+
+});
+
+function searchWatches(){
+
+let text = document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+
+products.innerHTML = "";
+
+
+allWatches.forEach((watch)=>{
+
+
+if(watch.status === "out_of_stock") return;
+
+
+let name = (watch.name || "").toLowerCase();
+
+let description = (watch.description || "").toLowerCase();
+
+let price = String(watch.price);
+
+
+
+if(
+name.includes(text) ||
+description.includes(text) ||
+price.includes(text)
+){
+
 
 products.innerHTML += `
 
-<div class="card" onclick="openWatch('${doc.id}')">
+<div class="card" onclick="openWatch('${watch.id}')">
 
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
@@ -204,19 +252,27 @@ products.innerHTML += `
 
 <p>${watch.description || ""}</p>
 
-<button onclick="event.stopPropagation();addToCart('${doc.id}')">
+
+<button onclick="event.stopPropagation();addToCart('${watch.id}')">
 🛒 В корзину
 </button>
 
-<button onclick="event.stopPropagation();addToFavorites('${doc.id}')">
+
+<button onclick="event.stopPropagation();addToFavorites('${watch.id}')">
 ❤️ В избранное
 </button>
+
 
 </div>
 
 `;
 
+}
+
 });
+
+}
+
 
 </script>
 
@@ -271,7 +327,7 @@ alert("Добавлено в избранное ❤️");
 
 }
 
-
+searchWatches();
 
 </script>
 
