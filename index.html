@@ -207,7 +207,7 @@ allWatches.push(watch);
 
 });
 
-function searchWatches(){
+window.searchWatches = function(){
 
 let text = document
 .getElementById("search")
@@ -273,18 +273,20 @@ products.innerHTML += `
 
 }
 
+window.searchWatches();
 
 </script>
 
 <script>
 
-function openWatch(id){
+window.openWatch = function(id){
 
 window.location.href="watch.html?id="+id;
 
 }
 
-function addToCart(id){
+
+window.addToCart = function(id){
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -312,7 +314,7 @@ alert("Добавлено в корзину 🛒");
 
 }
 
-function addToFavorites(id){
+window.addToFavorites = function(id){
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -327,7 +329,6 @@ alert("Добавлено в избранное ❤️");
 
 }
 
-searchWatches();
 
 </script>
 
