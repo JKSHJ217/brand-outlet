@@ -280,14 +280,14 @@ total += sum;
 
 cartBox.innerHTML += `
 
-<div class="card" onclick="openWatch('${doc.id}')">
+<div class="card">
 
-<img src="${watch.images ? watch.images[0] : watch.image}">
+<img onclick="openWatch('${doc.id}')" src="${watch.images ? watch.images[0] : watch.image}">
 
 
 <div class="info">
 
-<h2>${watch.name}</h2>
+<h2 onclick="openWatch('${doc.id}')">${watch.name}</h2>
 
 
 <div class="price">
