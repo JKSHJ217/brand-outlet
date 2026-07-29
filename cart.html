@@ -280,7 +280,7 @@ total += sum;
 
 cartBox.innerHTML += `
 
-<div class="card">
+<div class="card" onclick="openWatch('${doc.id}')">
 
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
@@ -399,7 +399,11 @@ save();
 
 }
 
+window.openWatch=function(id){
 
+window.location.href="watch.html?id="+id;
+
+}
 
 function save(){
 
