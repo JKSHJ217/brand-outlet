@@ -163,54 +163,26 @@ style="width:100%;padding:12px;font-size:16px;border-radius:10px;">
 
 
 
-<script type="module">
-
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
-
-authDomain: "brand-outlet-tm.firebaseapp.com",
-
-projectId: "brand-outlet-tm",
-
-storageBucket: "brand-outlet-tm.firebasestorage.app",
-
-messagingSenderId: "1083598839585",
-
-appId: "1:1083598839585:web:31d6c55768a25a60732860",
-
-measurementId: "G-DTR2Y6C5YB"
-
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
+<script>
 
 const catalog = document.getElementById("catalog");
 
-
-const snapshot = await getDocs(collection(db,"watches"));
-
 let allWatches = [];
 
-snapshot.forEach((doc)=>{
+fetch("http://localhost:3000/watches")
+.then(res => res.json())
+.then(data => {
 
-let watch = doc.data();
+    allWatches = data;
 
-watch.id = doc.id;
+    searchWatches();
 
-allWatches.push(watch);
-
+})
+.catch(error=>{
+    console.log(error);
+    catalog.innerHTML = "Ошибка загрузки товаров";
 });
+
 
 function searchWatches(){
 
@@ -220,6 +192,7 @@ catalog.innerHTML = "";
 
 
 allWatches.forEach((watch)=>{
+
 
 if(watch.status === "out_of_stock") return;
 
@@ -231,6 +204,7 @@ let description = (watch.description || "").toLowerCase();
 let price = String(watch.price);
 
 
+
 if(
 name.includes(text) ||
 description.includes(text) ||
@@ -239,7 +213,6 @@ price.includes(text)
 
 
 catalog.innerHTML += `
-
 
 
 <div class="card" onclick="openWatch('${watch.id}')">
@@ -261,9 +234,11 @@ ${watch.description || ""}
 </p>
 
 
+
 <button onclick="event.stopPropagation(); addToCart('${watch.id}')">
 🛒 В корзину
 </button>
+
 
 
 <button onclick="event.stopPropagation(); addToFavorites('${watch.id}')">
@@ -278,12 +253,15 @@ ${watch.description || ""}
 
 }
 
+
 });
+
 
 }
 
+
 window.searchWatches = searchWatches;
-searchWatches();
+
 
 </script>
 
