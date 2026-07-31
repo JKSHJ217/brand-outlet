@@ -40,17 +40,16 @@ def check_watches():
 
             if response.status_code == 200:
 
-    page = response.text.lower()
+                page = response.text.lower()
 
-    if "out of stock" in page or "sold out" in page:
-        new_status = "out_of_stock"
-    else:
-        new_status = "available"
+                if "out of stock" in page or "sold out" in page:
+                    new_status = "out_of_stock"
+                else:
+                    new_status = "available"
 
-else:
+            else:
 
-    new_status = "out_of_stock"
-
+                new_status = "out_of_stock"
 
         except Exception:
 
