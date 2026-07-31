@@ -42,7 +42,10 @@ def check_watches():
 
                 page = response.text.lower()
                 
-                print(page[:1000])
+                print("STATUS CODE:", response.status_code)
+                print("HAS IN STOCK:", "in stock" in page)
+                print("HAS OUT:", "out of stock" in page)
+                print("HAS SOLD:", "sold out" in page)
                 
                 if (
                     "out of stock" in page
