@@ -18,6 +18,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install libraries
+        run: |
+          pip install firebase-admin requests
+
       - name: Run checker
+        env:
+          FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
         run: |
           python main.py
