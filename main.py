@@ -42,8 +42,20 @@ def check_watches():
 
                 page = response.text.lower()
 
-                if "out of stock" in page or "sold out" in page:
+                if (
+                    "out of stock" in page
+                    or "sold out" in page
+                    or "unavailable" in page
+                ):
                     new_status = "out_of_stock"
+
+                elif (
+                    "in stock" in page
+                    or "only 1 item in stock" in page
+                    or "add to bag" in page
+                ):
+                    new_status = "available"
+
                 else:
                     new_status = "available"
 
