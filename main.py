@@ -41,7 +41,9 @@ def check_watches():
             if response.status_code == 200:
 
                 page = response.text.lower()
-
+                
+                print(page[:1000])
+                
                 if (
                     "out of stock" in page
                     or "sold out" in page
