@@ -134,6 +134,7 @@ color:white;
 
 }
 
+
 .search{
 width:100%;
 padding:12px;
@@ -182,7 +183,6 @@ display:none;
 
 
 
-
 <div class="box hidden" id="adminPanel">
 
 
@@ -191,11 +191,13 @@ display:none;
 </h1>
 
 
-
 <input id="name" placeholder="Название часов">
 
 
 <input id="price" placeholder="Цена TMT">
+
+
+<input id="stock" placeholder="Количество на складе">
 
 
 <textarea id="images" placeholder="Ссылки на фото (каждая с новой строки)"></textarea>
@@ -204,29 +206,15 @@ display:none;
 <textarea id="description" placeholder="Описание"></textarea>
 
 
-<input id="brandLink" placeholder="Ссылка Brands For Less">
-
-
-<select id="status">
-
-<option value="available">
-🟢 В наличии
-</option>
-
-<option value="out_of_stock">
-🔴 Закончились
-</option>
-
-</select>
-
-
 <button class="add" onclick="addWatch()">
 ➕ Добавить часы
 </button>
 
+
 <h2>
 📦 Все часы
 </h2>
+
 
 <input
 id="searchAdmin"
@@ -235,21 +223,18 @@ type="text"
 placeholder="🔍 Поиск часов..."
 oninput="searchAdmin()">
 
+
+
 <div class="products" id="products">
 
 </div>
 
 
-</div>
-
-
-
-<script type="module">
-
+</div><script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import { 
+import {
 getFirestore,
 collection,
 addDoc,
@@ -259,7 +244,6 @@ deleteDoc,
 updateDoc,
 getDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -279,11 +263,9 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
-
 
 
 let editId = null;
@@ -330,32 +312,63 @@ let images = document
 .split("\n")
 .filter(x=>x.trim()!=="");
 
-const brandLink = document.getElementById("brandLink").value.trim();
+
+
+let name = document.getElementById("name").value.trim();
+
+let description = document.getElementById("description").value.trim();
+
+
 
 const snapshot = await getDocs(collection(db,"watches"));
 
+
 let duplicate = false;
 
-snapshot.forEach((item)=>{
-    const watch = item.data();
 
-    if ((watch.brandLink || "").trim() === brandLink) {
-        duplicate = true;
-    }
+
+snapshot.forEach((item)=>{
+
+
+const watch = item.data();
+
+
+if(
+(watch.name || "").toLowerCase() === name.toLowerCase()
+&&
+(watch.description || "").toLowerCase() === description.toLowerCase()
+){
+
+duplicate = true;
+
+}
+
+
 });
 
-if (duplicate) {
-    alert("⚠️ Эти часы уже добавлены!");
-    return;
+
+
+if(duplicate){
+
+alert("⚠️ Эти часы уже добавлены!");
+
+return;
+
 }
+
+
+
 
 await addDoc(collection(db,"watches"),{
 
 
-name:document.getElementById("name").value,
+name:name,
 
 
 price:Number(document.getElementById("price").value),
+
+
+stock:Number(document.getElementById("stock").value),
 
 
 images:images,
@@ -364,11 +377,7 @@ images:images,
 image:images[0],
 
 
-description:document.getElementById("description").value,
-
-brandLink:document.getElementById("brandLink").value,
-
-status:document.getElementById("status").value
+description:description
 
 
 });
@@ -384,9 +393,6 @@ loadWatches();
 
 
 }
-
-
-
 async function loadWatches(){
 
 
@@ -414,6 +420,7 @@ data-name="${(watch.name || "").toLowerCase()}"
 data-price="${watch.price}"
 data-description="${(watch.description || "").toLowerCase()}">
 
+
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
 
@@ -422,6 +429,11 @@ data-description="${(watch.description || "").toLowerCase()}">
 
 <p>
 ${watch.price} TMT
+</p>
+
+
+<p>
+📦 Сток: ${watch.stock || 0}
 </p>
 
 
@@ -451,70 +463,98 @@ ${watch.price} TMT
 
 `;
 
-
 });
+
 
 searchAdmin();
 
 }
 
+
+
 window.deleteWatch = async function(id){
+
 
 let ok = confirm("Удалить эти часы?");
 
+
 if(!ok) return;
+
+
 
 await deleteDoc(doc(db,"watches",id));
 
+
 alert("Часы удалены 🗑️");
 
+
 loadWatches();
+
 
 }
 
 
 
+
+
 window.editWatch = async function(id){
+
 
 const snap = await getDoc(doc(db,"watches",id));
 
+
 if(snap.exists()){
+
 
 const watch = snap.data();
 
+
 document.getElementById("name").value = watch.name;
 
+
 document.getElementById("price").value = watch.price;
+
+
+document.getElementById("stock").value = watch.stock || 0;
+
 
 document.getElementById("images").value =
 (watch.images || []).join("\n");
 
+
 document.getElementById("description").value =
 watch.description || "";
 
-document.getElementById("brandLink").value =
-watch.brandLink || "";
 
-document.getElementById("status").value =
-watch.status || "available";
 
-editId = id;
+editId=id;
+
 
 
 document.querySelector(".add").innerText =
 "💾 Сохранить изменения";
 
 
+
 document.querySelector(".add").onclick =
 saveEdit;
 
-}
+
 
 }
+
+
+}
+
+
+
+
 
 
 
 async function saveEdit(){
+
+
 
 let images = document
 .getElementById("images")
@@ -523,23 +563,30 @@ let images = document
 .filter(x=>x.trim()!=="");
 
 
+
 await updateDoc(doc(db,"watches",editId),{
+
 
 name:document.getElementById("name").value,
 
+
 price:Number(document.getElementById("price").value),
+
+
+stock:Number(document.getElementById("stock").value),
+
 
 images:images,
 
+
 image:images[0],
 
-description:document.getElementById("description").value,
 
-brandLink:document.getElementById("brandLink").value,
+description:document.getElementById("description").value
 
-status:document.getElementById("status").value
 
 });
+
 
 
 alert("Изменения сохранены ✅");
@@ -556,27 +603,45 @@ document.querySelector(".add").onclick =
 addWatch;
 
 
+
 clearForm();
+
 
 loadWatches();
 
+
 }
 
-window.searchAdmin = function(){
 
-const text = document
+
+
+
+
+window.searchAdmin=function(){
+
+
+const text=document
 .getElementById("searchAdmin")
 .value
 .toLowerCase()
 .trim();
 
-const items = document.querySelectorAll(".item");
+
+
+const items=document.querySelectorAll(".item");
+
+
 
 items.forEach(item=>{
 
-const name = item.dataset.name || "";
-const price = item.dataset.price || "";
-const description = item.dataset.description || "";
+
+const name=item.dataset.name || "";
+
+const price=item.dataset.price || "";
+
+const description=item.dataset.description || "";
+
+
 
 if(
 name.includes(text) ||
@@ -584,37 +649,53 @@ price.includes(text) ||
 description.includes(text)
 ){
 
-item.style.display = "";
+
+item.style.display="";
+
 
 }else{
 
-item.style.display = "none";
+
+item.style.display="none";
+
 
 }
+
+
 
 });
 
+
 }
+
+
+
+
+
 
 function clearForm(){
 
+
 document.getElementById("name").value="";
+
 
 document.getElementById("price").value="";
 
+
+document.getElementById("stock").value="";
+
+
 document.getElementById("images").value="";
+
 
 document.getElementById("description").value="";
 
-document.getElementById("brandLink").value="";
-
-document.getElementById("status").value="available";
 
 }
 
+
+
 </script>
-
-
 
 
 </body>
