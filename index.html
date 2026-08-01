@@ -222,7 +222,7 @@ products.innerHTML = "";
 allWatches.forEach((watch)=>{
 
 
-if(watch.status === "out_of_stock") return;
+if(watch.stock <= 0) return;
 
 
 let name = (watch.name || "").toLowerCase();
