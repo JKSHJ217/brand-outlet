@@ -294,6 +294,15 @@ if(snap.exists()){
 
 const watch=snap.data();
 
+if(watch.stock <= 0){
+
+    alert("Этот товар закончился");
+
+    location.href="index.html";
+
+    return;
+
+}
 
 document.getElementById("name").innerText=watch.name;
 
