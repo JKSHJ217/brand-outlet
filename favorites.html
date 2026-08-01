@@ -72,6 +72,15 @@ text-align:center;
 
 width:100%;
 border-radius:15px;
+cursor:pointer;
+
+}
+
+
+.card h2{
+
+cursor:pointer;
+margin-top:15px;
 
 }
 
@@ -93,6 +102,14 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 font-size:16px;
+
+}
+
+
+.cart{
+
+background:white;
+color:black;
 
 }
 
@@ -150,20 +167,25 @@ brand_outlet.tm
 
 
 
-<section class="favorites">
+<section class="favorites" id="favBox">
 
 </section>
-
-
 
 
 
 <script type="module">
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+import { 
+getFirestore,
+collection,
+getDocs
+} 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 
@@ -179,9 +201,7 @@ storageBucket: "brand-outlet-tm.firebasestorage.app",
 
 messagingSenderId: "1083598839585",
 
-appId: "1:1083598839585:web:31d6c55768a25a60732860",
-
-measurementId: "G-DTR2Y6C5YB"
+appId: "1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
@@ -193,8 +213,7 @@ const db = getFirestore(app);
 
 
 
-const favBox = document.querySelector(".favorites");
-
+const favBox=document.getElementById("favBox");
 
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -211,8 +230,7 @@ snapshot.forEach((doc)=>{
 if(favorites.includes(doc.id)){
 
 
-const watch = doc.data();
-
+const watch=doc.data();
 
 
 favBox.innerHTML += `
@@ -221,7 +239,10 @@ favBox.innerHTML += `
 <div class="card">
 
 
-<img src="${watch.image}">
+<div onclick="openWatch('${doc.id}')">
+
+
+<img src="${watch.images ? watch.images[0] : watch.image}">
 
 
 <h2>
@@ -229,9 +250,19 @@ ${watch.name}
 </h2>
 
 
+</div>
+
+
+
 <div class="price">
 ${watch.price} TMT
 </div>
+
+
+
+<button class="cart" onclick="addToCart('${doc.id}')">
+🛒 В корзину
+</button>
 
 
 
@@ -245,6 +276,7 @@ ${watch.price} TMT
 
 `;
 
+
 }
 
 
@@ -252,20 +284,66 @@ ${watch.price} TMT
 
 
 
-if(favBox.innerHTML === ""){
+if(favBox.innerHTML===""){
 
-favBox.innerHTML = "<h2>Избранное пустое ❤️</h2>";
+favBox.innerHTML="<h2>Избранное пустое ❤️</h2>";
+
+}
+
+<script>
+
+function openWatch(id){
+
+window.location.href="watch.html?id="+id;
 
 }
 
 
 
-</script>
+function addToCart(id){
+
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+let item = cart.find(x=>x.id===id);
 
 
 
+if(item){
 
-<script>
+item.quantity++;
+
+}else{
+
+
+cart.push({
+
+id:id,
+
+quantity:1
+
+});
+
+
+}
+
+
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+
+
+alert("Добавлено в корзину 🛒");
+
+
+}
+
+
+
 
 
 function removeFavorite(id){
@@ -274,10 +352,15 @@ function removeFavorite(id){
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 
-favorites = favorites.filter(item => item !== id);
+favorites = favorites.filter(item=>item!==id);
 
 
-localStorage.setItem("favorites",JSON.stringify(favorites));
+
+localStorage.setItem(
+"favorites",
+JSON.stringify(favorites)
+);
+
 
 
 location.reload();
@@ -288,6 +371,8 @@ location.reload();
 
 </script>
 
+
+<script src="counter.js"></script>
 
 
 </body>
