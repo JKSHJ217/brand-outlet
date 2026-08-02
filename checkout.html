@@ -155,7 +155,7 @@ color:black;
 <textarea placeholder="Ваш адрес"></textarea>
 
 
-<button>
+<button onclick="makeOrder()">
 Подтвердить заказ
 </button>
 
@@ -280,6 +280,35 @@ products.innerHTML="<h2>Корзина пустая 🛒</h2>";
 
 </script>
 
+<script>
+
+function makeOrder(){
+
+let name = document.querySelectorAll("input")[0].value;
+let phone = document.querySelectorAll("input")[1].value;
+let address = document.querySelector("textarea").value;
+
+
+if(!name || !phone || !address){
+
+alert("Заполните все поля");
+
+return;
+
+}
+
+
+alert(
+"Заказ принят ✅\n\n"+
+"Имя: "+name+"\n"+
+"Телефон: "+phone+"\n"+
+"Адрес: "+address
+);
+
+
+}
+
+</script>
 
 </body>
 
