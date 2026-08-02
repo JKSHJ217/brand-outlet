@@ -163,25 +163,54 @@ style="width:100%;padding:12px;font-size:16px;border-radius:10px;">
 
 
 
-<script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
 
 const catalog = document.getElementById("catalog");
 
 let allWatches = [];
 
-fetch("http://localhost:3000/watches")
-.then(res => res.json())
-.then(data => {
+const firebaseConfig={
 
-    allWatches = data;
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
 
-    searchWatches();
+authDomain:"brand-outlet-tm.firebaseapp.com",
 
-})
-.catch(error=>{
-    console.log(error);
-    catalog.innerHTML = "Ошибка загрузки товаров";
-});
+projectId:"brand-outlet-tm",
+
+storageBucket:"brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId:"1083598839585",
+
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+
+const snapshot = await getDocs(collection(db,"watches"));
+
+
+allWatches = snapshot.docs.map(doc => ({
+id: doc.id,
+...doc.data()
+}));
+
+
+searchWatches();
 
 
 function searchWatches(){
