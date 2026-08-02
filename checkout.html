@@ -24,7 +24,7 @@ padding:30px;
 }
 
 .box{
-max-width:500px;
+max-width:700px;
 margin:auto;
 background:#1c1c1c;
 padding:30px;
@@ -35,6 +35,54 @@ h1{
 text-align:center;
 margin-bottom:25px;
 }
+
+
+.product{
+
+display:flex;
+align-items:center;
+gap:20px;
+background:#111;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+
+}
+
+
+.product img{
+
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+
+}
+
+
+.info h2{
+
+font-size:18px;
+
+}
+
+
+.price{
+
+margin-top:8px;
+font-size:20px;
+
+}
+
+
+.total{
+
+font-size:25px;
+margin-top:25px;
+text-align:right;
+
+}
+
 
 input, textarea{
 
@@ -47,10 +95,14 @@ font-size:16px;
 
 }
 
+
 textarea{
-height:120px;
+
+height:100px;
 resize:none;
+
 }
+
 
 button{
 
@@ -66,12 +118,6 @@ color:black;
 
 }
 
-.info{
-
-margin-top:20px;
-color:#ccc;
-
-}
 
 </style>
 
@@ -85,65 +131,148 @@ color:#ccc;
 
 
 <h1>
-🛒 Оформление заказа
+🛒 Ваш заказ
 </h1>
 
 
-<input id="name" placeholder="Ваше имя">
+<div id="products"></div>
 
 
-<input id="phone" placeholder="Ваш телефон">
+<div class="total">
+
+Итого: <span id="total">0</span> TMT
+
+</div>
 
 
-<textarea id="address" placeholder="Ваш адрес"></textarea>
+
+<input placeholder="Ваше имя">
+
+
+<input placeholder="Ваш телефон">
+
+
+<textarea placeholder="Ваш адрес"></textarea>
+
+
+<button>
+Подтвердить заказ
+</button>
+
+
+
+</div>
+
+
+
+<script type="module">
+
+
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {getFirestore,collection,getDocs} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain:"brand-outlet-tm.firebaseapp.com",
+
+projectId:"brand-outlet-tm",
+
+storageBucket:"brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId:"1083598839585",
+
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
+
+};
+
+
+
+const app=initializeApp(firebaseConfig);
+
+const db=getFirestore(app);
+
+
+
+const products=document.getElementById("products");
+
+
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
+
+let total=0;
+
+
+
+const snapshot=await getDocs(collection(db,"watches"));
+
+
+
+snapshot.forEach(doc=>{
+
+
+let item=cart.find(x=>x.id===doc.id);
+
+
+
+if(item){
+
+
+let watch=doc.data();
+
+
+let sum=watch.price * item.quantity;
+
+
+total+=sum;
+
+
+
+products.innerHTML+=`
+
+<div class="product">
+
+
+<img src="${watch.images ? watch.images[0] : watch.image}">
 
 
 <div class="info">
 
-💵 Оплата: наличными при получении
+<h2>${watch.name}</h2>
+
+<div class="price">
+${watch.price} TMT
+</div>
+
+<div>
+Количество: ${item.quantity}
+</div>
 
 </div>
 
 
-<button onclick="makeOrder()">
-
-Подтвердить заказ
-
-</button>
-
-
 </div>
 
+`;
 
-
-
-<script>
-
-
-function makeOrder(){
-
-
-let name=document.getElementById("name").value.trim();
-
-let phone=document.getElementById("phone").value.trim();
-
-let address=document.getElementById("address").value.trim();
-
-
-
-if(!name || !phone || !address){
-
-alert("Заполните все поля");
-
-return;
 
 }
 
 
+});
 
-alert("Заказ отправлен ✅");
 
 
+document.getElementById("total").innerText=total;
+
+
+
+if(products.innerHTML===""){
+
+products.innerHTML="<h2>Корзина пустая 🛒</h2>";
 
 }
 
