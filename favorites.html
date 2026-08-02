@@ -260,13 +260,13 @@ ${watch.price} TMT
 
 
 
-<button class="cart" onclick="addToCart('${doc.id}')">
+<button class="cart" onclick="event.stopPropagation();addToCart('${doc.id}')">
 🛒 В корзину
 </button>
 
 
 
-<button class="remove" onclick="removeFavorite('${doc.id}')">
+<button class="remove" onclick="event.stopPropagation();removeFavorite('${doc.id}')">
 ❌ Удалить
 </button>
 
@@ -290,9 +290,11 @@ favBox.innerHTML="<h2>Избранное пустое ❤️</h2>";
 
 }
 
+</script>
+
 <script>
 
-function openWatch(id){
+window.openWatch = function(id){
 
 window.location.href="watch.html?id="+id;
 
@@ -300,7 +302,7 @@ window.location.href="watch.html?id="+id;
 
 
 
-function addToCart(id){
+window.addToCart = function(id){
 
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -346,7 +348,7 @@ alert("Добавлено в корзину 🛒");
 
 
 
-function removeFavorite(id){
+window.removeFavorite = function(id){
 
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
