@@ -155,6 +155,11 @@ color:black;
 <textarea placeholder="Ваш адрес"></textarea>
 
 
+<p style="margin-top:15px;text-align:center;color:#aaa;font-size:14px;">
+⚠️ Возврату после покупки не принадлежит
+</p>
+
+
 <button onclick="makeOrder()">
 Подтвердить заказ
 </button>
@@ -323,8 +328,10 @@ let message =
 cart.forEach(item=>{
 
 message += 
-"ID часов: "+item.id+
-"\nКоличество: "+item.quantity+
+"⌚ Ссылка на товар:\n"+
+"https://brand-outlet.tm/watch.html?id="+item.id+
+"\n"+
+"🔢 Количество: "+item.quantity+
 "\n\n";
 
 });
