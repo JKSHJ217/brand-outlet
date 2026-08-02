@@ -282,11 +282,19 @@ products.innerHTML="<h2>Корзина пустая 🛒</h2>";
 
 <script>
 
-function makeOrder(){
+const BOT_TOKEN = "8936062909:AAGtqiRQk13-8m0BhadrkOiQe15T-VE5AFA";
+const CHAT_ID = "8936062909";
+
+
+async function makeOrder(){
+
 
 let name = document.querySelectorAll("input")[0].value;
+
 let phone = document.querySelectorAll("input")[1].value;
+
 let address = document.querySelector("textarea").value;
+
 
 
 if(!name || !phone || !address){
@@ -298,12 +306,64 @@ return;
 }
 
 
-alert(
-"Заказ принят ✅\n\n"+
-"Имя: "+name+"\n"+
-"Телефон: "+phone+"\n"+
-"Адрес: "+address
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+
+let message = 
+"🛒 Новый заказ Brand Outlet\n\n"+
+"👤 Имя: "+name+"\n"+
+"📱 Телефон: "+phone+"\n"+
+"📍 Адрес: "+address+"\n\n"+
+"⌚ Товары:\n";
+
+
+
+cart.forEach(item=>{
+
+message += 
+"ID часов: "+item.id+
+"\nКоличество: "+item.quantity+
+"\n\n";
+
+});
+
+
+
+message += "💰 Сумма: "+document.getElementById("total").innerText+" TMT";
+
+
+
+await fetch(
+"https://api.telegram.org/bot"+BOT_TOKEN+"/sendMessage",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+chat_id:CHAT_ID,
+
+text:message
+
+})
+
+}
+
 );
+
+
+
+alert("Заказ отправлен ✅");
+
+
+
+localStorage.removeItem("cart");
 
 
 }
