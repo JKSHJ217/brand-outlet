@@ -367,6 +367,8 @@ let product = snapshot2.docs.find(
 d => d.id === item.id
 );
 
+console.log("ID из корзины:", item.id);
+console.log("Найден товар:", product);
 
 
 if(product){
@@ -386,7 +388,8 @@ newStock = 0;
 
 }
 
-
+console.log("Старый stock:", data.stock);
+console.log("Новый stock:", newStock);
 
 await updateDoc(
 doc(window.db,"watches",item.id),
