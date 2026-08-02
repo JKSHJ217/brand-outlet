@@ -36,9 +36,7 @@ text-align:center;
 margin-bottom:25px;
 }
 
-
 .product{
-
 display:flex;
 align-items:center;
 gap:20px;
@@ -46,66 +44,45 @@ background:#111;
 padding:15px;
 border-radius:15px;
 margin-bottom:15px;
-
 }
 
-
 .product img{
-
 width:90px;
 height:90px;
 object-fit:cover;
 border-radius:10px;
-
 }
-
 
 .info h2{
-
 font-size:18px;
-
 }
-
 
 .price{
-
 margin-top:8px;
 font-size:20px;
-
 }
 
-
 .total{
-
 font-size:25px;
 margin-top:25px;
 text-align:right;
-
 }
 
-
 input, textarea{
-
 width:100%;
 padding:15px;
 margin-top:15px;
 border:none;
 border-radius:10px;
 font-size:16px;
-
 }
-
 
 textarea{
-
 height:100px;
 resize:none;
-
 }
 
-
 button{
-
 width:100%;
 padding:15px;
 margin-top:20px;
@@ -115,20 +92,13 @@ font-size:18px;
 cursor:pointer;
 background:white;
 color:black;
-
 }
-
 
 </style>
 
-</head>
-
-
-<body>
-
+</head><body>
 
 <div class="box">
-
 
 <h1>
 🛒 Ваш заказ
@@ -145,14 +115,13 @@ color:black;
 </div>
 
 
-
-<input placeholder="Ваше имя">
-
-
-<input placeholder="Ваш телефон">
+<input id="name" placeholder="Ваше имя">
 
 
-<textarea placeholder="Ваш адрес"></textarea>
+<input id="phone" placeholder="Ваш телефон">
+
+
+<textarea id="address" placeholder="Ваш адрес"></textarea>
 
 
 <p style="margin-top:15px;text-align:center;color:#aaa;font-size:14px;">
@@ -165,18 +134,22 @@ color:black;
 </button>
 
 
-
 </div>
-
-
 
 <script type="module">
 
+import {initializeApp} 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-import {getFirestore,collection,getDocs} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
+import {
+getFirestore,
+collection,
+getDocs,
+doc,
+updateDoc
+}
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 const firebaseConfig={
@@ -196,12 +169,11 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-
 const app=initializeApp(firebaseConfig);
 
 const db=getFirestore(app);
 
-
+window.db = db;
 
 const products=document.getElementById("products");
 
@@ -211,22 +183,21 @@ let cart=JSON.parse(localStorage.getItem("cart")) || [];
 let total=0;
 
 
-
 const snapshot=await getDocs(collection(db,"watches"));
 
 
+snapshot.forEach(docSnap=>{
 
-snapshot.forEach(doc=>{
 
-
-let item=cart.find(x=>x.id===doc.id);
-
+let item=cart.find(
+x=>x.id===docSnap.id
+);
 
 
 if(item){
 
 
-let watch=doc.data();
+let watch=docSnap.data();
 
 
 let sum=watch.price * item.quantity;
@@ -235,11 +206,9 @@ let sum=watch.price * item.quantity;
 total+=sum;
 
 
-
 products.innerHTML+=`
 
 <div class="product">
-
 
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
@@ -248,21 +217,22 @@ products.innerHTML+=`
 
 <h2>${watch.name}</h2>
 
+
 <div class="price">
 ${watch.price} TMT
 </div>
+
 
 <div>
 Количество: ${item.quantity}
 </div>
 
-</div>
 
+</div>
 
 </div>
 
 `;
-
 
 }
 
@@ -270,35 +240,47 @@ ${watch.price} TMT
 });
 
 
-
 document.getElementById("total").innerText=total;
-
 
 
 if(products.innerHTML===""){
 
 products.innerHTML="<h2>Корзина пустая 🛒</h2>";
 
+}</script>
+
+
+<script type="module">
+
+import {
+collection,
+getDocs,
+doc,
+updateDoc
 }
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 
-</script>
 
-<script>
 
-const BOT_TOKEN = "8936062909:AAGtqiRQk13-8m0BhadrkOiQe15T-VE5AFA";
-const CHAT_ID = "6756528997";
+
+
+
+const BOT_TOKEN="8936062909:AAGtqiRQk13-8m0BhadrkOiQe15T-VE5AFA";
+
+const CHAT_ID="6756528997";
+
 
 
 async function makeOrder(){
 
 
-let name = document.querySelectorAll("input")[0].value;
+let name=document.getElementById("name").value;
 
-let phone = document.querySelectorAll("input")[1].value;
+let phone=document.getElementById("phone").value;
 
-let address = document.querySelector("textarea").value;
+let address=document.getElementById("address").value;
 
 
 
@@ -312,35 +294,37 @@ return;
 
 
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
 
 
 
-let message = 
+let message=
 "🛒 Новый заказ Brand Outlet\n\n"+
-"👤 Имя: "+name+"\n"+
-"📱 Телефон: "+phone+"\n"+
-"📍 Адрес: "+address+"\n\n"+
-"⌚ Товары:\n";
+"👤 Имя: "+name+
+"\n📱 Телефон: "+phone+
+"\n📍 Адрес: "+address+
+"\n\n⌚ Товары:\n";
 
 
 
 cart.forEach(item=>{
 
-message += 
-"⌚ Ссылка на товар:\n"+
-"https://brand-outlet.tm/watch.html?id="+item.id+
+
+message+=
+"🔗 https://brand-outlet.tm/watch.html?id="+item.id+
 "\n"+
-"🔢 Количество: "+item.quantity+
+"Количество: "+item.quantity+
 "\n\n";
+
 
 });
 
 
 
-message += "💰 Сумма: "+document.getElementById("total").innerText+" TMT";
-
-
+message+=
+"💰 Сумма: "+
+document.getElementById("total").innerText+
+" TMT";// Отправка заказа в Telegram
 
 await fetch(
 "https://api.telegram.org/bot"+BOT_TOKEN+"/sendMessage",
@@ -349,7 +333,9 @@ await fetch(
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 body:JSON.stringify({
@@ -366,6 +352,57 @@ text:message
 
 
 
+// Уменьшение stock в Firestore
+
+const snapshot2 = await getDocs(
+collection(window.db,"watches")
+);
+
+
+
+for(let item of cart){
+
+
+let product = snapshot2.docs.find(
+d => d.id === item.id
+);
+
+
+
+if(product){
+
+
+let data = product.data();
+
+
+
+let newStock = data.stock - item.quantity;
+
+
+
+if(newStock < 0){
+
+newStock = 0;
+
+}
+
+
+
+await updateDoc(
+doc(window.db,"watches",item.id),
+{
+stock:newStock
+}
+);
+
+
+}
+
+
+}
+
+
+
 alert("Заказ отправлен ✅");
 
 
@@ -373,7 +410,16 @@ alert("Заказ отправлен ✅");
 localStorage.removeItem("cart");
 
 
+
+window.location.href="index.html";
+
+
 }
+
+
+
+window.makeOrder = makeOrder;
+
 
 </script>
 
