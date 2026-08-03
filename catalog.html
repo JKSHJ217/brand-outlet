@@ -308,33 +308,42 @@ window.location.href = "watch.html?id=" + id;
 
 function addToCart(id){
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+    let watch = allWatches.find(x => x.id === id);
 
-let item = cart.find(x=>x.id===id);
+    if(!watch){
+        alert("Товар не найден");
+        return;
+    }
 
-if(item){
+    let item = cart.find(x => x.id === id);
 
-item.quantity++;
+    if(item){
 
-}else{
+        if(item.quantity >= watch.stock){
+            alert("На складе больше нет этого товара.");
+            return;
+        }
 
-cart.push({
-id:id,
-quantity:1
-});
+        item.quantity++;
+
+    }else{
+
+        cart.push({
+            id:id,
+            quantity:1
+        });
+
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Добавлено в корзину 🛒");
 
 }
 
 
-localStorage.setItem("cart", JSON.stringify(cart));
-
-
-
-
-alert("Добавлено в корзину 🛒");
-
-}
 
 
 
