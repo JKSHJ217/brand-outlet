@@ -284,6 +284,7 @@ let current=0;
 
 let quantity=1;
 
+let stock = 0;
 
 
 const snap=await getDoc(doc(db,"watches",id));
@@ -294,6 +295,8 @@ if(snap.exists()){
 
 
 const watch=snap.data();
+
+stock = watch.stock;
 
 
 document.getElementById("name").innerText=watch.name;
@@ -401,40 +404,38 @@ document.getElementById("quantity").innerText=quantity;
 
 
 
-document.getElementById("cartBtn").onclick=function(){
+document.getElementById("cartBtn").onclick = function(){
 
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let cart=JSON.parse(localStorage.getItem("cart")) || [];
+    let item = cart.find(x => x.id === id);
 
+    let alreadyInCart = item ? item.quantity : 0;
 
-let item=cart.find(x=>x.id===id);
+    if(alreadyInCart + quantity > stock){
 
+        alert("На складе осталось только " + (stock - alreadyInCart) + " шт.");
 
+        return;
 
-if(item){
+    }
 
-item.quantity += quantity;
+    if(item){
 
-}else{
+        item.quantity += quantity;
 
+    }else{
 
-cart.push({
+        cart.push({
+            id:id,
+            quantity:quantity
+        });
 
-id:id,
+    }
 
-quantity:quantity
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-});
-
-
-}
-
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-
-alert("Добавлено в корзину 🛒");
-
+    alert("Добавлено в корзину 🛒");
 
 }
 
