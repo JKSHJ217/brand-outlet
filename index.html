@@ -207,6 +207,8 @@ allWatches.push(watch);
 
 });
 
+window.allWatches = allWatches;
+
 window.searchWatches = function(){
 
 let text = document
@@ -288,29 +290,38 @@ window.location.href="watch.html?id="+id;
 
 window.addToCart = function(id){
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let item = cart.find(x=>x.id===id);
+    let watch = window.allWatches.find(x => x.id === id);
 
-if(item){
+    if(!watch){
+        alert("Товар не найден");
+        return;
+    }
 
-item.quantity++;
+    let item = cart.find(x => x.id === id);
 
-}else{
+    if(item){
 
-cart.push({
+        if(item.quantity >= watch.stock){
+            alert("На складе больше нет этого товара.");
+            return;
+        }
 
-id:id,
-quantity:1
+        item.quantity++;
 
-});
+    }else{
 
-}
+        cart.push({
+            id:id,
+            quantity:1
+        });
 
-localStorage.setItem("cart",JSON.stringify(cart));
+    }
 
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-alert("Добавлено в корзину 🛒");
+    alert("Добавлено в корзину 🛒");
 
 }
 
