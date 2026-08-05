@@ -2,6 +2,12 @@ const translations = {
 
 ru: {
 
+myOrders:"Мои заказы",
+noOrders:"У вас пока нет заказов",
+orderNumber:"Заказ",
+status:"Статус",
+date:"Дата",
+
 loginButton:"🔑 Войти",
 email:"Email",
 password:"Пароль",
@@ -75,6 +81,12 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+myOrders:"My Orders",
+noOrders:"You have no orders yet",
+orderNumber:"Order",
+status:"Status",
+date:"Date",
+
 loginButton:"🔑 Login",
 email:"Email",
 password:"Password",
@@ -147,6 +159,12 @@ footer:"© 2026 brand_outlet.tm"
 
 
 tk: {
+
+myOrders:"Sargytlarym",
+noOrders:"Sargydyňyz entek ýok",
+orderNumber:"Sargyt",
+status:"Ýagdaýy",
+date:"Sene",
 
 loginButton:"🔑 Giriş",
 email:"Email",
