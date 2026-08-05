@@ -326,6 +326,8 @@ Türkmen
 
 </div>
 
+<script src="language.js"></script>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -370,8 +372,10 @@ document.getElementById("userName").innerHTML =
 "👤 " + user.email;
 
 
+document.getElementById("userText").setAttribute("data-lang","loggedIn");
+
 document.getElementById("userText").innerHTML =
-"Вы вошли в аккаунт";
+translations[localStorage.getItem("siteLang") || "ru"].loggedIn;
 
 
 document.getElementById("authButton").style.display="none";
@@ -387,8 +391,10 @@ document.getElementById("userName").innerHTML =
 "Гость";
 
 
+document.getElementById("userText").setAttribute("data-lang","guestText");
+
 document.getElementById("userText").innerHTML =
-"Войдите, чтобы использовать аккаунт";
+translations[localStorage.getItem("siteLang") || "ru"].guestText;
 
 
 document.getElementById("authButton").style.display="block";
@@ -494,8 +500,6 @@ document.getElementById("currentLang").innerText=savedLabel;
 </script>
 
 
-
-<script src="language.js"></script>
 
 
 </body>
