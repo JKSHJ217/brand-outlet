@@ -2,6 +2,16 @@ const translations = {
 
 ru: {
 
+shopping:"Покупки",
+guestText:"Войдите, чтобы использовать аккаунт",
+design:"Оформление",
+security:"Безопасность",
+privacy:"Конфиденциальность",
+terms:"Условия использования",
+information:"Информация",
+about:"О приложении",
+rate:"Оценить сайт",
+
 heroMain:"Стиль начинается с часов",
 heroTitle:"Стильные часы для любого образа",
 catalogButton:"Смотреть каталог",
@@ -52,6 +62,16 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+shopping:"Shopping",
+guestText:"Login to use account",
+design:"Appearance",
+security:"Security",
+privacy:"Privacy",
+terms:"Terms of use",
+information:"Information",
+about:"About app",
+rate:"Rate website",
+
 heroMain:"Style starts with watches",
 heroTitle:"Stylish watches for any look",
 catalogButton:"View catalog",
@@ -101,6 +121,16 @@ footer:"© 2026 brand_outlet.tm"
 
 
 tk: {
+
+shopping:"Söwda",
+guestText:"Hasaby ulanmak üçin giriň",
+design:"Görnüş",
+security:"Howpsuzlyk",
+privacy:"Gizlinlik",
+terms:"Ulanmak şertleri",
+information:"Maglumat",
+about:"Programma barada",
+rate:"Sahypany bahalandyrmak",
 
 heroMain:"Stil sagatdan başlanýar",
 heroTitle:"Her bir keşp üçin ajaýyp sagatlar",
