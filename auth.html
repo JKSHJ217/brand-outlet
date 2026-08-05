@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Вход - brand_outlet.tm</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:white;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+
+.box{
+
+width:100%;
+max-width:400px;
+background:#1c1c1c;
+padding:30px;
+border-radius:20px;
+
+}
+
+
+h1{
+
+text-align:center;
+margin-bottom:25px;
+
+}
+
+
+input{
+
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+
+}
+
+
+button{
+
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+
+}
+
+
+.register{
+
+background:white;
+color:black;
+
+}
+
+
+.login{
+
+background:#333;
+color:white;
+
+}
+
+
+.back{
+
+background:#222;
+color:white;
+
+}
+
+
+.message{
+
+text-align:center;
+margin-top:15px;
+color:#aaa;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h1>
+👤 Аккаунт
+</h1>
+
+
+<input 
+id="email"
+type="email"
+placeholder="Email">
+
+
+<input 
+id="password"
+type="password"
+placeholder="Пароль">
+
+
+<input 
+id="confirmPassword"
+type="password"
+placeholder="Повторите пароль">
+
+
+<button class="register" onclick="register()">
+📝 Зарегистрироваться
+</button>
+
+
+<button class="login" onclick="login()">
+🔑 Войти
+</button>
+
+
+<button class="back" onclick="location.href='index.html'">
+🏠 Главная
+</button>
+
+
+<div class="message" id="message"></div>
+
+
+</div>
+
+
+
+<script type="module">
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+
+import { 
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+
+const firebaseConfig = {
+
+
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+
+authDomain:"brand-outlet-tm.firebaseapp.com",
+
+
+projectId:"brand-outlet-tm",
+
+
+storageBucket:"brand-outlet-tm.firebasestorage.app",
+
+
+messagingSenderId:"1083598839585",
+
+
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
+
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const auth = getAuth(app);
+
+
+
+const message = document.getElementById("message");
+
+
+
+
+window.register = async function(){
+
+
+let email =
+document.getElementById("email").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+let confirm =
+document.getElementById("confirmPassword").value;
+
+
+
+if(!email || !password || !confirm){
+
+message.innerHTML="Заполните все поля";
+
+return;
+
+}
+
+
+
+if(password !== confirm){
+
+message.innerHTML="Пароли не совпадают";
+
+return;
+
+}
+
+
+
+try{
+
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+
+message.innerHTML="Регистрация успешна ✅";
+
+
+setTimeout(()=>{
+
+window.location.href="account.html";
+
+},1000);
+
+
+
+}catch(error){
+
+
+message.innerHTML=error.message;
+
+
+}
+
+
+
+}
+
+
+
+
+window.login = async function(){
+
+
+let email =
+document.getElementById("email").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+
+if(!email || !password){
+
+message.innerHTML="Введите email и пароль";
+
+return;
+
+}
+
+
+
+try{
+
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+
+
+message.innerHTML="Вход выполнен ✅";
+
+
+setTimeout(()=>{
+
+window.location.href="account.html";
+
+},1000);
+
+
+
+}catch(error){
+
+
+message.innerHTML="Неверный email или пароль";
+
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
