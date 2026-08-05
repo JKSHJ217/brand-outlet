@@ -84,129 +84,247 @@ text-decoration:none;
 
 
 <h1>
-👤 Аккаунт
+👤 <span data-lang="account">Аккаунт</span>
 </h1>
 
+
 <a href="index.html">
+
 <button>
-🏠 Главная
+
+🏠 <span data-lang="home">Главная</span>
+
 </button>
+
 </a>
 
+
+
 <div class="profile">
+
 
 <div class="avatar">
 👤
 </div>
 
+
 <h2 id="userName">
 Гость
 </h2>
 
-<p id="userText">
+
+<p id="userText" data-lang="guestText">
 Войдите, чтобы использовать аккаунт
 </p>
 
+
 <br>
 
+
 <button id="authButton" onclick="location.href='auth.html'">
+
+<span data-lang="login">
 🔑 Войти / Регистрация
+</span>
+
 </button>
+
 
 <button id="logoutButton" style="display:none;" onclick="logout()">
+
+<span data-lang="logout">
 🚪 Выйти
+</span>
+
 </button>
 
+
 </div>
+
+
 
 
 
 <div class="section">
-🛍️ Покупки
+
+🛍️ <span data-lang="shopping">
+Покупки
+</span>
+
 </div>
+
+
 
 
 <a href="cart.html">
+
 <div class="item">
-🛒 Корзина
+
+🛒 <span data-lang="cart">
+Корзина
+</span>
+
 </div>
+
 </a>
+
+
 
 
 <a href="favorites.html">
+
 <div class="item">
-❤️ Избранное
+
+❤️ <span data-lang="favorites">
+Избранное
+</span>
+
 </div>
+
 </a>
+
+
 
 
 <a href="orders.html">
+
 <div class="item">
-📦 Мои заказы
+
+📦 <span data-lang="orders">
+Мои заказы
+</span>
+
 </div>
+
 </a>
 
 
 
 
+
 <div class="section">
-⚙️ Настройки
+
+⚙️ <span data-lang="settings">
+Настройки
+</span>
+
 </div>
+
+
 
 
 <div class="item" onclick="toggleLangMenu()">
-🌐 Язык <span id="currentLang" style="float:right;color:#aaa;">Русский</span>
+
+🌐 <span data-lang="language">
+Язык
+</span>
+
+<span id="currentLang" style="float:right;color:#aaa;">
+Русский
+</span>
+
 </div>
 
-<div id="langMenu" style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;margin:8px 0 10px 0;">
-  <button onclick="setLanguage('ru','Русский')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">Русский</button>
-  <button onclick="setLanguage('en','English')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">English</button>
-  <button onclick="setLanguage('tk','Türkmen')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">Türkmen</button>
+
+
+
+<div id="langMenu" style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;">
+
+
+<button onclick="setLanguage('ru','Русский')">
+Русский
+</button>
+
+
+<button onclick="setLanguage('en','English')">
+English
+</button>
+
+
+<button onclick="setLanguage('tk','Türkmen')">
+Türkmen
+</button>
+
+
 </div>
+
+
+
 
 
 <div class="item">
-🎨 Оформление
+
+🎨 <span data-lang="design">
+Оформление
+</span>
+
 </div>
+
 
 
 
 
 <div class="section">
-🔒 Безопасность
+
+🔒 <span data-lang="security">
+Безопасность
+</span>
+
 </div>
+
+
 
 
 <div class="item">
-🔐 Конфиденциальность
+
+🔐 <span data-lang="privacy">
+Конфиденциальность
+</span>
+
 </div>
+
 
 
 <div class="item">
-📜 Условия использования
+
+📜 <span data-lang="terms">
+Условия использования
+</span>
+
 </div>
+
 
 
 
 
 <div class="section">
-ℹ️ Информация
+
+ℹ️ <span data-lang="information">
+Информация
+</span>
+
 </div>
+
+
 
 
 <div class="item">
-ℹ️ О приложении
+
+ℹ️ <span data-lang="about">
+О приложении
+</span>
+
 </div>
+
 
 
 <div class="item">
-⭐ Оценить сайт
+
+⭐ <span data-lang="rate">
+Оценить сайт
+</span>
+
 </div>
-
-
-
-</div>
-
 
 <script type="module">
 
@@ -303,25 +421,82 @@ location.reload();
 
 </script>
 
+
+
 <script>
-function toggleLangMenu() {
-  const menu = document.getElementById("langMenu");
-  menu.style.display = menu.style.display === "none" ? "block" : "none";
+
+
+function toggleLangMenu(){
+
+
+const menu=document.getElementById("langMenu");
+
+
+menu.style.display =
+menu.style.display==="none"
+?
+"block"
+:
+"none";
+
+
 }
 
-function setLanguage(code, label) {
-  localStorage.setItem("siteLang", code);
-  localStorage.setItem("siteLangLabel", label);
-  document.getElementById("currentLang").innerText = label;
-  document.getElementById("langMenu").style.display = "none";
-  alert("Язык выбран: " + label);
+
+
+
+function setLanguage(code,label){
+
+
+localStorage.setItem("siteLang",code);
+
+
+localStorage.setItem("siteLangLabel",label);
+
+
+
+document.getElementById("currentLang").innerText=label;
+
+
+
+document.getElementById("langMenu").style.display="none";
+
+
+
+if(window.applyLanguage){
+
+applyLanguage();
+
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const savedLabel = localStorage.getItem("siteLangLabel") || "Русский";
-  document.getElementById("currentLang").innerText = savedLabel;
+
+}
+
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+const savedLabel =
+localStorage.getItem("siteLangLabel")
+||
+"Русский";
+
+
+document.getElementById("currentLang").innerText=savedLabel;
+
+
+
 });
+
+
+
 </script>
+
+
+
+<script src="language.js"></script>
+
 
 </body>
 
