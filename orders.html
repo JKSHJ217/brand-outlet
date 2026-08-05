@@ -118,13 +118,20 @@ font-size:14px;
 </h1>
 
   <div class="topbar">
-    <a class="button" href="account.html">← Назад</a>
-    <a class="button" href="index.html">🏠 Главная</a>
+    <a class="button" href="account.html">
+← <span data-lang="account">Аккаунт</span>
+</a>
+
+<a class="button" href="index.html">
+🏠 <span data-lang="home">Главная</span>
+</a>
   </div>
 
   <div id="status" class="small"></div>
   <div id="orders"></div>
 </div>
+
+<script src="language.js"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
@@ -151,16 +158,22 @@ function renderOrder(order, id) {
   const itemsHtml = (order.items || []).map(item => `
     <div class="product">
       <div class="product-name">⌚ ${item.name}</div>
-      <div class="product-info">Количество: ${item.quantity}</div>
-      <div class="product-info">Цена: ${item.price} TMT</div>
+      <div class="product-info">
+${translations[localStorage.getItem("siteLang") || "ru"].quantity}: ${item.quantity}
+</div>
+      <div class="product-info">
+${translations[localStorage.getItem("siteLang") || "ru"].price}: ${item.price} TMT
+</div>
     </div>
   `).join("");
 
   return `
     <div class="item">
-      <h2>Заказ</h2>
+      <h2>${translations[localStorage.getItem("siteLang") || "ru"].orderNumber}</h2>
       <div class="meta">📅 ${order.date || ""}</div>
-      <div class="meta">💰 Сумма: ${order.total || 0} TMT</div>
+      <div class="meta">
+💰 ${translations[localStorage.getItem("siteLang") || "ru"].total}: ${order.total || 0} TMT
+</div>
       <div class="meta">👤 ${order.user || ""}</div>
       <div class="products">${itemsHtml}</div>
     </div>
@@ -171,12 +184,13 @@ onAuthStateChanged(auth, async (user) => {
   ordersBox.innerHTML = "";
 
   if (!user) {
-    statusBox.innerHTML = "Сначала войди в аккаунт, чтобы увидеть свои заказы.";
+    statusBox.innerHTML =
+translations[localStorage.getItem("siteLang") || "ru"].loginToSeeOrders;
     ordersBox.innerHTML = `<div class="empty">🔑 <a href="auth.html" style="color:white;">Войти / Регистрация</a></div>`;
     return;
   }
 
-  statusBox.innerHTML = "Загружаем заказы...";
+  statusBox.innerHTML = translations[localStorage.getItem("siteLang") || "ru"].loadingOrders;
 
   try {
     const q = query(collection(db, "orders"), where("user", "==", user.email));
@@ -184,7 +198,10 @@ onAuthStateChanged(auth, async (user) => {
 
     if (snapshot.empty) {
       statusBox.innerHTML = "";
-      ordersBox.innerHTML = `<div class="empty">У тебя пока нет заказов.</div>`;
+      ordersBox.innerHTML = `
+<div class="empty">
+${translations[localStorage.getItem("siteLang") || "ru"].noOrders}
+</div>`;
       return;
     }
 
@@ -194,14 +211,13 @@ onAuthStateChanged(auth, async (user) => {
       ordersBox.innerHTML += renderOrder(order, docSnap.id);
     });
   } catch (error) {
-    statusBox.innerHTML = "Ошибка загрузки заказов.";
+    statusBox.innerHTML = "Ошибка";
     ordersBox.innerHTML = `<div class="empty">Не удалось загрузить заказы.</div>`;
     console.log("orders error:", error);
   }
 });
 </script>
 
-<script src="language.js"></script>
 
 </body>
 </html>
