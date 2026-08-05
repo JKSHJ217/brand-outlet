@@ -99,18 +99,22 @@ text-decoration:none;
 👤
 </div>
 
-<h2>
+<h2 id="userName">
 Гость
 </h2>
 
-<p>
+<p id="userText">
 Войдите, чтобы использовать аккаунт
 </p>
 
 <br>
 
-<button>
+<button id="authButton" onclick="location.href='auth.html'">
 🔑 Войти / Регистрация
+</button>
+
+<button id="logoutButton" style="display:none;" onclick="logout()">
+🚪 Выйти
 </button>
 
 </div>
@@ -194,6 +198,102 @@ text-decoration:none;
 
 
 </div>
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+
+authDomain:"brand-outlet-tm.firebaseapp.com",
+
+projectId:"brand-outlet-tm",
+
+storageBucket:"brand-outlet-tm.firebasestorage.app",
+
+messagingSenderId:"1083598839585",
+
+appId:"1:1083598839585:web:31d6c55768a25a60732860"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+
+onAuthStateChanged(auth,(user)=>{
+
+
+if(user){
+
+
+document.getElementById("userName").innerHTML =
+"👤 " + user.email;
+
+
+document.getElementById("userText").innerHTML =
+"Вы вошли в аккаунт";
+
+
+document.getElementById("authButton").style.display="none";
+
+
+document.getElementById("logoutButton").style.display="block";
+
+
+}else{
+
+
+document.getElementById("userName").innerHTML =
+"Гость";
+
+
+document.getElementById("userText").innerHTML =
+"Войдите, чтобы использовать аккаунт";
+
+
+document.getElementById("authButton").style.display="block";
+
+
+document.getElementById("logoutButton").style.display="none";
+
+
+}
+
+
+});
+
+
+
+window.logout=function(){
+
+
+signOut(auth).then(()=>{
+
+
+location.reload();
+
+
+});
+
+
+}
+
+
+</script>
 
 
 </body>
