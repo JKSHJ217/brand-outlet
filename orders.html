@@ -1,1 +1,203 @@
+<!DOCTYPE html>
 
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мои заказы - brand_outlet.tm</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.topbar{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+button,a.button{
+display:inline-block;
+background:#1c1c1c;
+color:white;
+border:none;
+padding:14px 18px;
+border-radius:14px;
+font-size:16px;
+text-decoration:none;
+cursor:pointer;
+}
+
+a.button{
+text-align:center;
+}
+
+.item{
+background:#1c1c1c;
+padding:20px;
+border-radius:18px;
+margin-bottom:16px;
+}
+
+.item h2{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.meta{
+color:#bbb;
+font-size:14px;
+margin-bottom:12px;
+}
+
+.products{
+margin-top:10px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.product{
+background:#111;
+padding:12px;
+border-radius:12px;
+}
+
+.product-name{
+font-size:16px;
+margin-bottom:6px;
+}
+
+.product-info{
+color:#ccc;
+font-size:14px;
+}
+
+.empty{
+text-align:center;
+margin-top:40px;
+color:#bbb;
+font-size:18px;
+}
+
+.small{
+color:#aaa;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h1>📦 Мои заказы</h1>
+
+  <div class="topbar">
+    <a class="button" href="account.html">← Назад</a>
+    <a class="button" href="index.html">🏠 Главная</a>
+  </div>
+
+  <div id="status" class="small"></div>
+  <div id="orders"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
+  authDomain:"brand-outlet-tm.firebaseapp.com",
+  projectId:"brand-outlet-tm",
+  storageBucket:"brand-outlet-tm.firebasestorage.app",
+  messagingSenderId:"1083598839585",
+  appId:"1:1083598839585:web:31d6c55768a25a60732860"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const ordersBox = document.getElementById("orders");
+const statusBox = document.getElementById("status");
+
+function renderOrder(order, id) {
+  const itemsHtml = (order.items || []).map(item => `
+    <div class="product">
+      <div class="product-name">⌚ ${item.name}</div>
+      <div class="product-info">Количество: ${item.quantity}</div>
+      <div class="product-info">Цена: ${item.price} TMT</div>
+    </div>
+  `).join("");
+
+  return `
+    <div class="item">
+      <h2>Заказ</h2>
+      <div class="meta">📅 ${order.date || ""}</div>
+      <div class="meta">💰 Сумма: ${order.total || 0} TMT</div>
+      <div class="meta">👤 ${order.user || ""}</div>
+      <div class="products">${itemsHtml}</div>
+    </div>
+  `;
+}
+
+onAuthStateChanged(auth, async (user) => {
+  ordersBox.innerHTML = "";
+
+  if (!user) {
+    statusBox.innerHTML = "Сначала войди в аккаунт, чтобы увидеть свои заказы.";
+    ordersBox.innerHTML = `<div class="empty">🔑 <a href="auth.html" style="color:white;">Войти / Регистрация</a></div>`;
+    return;
+  }
+
+  statusBox.innerHTML = "Загружаем заказы...";
+
+  try {
+    const q = query(collection(db, "orders"), where("user", "==", user.email));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      statusBox.innerHTML = "";
+      ordersBox.innerHTML = `<div class="empty">У тебя пока нет заказов.</div>`;
+      return;
+    }
+
+    statusBox.innerHTML = "";
+    snapshot.forEach((docSnap) => {
+      const order = docSnap.data();
+      ordersBox.innerHTML += renderOrder(order, docSnap.id);
+    });
+  } catch (error) {
+    statusBox.innerHTML = "Ошибка загрузки заказов.";
+    ordersBox.innerHTML = `<div class="empty">Не удалось загрузить заказы.</div>`;
+    console.log("orders error:", error);
+  }
+});
+</script>
+
+</body>
+</html>
