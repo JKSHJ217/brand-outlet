@@ -2,6 +2,7 @@ const translations = {
 
 ru: {
 
+loggedIn:"Вы вошли в аккаунт",
 shopping:"Покупки",
 guestText:"Войдите, чтобы использовать аккаунт",
 design:"Оформление",
@@ -62,6 +63,7 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+loggedIn:"You are logged in",
 shopping:"Shopping",
 guestText:"Login to use account",
 design:"Appearance",
@@ -122,6 +124,7 @@ footer:"© 2026 brand_outlet.tm"
 
 tk: {
 
+loggedIn:"Hasaba girildi",
 shopping:"Söwda",
 guestText:"Hasaby ulanmak üçin giriň",
 design:"Görnüş",
