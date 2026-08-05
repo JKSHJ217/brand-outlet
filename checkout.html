@@ -420,14 +420,24 @@ user:window.currentUser ? window.currentUser.email : "Гость"
 // Сохраняем заказ в Firestore
 
 
+try{
+
 await addDoc(
-
 collection(window.db,"orders"),
-
 order
-
 );
 
+console.log("Заказ сохранён в Firestore");
+
+}catch(error){
+
+console.log("Ошибка сохранения заказа:",error);
+
+alert(error.message);
+
+return;
+
+}
 
 
 
