@@ -2,6 +2,17 @@ const translations = {
 
 ru: {
 
+email:"Email",
+password:"Пароль",
+confirmPassword:"Повторите пароль",
+register:"Зарегистрироваться",
+fillFields:"Заполните все поля",
+passwordError:"Пароли не совпадают",
+registerSuccess:"Регистрация успешна ✅",
+enterLogin:"Введите email и пароль",
+loginSuccess:"Вход выполнен ✅",
+wrongLogin:"Неверный email или пароль",
+
 loggedIn:"Вы вошли в аккаунт",
 shopping:"Покупки",
 guestText:"Войдите, чтобы использовать аккаунт",
@@ -63,6 +74,17 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+email:"Email",
+password:"Password",
+confirmPassword:"Confirm password",
+register:"Register",
+fillFields:"Fill in all fields",
+passwordError:"Passwords do not match",
+registerSuccess:"Registration successful ✅",
+enterLogin:"Enter email and password",
+loginSuccess:"Login successful ✅",
+wrongLogin:"Wrong email or password",
+
 loggedIn:"You are logged in",
 shopping:"Shopping",
 guestText:"Login to use account",
@@ -123,6 +145,17 @@ footer:"© 2026 brand_outlet.tm"
 
 
 tk: {
+
+email:"Email",
+password:"Açar söz",
+confirmPassword:"Açar sözi gaýtalaň",
+register:"Hasaba durmak",
+fillFields:"Ähli meýdanlary dolduryň",
+passwordError:"Açar sözler gabat gelenok",
+registerSuccess:"Hasaba alyş üstünlikli ✅",
+enterLogin:"Email we açar sözi giriziň",
+loginSuccess:"Giriş üstünlikli ✅",
+wrongLogin:"Email ýa-da açar söz nädogry",
 
 loggedIn:"Hasaba girildi",
 shopping:"Söwda",
