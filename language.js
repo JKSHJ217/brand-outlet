@@ -2,6 +2,7 @@ const translations = {
 
 ru: {
 
+loginButton:"🔑 Войти",
 email:"Email",
 password:"Пароль",
 confirmPassword:"Повторите пароль",
@@ -74,6 +75,7 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+loginButton:"🔑 Login",
 email:"Email",
 password:"Password",
 confirmPassword:"Confirm password",
@@ -146,6 +148,7 @@ footer:"© 2026 brand_outlet.tm"
 
 tk: {
 
+loginButton:"🔑 Giriş",
 email:"Email",
 password:"Açar söz",
 confirmPassword:"Açar sözi gaýtalaň",
