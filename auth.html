@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Вход - brand_outlet.tm</title>
+<title>Auth - brand_outlet.tm</title>
 
 <style>
 
@@ -27,37 +27,27 @@ justify-content:center;
 padding:20px;
 }
 
-
 .box{
-
 width:100%;
 max-width:400px;
 background:#1c1c1c;
 padding:30px;
 border-radius:20px;
-
 }
-
 
 h1{
-
 text-align:center;
 margin-bottom:25px;
-
 }
 
-
 input{
-
 width:100%;
 padding:15px;
 margin-top:15px;
 border:none;
 border-radius:10px;
 font-size:16px;
-
 }
-
 
 button{
 
@@ -71,39 +61,26 @@ cursor:pointer;
 
 }
 
-
 .register{
-
 background:white;
 color:black;
-
 }
-
 
 .login{
-
 background:#333;
 color:white;
-
 }
-
 
 .back{
-
 background:#222;
 color:white;
-
 }
 
-
 .message{
-
 text-align:center;
 margin-top:15px;
 color:#aaa;
-
 }
-
 
 </style>
 
@@ -117,41 +94,60 @@ color:#aaa;
 
 
 <h1>
-👤 Аккаунт
+👤 <span data-lang="account">Аккаунт</span>
 </h1>
 
 
 <input 
 id="email"
 type="email"
+data-lang-placeholder="email"
 placeholder="Email">
 
 
 <input 
 id="password"
 type="password"
+data-lang-placeholder="password"
 placeholder="Пароль">
 
 
 <input 
 id="confirmPassword"
 type="password"
+data-lang-placeholder="confirmPassword"
 placeholder="Повторите пароль">
 
 
+
 <button class="register" onclick="register()">
-📝 Зарегистрироваться
+
+📝 <span data-lang="register">
+Зарегистрироваться
+</span>
+
 </button>
+
 
 
 <button class="login" onclick="login()">
-🔑 Войти
+
+🔑 <span data-lang="login">
+Войти
+</span>
+
 </button>
+
 
 
 <button class="back" onclick="location.href='index.html'">
-🏠 Главная
+
+🏠 <span data-lang="home">
+Главная
+</span>
+
 </button>
+
 
 
 <div class="message" id="message"></div>
@@ -161,40 +157,39 @@ placeholder="Повторите пароль">
 
 
 
+
+<script src="language.js"></script>
+
+
 <script type="module">
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
 import { 
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+} 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
 
 const firebaseConfig = {
 
-
 apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
-
 
 authDomain:"brand-outlet-tm.firebaseapp.com",
 
-
 projectId:"brand-outlet-tm",
-
 
 storageBucket:"brand-outlet-tm.firebasestorage.app",
 
-
 messagingSenderId:"1083598839585",
 
-
 appId:"1:1083598839585:web:31d6c55768a25a60732860"
-
 
 };
 
@@ -202,35 +197,38 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 const app = initializeApp(firebaseConfig);
 
-
 const auth = getAuth(app);
 
 
 
-const message = document.getElementById("message");
+const message=document.getElementById("message");
 
+
+
+function text(key){
+
+let lang=localStorage.getItem("siteLang") || "ru";
+
+return translations[lang][key];
+
+}
 
 
 
 window.register = async function(){
 
 
-let email =
-document.getElementById("email").value;
+let email=document.getElementById("email").value;
 
+let password=document.getElementById("password").value;
 
-let password =
-document.getElementById("password").value;
-
-
-let confirm =
-document.getElementById("confirmPassword").value;
+let confirm=document.getElementById("confirmPassword").value;
 
 
 
 if(!email || !password || !confirm){
 
-message.innerHTML="Заполните все поля";
+message.innerHTML=text("fillFields");
 
 return;
 
@@ -238,9 +236,9 @@ return;
 
 
 
-if(password !== confirm){
+if(password!==confirm){
 
-message.innerHTML="Пароли не совпадают";
+message.innerHTML=text("passwordError");
 
 return;
 
@@ -258,12 +256,12 @@ password
 );
 
 
-message.innerHTML="Регистрация успешна ✅";
+message.innerHTML=text("registerSuccess");
 
 
 setTimeout(()=>{
 
-window.location.href="account.html";
+location.href="account.html";
 
 },1000);
 
@@ -271,34 +269,28 @@ window.location.href="account.html";
 
 }catch(error){
 
-
 message.innerHTML=error.message;
 
-
 }
 
 
 
 }
-
 
 
 
 window.login = async function(){
 
 
-let email =
-document.getElementById("email").value;
+let email=document.getElementById("email").value;
 
-
-let password =
-document.getElementById("password").value;
+let password=document.getElementById("password").value;
 
 
 
 if(!email || !password){
 
-message.innerHTML="Введите email и пароль";
+message.innerHTML=text("enterLogin");
 
 return;
 
@@ -317,12 +309,13 @@ password
 
 
 
-message.innerHTML="Вход выполнен ✅";
+message.innerHTML=text("loginSuccess");
+
 
 
 setTimeout(()=>{
 
-window.location.href="account.html";
+location.href="account.html";
 
 },1000);
 
@@ -331,11 +324,10 @@ window.location.href="account.html";
 }catch(error){
 
 
-message.innerHTML="Неверный email или пароль";
+message.innerHTML=text("wrongLogin");
 
 
 }
-
 
 
 }
