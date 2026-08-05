@@ -154,8 +154,14 @@ text-decoration:none;
 </div>
 
 
-<div class="item">
-🌐 Язык
+<div class="item" onclick="toggleLangMenu()">
+🌐 Язык <span id="currentLang" style="float:right;color:#aaa;">Русский</span>
+</div>
+
+<div id="langMenu" style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;margin:8px 0 10px 0;">
+  <button onclick="setLanguage('ru','Русский')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">Русский</button>
+  <button onclick="setLanguage('en','English')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">English</button>
+  <button onclick="setLanguage('tk','Türkmen')" style="width:100%;margin:6px 0;padding:14px;border:none;border-radius:12px;background:#111;color:#fff;cursor:pointer;text-align:left;">Türkmen</button>
 </div>
 
 
@@ -297,6 +303,25 @@ location.reload();
 
 </script>
 
+<script>
+function toggleLangMenu() {
+  const menu = document.getElementById("langMenu");
+  menu.style.display = menu.style.display === "none" ? "block" : "none";
+}
+
+function setLanguage(code, label) {
+  localStorage.setItem("siteLang", code);
+  localStorage.setItem("siteLangLabel", label);
+  document.getElementById("currentLang").innerText = label;
+  document.getElementById("langMenu").style.display = "none";
+  alert("Язык выбран: " + label);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedLabel = localStorage.getItem("siteLangLabel") || "Русский";
+  document.getElementById("currentLang").innerText = savedLabel;
+});
+</script>
 
 </body>
 
