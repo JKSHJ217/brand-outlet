@@ -22,45 +22,66 @@ background:#111;
 color:white;
 }
 
+
 header{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 40px;
 background:#000;
+
 }
+
 
 .logo{
+
 font-size:28px;
 font-weight:bold;
+
 }
+
 
 a{
+
 color:white;
 text-decoration:none;
+
 }
 
+
 .hero{
+
 height:60vh;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 text-align:center;
+
 }
+
 
 .hero h1{
+
 font-size:50px;
 margin-bottom:20px;
+
 }
 
+
 .hero p{
+
 font-size:20px;
 color:#ccc;
 margin-bottom:30px;
+
 }
 
+
+
 button{
+
 padding:12px 25px;
 font-size:16px;
 border:none;
@@ -68,47 +89,74 @@ border-radius:10px;
 background:white;
 color:black;
 cursor:pointer;
+
 }
 
+
+
 .products{
+
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 padding:40px;
+
 }
 
+
+
 .card{
+
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
 cursor:pointer;
+
 }
+
+
 
 .card img{
+
 width:100%;
 border-radius:15px;
+
 }
+
+
 
 .price{
+
 font-size:24px;
 margin:15px 0;
+
 }
+
+
 
 .card button{
+
 width:100%;
 margin-top:10px;
+
 }
 
+
+
 footer{
+
 padding:30px;
 text-align:center;
 color:#888;
+
 }
+
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -118,63 +166,118 @@ color:#888;
 brand_outlet.tm
 </div>
 
+
 <div style="display:flex;gap:20px;">
 
+
 <a href="account.html">
-👤 Аккаунт
+👤 <span data-lang="account">Аккаунт</span>
 </a>
+
 
 <a href="favorites.html">
-❤️ Избранное (<span id="favCount">0</span>)
+❤️ <span data-lang="favorites">Избранное</span>
+(<span id="favCount">0</span>)
 </a>
 
+
 <a href="cart.html">
-🛒 Корзина (<span id="cartCount">0</span>)
+🛒 <span data-lang="cart">Корзина</span>
+(<span id="cartCount">0</span>)
 </a>
+
 
 </div>
 
 </header>
 
+
+
+
 <section class="hero">
+
 
 <h1>
 Стиль начинается с часов
 </h1>
 
-<p>
+
+<p data-lang="heroTitle">
+
 Стильные часы для любого образа
+
 </p>
 
+
+
 <a href="catalog.html">
-<button>
+
+<button data-lang="catalogButton">
+
 Смотреть каталог
+
 </button>
+
 </a>
+
 
 </section>
 
+
+
+
+
 <h1 style="text-align:center;">
-⌚ Новинки
+
+⌚ <span data-lang="new">Новинки</span>
+
 </h1>
 
+
+
+
 <div style="padding:20px 40px;">
-    <input
-        id="search"
-        type="text"
-        placeholder="🔍 Поиск часов..."
-        oninput="searchWatches()"
-        style="width:100%;padding:12px;font-size:16px;">
+
+
+<input
+
+id="search"
+
+type="text"
+
+data-lang-placeholder="search"
+
+placeholder="🔍 Поиск часов..."
+
+oninput="searchWatches()"
+
+style="width:100%;padding:12px;font-size:16px;">
+
+
+
 </div>
 
+
+
+
 <section class="products" id="products">
+
 
 </section>
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import { 
+getFirestore,
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
 
 const firebaseConfig = {
 
@@ -192,50 +295,73 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 };
 
+
+
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
+
+
 
 const products = document.getElementById("products");
 
-const snapshot = await getDocs(collection(db,"watches"));
 
 let allWatches = [];
 
+
+
+const snapshot = await getDocs(
+collection(db,"watches")
+);
+
+
+
 snapshot.forEach((doc)=>{
 
-const watch = doc.data();
+
+let watch = doc.data();
 
 watch.id = doc.id;
 
+
 allWatches.push(watch);
+
 
 });
 
+
+
 window.allWatches = allWatches;
 
-window.searchWatches = function(){
 
-let text = document
+
+window.searchWatches=function(){
+
+
+let text=document
 .getElementById("search")
 .value
 .toLowerCase()
 .trim();
 
 
-products.innerHTML = "";
+
+products.innerHTML="";
+
 
 
 allWatches.forEach((watch)=>{
 
 
-if(watch.stock <= 0) return;
+if(watch.stock<=0) return;
 
 
-let name = (watch.name || "").toLowerCase();
 
-let description = (watch.description || "").toLowerCase();
+let name=(watch.name || "").toLowerCase();
 
-let price = String(watch.price);
+let description=(watch.description || "").toLowerCase();
+
+let price=String(watch.price);
 
 
 
@@ -246,26 +372,43 @@ price.includes(text)
 ){
 
 
-products.innerHTML += `
+
+products.innerHTML+=`
 
 <div class="card" onclick="openWatch('${watch.id}')">
 
+
 <img src="${watch.images ? watch.images[0] : watch.image}">
+
 
 <h2>${watch.name}</h2>
 
-<div class="price">${watch.price} TMT</div>
 
-<p>${watch.description || ""}</p>
+<div class="price">
+${watch.price} TMT
+</div>
+
+
+<p>
+${watch.description || ""}
+</p>
+
 
 
 <button onclick="event.stopPropagation();addToCart('${watch.id}')">
-🛒 В корзину
+
+🛒 <span data-lang="addCart">
+В корзину
+</span>
+
 </button>
 
 
+
 <button onclick="event.stopPropagation();addToFavorites('${watch.id}')">
-❤️ В избранное
+
+❤️
+
 </button>
 
 
@@ -275,77 +418,108 @@ products.innerHTML += `
 
 }
 
+
 });
 
-}
+
+};
+
+
 
 window.searchWatches();
 
+
+
 </script>
+
+
+
+
 
 <script>
 
-window.openWatch = function(id){
+
+window.openWatch=function(id){
 
 window.location.href="watch.html?id="+id;
 
 }
 
 
-window.addToCart = function(id){
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+window.addToCart=function(id){
 
-    let watch = window.allWatches.find(x => x.id === id);
 
-    if(!watch){
-        alert("Товар не найден");
-        return;
-    }
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
 
-    let item = cart.find(x => x.id === id);
 
-    if(item){
+let item=cart.find(x=>x.id===id);
 
-        if(item.quantity >= watch.stock){
-            alert("На складе больше нет этого товара.");
-            return;
-        }
 
-        item.quantity++;
 
-    }else{
+if(item){
 
-        cart.push({
-            id:id,
-            quantity:1
-        });
+item.quantity++;
 
-    }
+}else{
 
-    localStorage.setItem("cart", JSON.stringify(cart));
 
-    alert("Добавлено в корзину 🛒");
+cart.push({
+
+id:id,
+
+quantity:1
+
+});
+
 
 }
 
-window.addToFavorites = function(id){
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+
+alert("Добавлено в корзину 🛒");
+
+
+}
+
+
+
+
+window.addToFavorites=function(id){
+
+
+let favorites=JSON.parse(localStorage.getItem("favorites")) || [];
+
 
 if(!favorites.includes(id)){
+
 favorites.push(id);
+
 }
 
-localStorage.setItem("favorites",JSON.stringify(favorites));
+
+localStorage.setItem(
+"favorites",
+JSON.stringify(favorites)
+);
+
 
 
 alert("Добавлено в избранное ❤️");
+
 
 }
 
 
 </script>
+
+
+
 
 <footer>
 
@@ -353,17 +527,39 @@ alert("Добавлено в избранное ❤️");
 
 </footer>
 
+
+
 <script src="counter.js"></script>
 
+<script src="language.js"></script>
+
+
+
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js")
-        .then(() => console.log("Service Worker подключён"))
-        .catch(err => console.log(err));
-    });
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+
+navigator.serviceWorker.register("./sw.js")
+
+
+.then(()=>console.log("Service Worker подключён"))
+
+
+.catch(err=>console.log(err));
+
+
+});
+
+
 }
+
 </script>
 
+
+
 </body>
+
 </html>
