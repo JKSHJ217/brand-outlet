@@ -303,4 +303,6 @@ element.placeholder = translations[lang][key];
 window.applyLanguage = applyLanguage;
 window.translations = translations;
 
-applyLanguage();
+window.addEventListener("DOMContentLoaded",()=>{
+    applyLanguage();
+});
