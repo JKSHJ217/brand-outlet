@@ -74,6 +74,8 @@ addedFavorite:"Добавлено в избранное ❤️",
 
 newOrder:"Новый заказ",
 total:"Итого",
+orderSent:"Заказ отправлен ✅",
+returnPolicy:"Возврату после покупки не подлежит",
 
 footer:"© 2026 brand_outlet.tm"
 
@@ -155,6 +157,8 @@ addedFavorite:"Added to favorites ❤️",
 
 newOrder:"New order",
 total:"Total",
+orderSent:"Order sent ✅",
+returnPolicy:"Items cannot be returned after purchase",
 
 footer:"© 2026 brand_outlet.tm"
 
@@ -236,6 +240,8 @@ addedFavorite:"Halanlara goşuldy ❤️",
 
 newOrder:"Täze sargyt",
 total:"Jemi",
+orderSent:"Sargyt ugradyldy ✅",
+returnPolicy:"Satyn alnandan soň yzyna kabul edilmeýär",
 
 footer:"© 2026 brand_outlet.tm"
 
