@@ -113,7 +113,7 @@ color:black;
 
 
 <h1>
-🛒 Ваш заказ
+🛒 <span data-lang="newOrder">Новый заказ</span>
 </h1>
 
 
@@ -122,36 +122,39 @@ color:black;
 
 <div class="total">
 
-Итого:
+<span data-lang="total">Итого</span>:
 <span id="total">0</span> TMT
 
 </div>
 
 
-<input id="name" placeholder="Ваше имя">
+<input id="name" data-lang-placeholder="name" placeholder="Ваше имя">
 
+<input id="phone" data-lang-placeholder="phone" placeholder="Ваш телефон">
 
-<input id="phone" placeholder="Ваш телефон">
-
-
-<textarea id="address" placeholder="Ваш адрес"></textarea>
-
+<textarea id="address"
+data-lang-placeholder="address"
+placeholder="Ваш адрес"></textarea>
 
 <p style="margin-top:15px;text-align:center;color:#aaa;font-size:14px;">
 
-⚠️ Возврату после покупки не принадлежит
+⚠️ <span data-lang="returnPolicy">Возврату после покупки не подлежит</span>
 
 </p>
 
 
 <button onclick="makeOrder()">
 
+<span data-lang="confirmOrder">
 Подтвердить заказ
+</span>
 
 </button>
 
 
 </div>
+
+<script src="language.js"></script>
 
 <script type="module">
 
@@ -325,9 +328,8 @@ document.getElementById("total").innerText=total;
 
 if(products.innerHTML===""){
 
-products.innerHTML=
-"<h2>Корзина пустая 🛒</h2>";
-
+let lang = localStorage.getItem("siteLang") || "ru";
+products.innerHTML = `<h2>${translations[lang].emptyCart}</h2>`;
 }
 
 
@@ -370,7 +372,8 @@ let address=document.getElementById("address").value;
 
 if(!name || !phone || !address){
 
-alert("Заполните все поля");
+let lang = localStorage.getItem("siteLang") || "ru";
+alert(translations[lang].fillFields);
 
 return;
 
@@ -384,7 +387,8 @@ let cart=JSON.parse(localStorage.getItem("cart")) || [];
 
 if(cart.length===0){
 
-alert("Корзина пустая");
+let lang = localStorage.getItem("siteLang") || "ru";
+alert(translations[lang].emptyCart);
 
 return;
 
@@ -597,7 +601,8 @@ stock:newStock
 
 
 
-alert("Заказ отправлен ✅");
+let lang = localStorage.getItem("siteLang") || "ru";
+alert(translations[lang].orderSent);
 
 
 
