@@ -2,6 +2,7 @@ const translations = {
 
 ru: {
 
+backCart:"← Вернуться в корзину",
 loadingOrders:"Загружаем заказы...",
 loginToSeeOrders:"Войдите в аккаунт, чтобы увидеть заказы",
 myOrders:"Мои заказы",
@@ -85,6 +86,7 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+backCart:"← Back to cart",
 loadingOrders:"Loading orders...",
 loginToSeeOrders:"Login to see your orders",
 myOrders:"My Orders",
@@ -168,6 +170,7 @@ footer:"© 2026 brand_outlet.tm"
 
 tk: {
 
+backCart:"← Sebede dolanmak",
 loadingOrders:"Sargytlar ýüklenýär...",
 loginToSeeOrders:"Sargytlary görmek üçin giriň",
 myOrders:"Sargytlarym",
