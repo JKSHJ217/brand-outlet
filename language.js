@@ -2,6 +2,9 @@ const translations = {
 
 ru: {
 
+stockAlert:"На складе осталось только",
+addedCart:"Добавлено в корзину 🛒",
+addedFavorite:"Добавлено в избранное ❤️",
 backCart:"← Вернуться в корзину",
 loadingOrders:"Загружаем заказы...",
 loginToSeeOrders:"Войдите в аккаунт, чтобы увидеть заказы",
@@ -70,8 +73,6 @@ address:"Ваш адрес",
 
 emptyCart:"Корзина пустая 🛒",
 
-addedCart:"Добавлено в корзину 🛒",
-addedFavorite:"Добавлено в избранное ❤️",
 
 newOrder:"Новый заказ",
 total:"Итого",
@@ -86,6 +87,9 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+stockAlert:"Only left in stock",
+addedCart:"Added to cart 🛒",
+addedFavorite:"Added to favorites ❤️",
 backCart:"← Back to cart",
 loadingOrders:"Loading orders...",
 loginToSeeOrders:"Login to see your orders",
@@ -154,9 +158,6 @@ address:"Your address",
 
 emptyCart:"Cart is empty 🛒",
 
-addedCart:"Added to cart 🛒",
-addedFavorite:"Added to favorites ❤️",
-
 newOrder:"New order",
 total:"Total",
 orderSent:"Order sent ✅",
@@ -170,6 +171,9 @@ footer:"© 2026 brand_outlet.tm"
 
 tk: {
 
+stockAlert:"Ammarda diňe galdy",
+addedCart:"Sebede goşuldy 🛒",
+addedFavorite:"Halanlara goşuldy ❤️",
 backCart:"← Sebede dolanmak",
 loadingOrders:"Sargytlar ýüklenýär...",
 loginToSeeOrders:"Sargytlary görmek üçin giriň",
@@ -238,8 +242,6 @@ address:"Salgynyňyz",
 
 emptyCart:"Sebet boş 🛒",
 
-addedCart:"Sebede goşuldy 🛒",
-addedFavorite:"Halanlara goşuldy ❤️",
 
 newOrder:"Täze sargyt",
 total:"Jemi",
