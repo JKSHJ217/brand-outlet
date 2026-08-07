@@ -415,7 +415,11 @@ document.getElementById("cartBtn").onclick = function(){
 
     if(alreadyInCart + quantity > stock){
 
-        alert("На складе осталось только " + (stock - alreadyInCart) + " шт.");
+        let lang = localStorage.getItem("siteLang") || "ru";
+
+alert(
+translations[lang].stockAlert + " " + (stock - alreadyInCart) + " шт."
+);
 
         return;
 
@@ -436,7 +440,9 @@ document.getElementById("cartBtn").onclick = function(){
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    alert("Добавлено в корзину 🛒");
+    let lang = localStorage.getItem("siteLang") || "ru";
+
+alert(translations[lang].addedCart);
 
 }
 
@@ -459,7 +465,9 @@ fav.push(id);
 localStorage.setItem("favorites",JSON.stringify(fav));
 
 
-alert("Добавлено в избранное ❤️");
+let lang = localStorage.getItem("siteLang") || "ru";
+
+alert(translations[lang].addedFavorite);
 
 
 }
