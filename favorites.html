@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Избранное - Brand Outlet</title>
 
 <style>
@@ -20,81 +23,55 @@ background:#111;
 color:white;
 }
 
-
 header{
-
 background:#000;
 padding:20px 40px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 }
-
 
 .logo{
-
 font-size:28px;
 font-weight:bold;
-
 }
-
 
 a{
-
 color:white;
 text-decoration:none;
-
 }
 
-
 .favorites{
-
 padding:40px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
-
 }
 
-
 .card{
-
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
-
 }
 
-
 .card img{
-
 width:100%;
 border-radius:15px;
 cursor:pointer;
-
 }
-
 
 .card h2{
-
 cursor:pointer;
 margin-top:15px;
-
 }
-
 
 .price{
-
 font-size:24px;
 margin:15px;
-
 }
 
-
 button{
-
 width:100%;
 padding:12px;
 margin-top:10px;
@@ -102,91 +79,69 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 font-size:16px;
-
 }
-
 
 .cart{
-
 background:white;
 color:black;
-
 }
-
 
 .remove{
-
 background:#ff5555;
 color:white;
-
 }
 
+.empty{
+grid-column:1/-1;
+text-align:center;
+padding:50px;
+}
 
 </style>
 
 </head>
 
-
 <body>
 
-
 <header>
-
 
 <div class="logo">
 brand_outlet.tm
 </div>
 
-
-
 <div style="display:flex;gap:20px;">
 
-
-<a href="index.html">
+<a href="index.html" data-lang="home">
 🏠 Главная
 </a>
 
-
-<a href="cart.html">
+<a href="cart.html" data-lang="cart">
 🛒 Корзина
 </a>
 
-
 </div>
-
 
 </header>
 
-
-
-
-<h1 style="text-align:center;margin:30px;">
+<h1
+style="text-align:center;margin:30px;"
+data-lang="favoritesTitle">
 ❤️ Избранное
 </h1>
 
-
-
-
-<section class="favorites" id="favBox">
-
-</section>
-
-
+<section class="favorites" id="favBox"></section>
 
 <script type="module">
 
-
-import { initializeApp } 
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
-
-import { 
+import {
 getFirestore,
 collection,
 getDocs
-} 
+}
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -206,87 +161,241 @@ appId: "1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+const favBox = document.getElementById("favBox");
 
 
-const favBox=document.getElementById("favBox");
+function getLanguage(){
 
+let lang =
+localStorage.getItem("siteLang") || "ru";
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+if(
+lang !== "ru" &&
+lang !== "en" &&
+lang !== "tk"
+){
 
+lang = "ru";
 
+}
 
-const snapshot = await getDocs(collection(db,"watches"));
-
-
-
-snapshot.forEach((doc)=>{
-
-
-if(favorites.includes(doc.id)){
-
-
-const watch=doc.data();
-
-
-favBox.innerHTML += `
-
-
-<div class="card">
-
-
-<div onclick="openWatch('${doc.id}')">
-
-
-<img src="${watch.images ? watch.images[0] : watch.image}">
-
-
-<h2>
-${watch.name}
-</h2>
-
-
-</div>
-
-
-
-<div class="price">
-${watch.price} TMT
-</div>
-
-
-
-<button class="cart" onclick="event.stopPropagation();addToCart('${doc.id}')">
-🛒 В корзину
-</button>
-
-
-
-<button class="remove" onclick="event.stopPropagation();removeFavorite('${doc.id}')">
-❌ Удалить
-</button>
-
-
-</div>
-
-
-`;
-
+return lang;
 
 }
 
 
+const translations = {
+
+ru:{
+
+home:"🏠 Главная",
+cart:"🛒 Корзина",
+
+favoritesTitle:"❤️ Избранное",
+
+emptyFavorites:"Избранное пустое ❤️",
+
+addCart:"🛒 В корзину",
+remove:"❌ Удалить",
+
+addedCart:"Добавлено в корзину 🛒",
+
+removed:"Товар удалён из избранного",
+
+currency:"TMT"
+
+},
+
+en:{
+
+home:"🏠 Home",
+cart:"🛒 Cart",
+
+favoritesTitle:"❤️ Favorites",
+
+emptyFavorites:"Favorites are empty ❤️",
+
+addCart:"🛒 Add to cart",
+remove:"❌ Remove",
+
+addedCart:"Added to cart 🛒",
+
+removed:"Product removed from favorites",
+
+currency:"TMT"
+
+},
+
+tk:{
+
+home:"🏠 Baş sahypa",
+cart:"🛒 Sebet",
+
+favoritesTitle:"❤️ Halanlarym",
+
+emptyFavorites:"Halanlarym boş ❤️",
+
+addCart:"🛒 Sebede goş",
+remove:"❌ Aýyrmak",
+
+addedCart:"Sebede goşuldy 🛒",
+
+removed:"Haryt halanlarymdan aýryldy",
+
+currency:"TMT"
+
+}
+
+};
+
+
+const lang = getLanguage();
+
+const tr = translations[lang];
+
+
+document.documentElement.lang = lang === "tk"
+? "tk"
+: lang;
+
+
+document.querySelectorAll("[data-lang]")
+.forEach(element=>{
+
+const key =
+element.getAttribute("data-lang");
+
+if(tr[key]){
+
+element.textContent = tr[key];
+
+}
+
 });
 
 
+const favorites =
+JSON.parse(
+localStorage.getItem("favorites")
+) || [];
 
-if(favBox.innerHTML===""){
 
-favBox.innerHTML="<h2>Избранное пустое ❤️</h2>";
+try{
+
+const snapshot =
+await getDocs(
+collection(db,"watches")
+);
+
+
+let found = 0;
+
+
+snapshot.forEach((doc)=>{
+
+if(!favorites.includes(doc.id)){
+
+return;
+
+}
+
+
+found++;
+
+
+const watch = doc.data();
+
+
+const image =
+watch.images && watch.images.length
+? watch.images[0]
+: watch.image;
+
+
+favBox.innerHTML += `
+
+<div class="card">
+
+<div onclick="openWatch('${doc.id}')">
+
+<img
+src="${image || ""}"
+alt="${watch.name || ""}"
+>
+
+<h2>
+${watch.name || ""}
+</h2>
+
+</div>
+
+<div class="price">
+
+${watch.price || 0} ${tr.currency}
+
+</div>
+
+
+<button
+class="cart"
+onclick="event.stopPropagation();addToCart('${doc.id}')">
+
+${tr.addCart}
+
+</button>
+
+
+<button
+class="remove"
+onclick="event.stopPropagation();removeFavorite('${doc.id}')">
+
+${tr.remove}
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+if(found === 0){
+
+favBox.innerHTML = `
+
+<div class="empty">
+
+<h2>
+${tr.emptyFavorites}
+</h2>
+
+</div>
+
+`;
+
+}
+
+
+}catch(error){
+
+console.error(error);
+
+favBox.innerHTML = `
+
+<div class="empty">
+
+<h2>
+${tr.emptyFavorites}
+</h2>
+
+</div>
+
+`;
 
 }
 
@@ -294,22 +403,52 @@ favBox.innerHTML="<h2>Избранное пустое ❤️</h2>";
 
 <script>
 
-window.openWatch = function(id){
+const lang =
+localStorage.getItem("siteLang") || "ru";
 
-window.location.href="watch.html?id="+id;
 
+const messages = {
+
+ru:{
+added:"Добавлено в корзину 🛒",
+removed:"Товар удалён из избранного"
+},
+
+en:{
+added:"Added to cart 🛒",
+removed:"Product removed from favorites"
+},
+
+tk:{
+added:"Sebede goşuldy 🛒",
+removed:"Haryt halanlarymdan aýryldy"
 }
 
+};
+
+
+const msg =
+messages[lang] || messages.ru;
+
+
+window.openWatch = function(id){
+
+window.location.href =
+"watch.html?id=" + id;
+
+};
 
 
 window.addToCart = function(id){
 
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-
-let item = cart.find(x=>x.id===id);
-
+let item =
+cart.find(x=>x.id===id);
 
 
 if(item){
@@ -318,18 +457,14 @@ item.quantity++;
 
 }else{
 
-
 cart.push({
 
 id:id,
-
 quantity:1
 
 });
 
-
 }
-
 
 
 localStorage.setItem(
@@ -338,24 +473,23 @@ JSON.stringify(cart)
 );
 
 
+alert(msg.added);
 
-alert("Добавлено в корзину 🛒");
-
-
-}
-
-
-
+};
 
 
 window.removeFavorite = function(id){
 
+let favorites =
+JSON.parse(
+localStorage.getItem("favorites")
+) || [];
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-
-favorites = favorites.filter(item=>item!==id);
-
+favorites =
+favorites.filter(
+item=>item!==id
+);
 
 
 localStorage.setItem(
@@ -364,18 +498,16 @@ JSON.stringify(favorites)
 );
 
 
+alert(msg.removed);
+
 
 location.reload();
 
-
-}
-
+};
 
 </script>
 
-
 <script src="counter.js"></script>
-
 
 </body>
 
