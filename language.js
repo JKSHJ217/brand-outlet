@@ -2,6 +2,10 @@ const translations = {
 
 ru: {
 
+catalogTitle:"⌚ Каталог часов",
+productNotFound:"Товар не найден",
+stockFinished:"На складе больше нет этого товара.",
+
 stockAlert:"На складе осталось только",
 addedCart:"Добавлено в корзину 🛒",
 addedFavorite:"Добавлено в избранное ❤️",
@@ -87,6 +91,10 @@ footer:"© 2026 brand_outlet.tm"
 
 en: {
 
+catalogTitle:"⌚ Watch Catalog",
+productNotFound:"Product not found",
+stockFinished:"This product is out of stock.",
+
 stockAlert:"Only left in stock",
 addedCart:"Added to cart 🛒",
 addedFavorite:"Added to favorites ❤️",
@@ -170,6 +178,10 @@ footer:"© 2026 brand_outlet.tm"
 
 
 tk: {
+
+catalogTitle:"⌚ Sagatlaryň katalogy",
+productNotFound:"Haryt tapylmady",
+stockFinished:"Bu haryt ammarda galmady.",
 
 stockAlert:"Ammarda diňe galdy",
 addedCart:"Sebede goşuldy 🛒",
