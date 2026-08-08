@@ -5,7 +5,6 @@ ru: {
 catalogTitle:"⌚ Каталог часов",
 productNotFound:"Товар не найден",
 stockFinished:"На складе больше нет этого товара.",
-
 stockAlert:"На складе осталось только",
 addedCart:"Добавлено в корзину 🛒",
 addedFavorite:"Добавлено в избранное ❤️",
@@ -84,59 +83,58 @@ returnPolicy:"Возврату после покупки не подлежит",
 
 footer:"© 2026 brand_outlet.tm",
 
-
-/* =========================
-   CALIBRE RUN
-========================= */
+/* ===== ИГРА ===== */
 
 gameTitle:"Calibre Run",
-gameStart:"Начать",
-gameShop:"Магазин скинов",
-gameClose:"Закрыть",
+gameBrand:"BRAND OUTLET · TM",
 
-gameDescription:
+gameMechanism:
 "Механизм разогнался — гиря вырвалась из хода часов.<br>Прыгай через застрявшие шестерни, ныряй под маятник,<br>собирай золото и держи темп: чем дальше, тем быстрее ход.",
 
-gameDeadTitle:"Механизм заклинило",
-gameDeadText:"Ход сбился. Заведи снова.",
-
-gameScore:"СЧЁТ:",
-gameBest:"ЛУЧШИЙ:",
-gameCoins:"МОНЕТ:",
-
-gameHint:
-"ТАП — ПРЫЖОК · СВАЙП ВНИЗ ИЛИ КНОПКА — ПОДКАТ",
+gameStart:"Начать",
+gameShop:"Магазин скинов",
+gameShopTitle:"Магазин",
+gameClose:"Закрыть",
 
 gameJump:"Прыжок",
 gameDuck:"Подкат",
 
-gameShopTitle:"Магазин",
-gameDrawSkin:"Нарисуй свой скин",
-gameClear:"Очистить",
-gameSave:"Сохранить",
+gameHint:"ТАП — ПРЫЖОК · СВАЙП ВНИЗ ИЛИ КНОПКА — ПОДКАТ",
+
+gameBest:"ЛУЧШИЙ:",
+gameCoins:"МОНЕТ:",
 
 gameCombo:"КОМБО",
-gameMagnet:"МАГНИТ",
-gameFlight:"ПОЛЁТ",
+gameMechanismBroken:"Механизм заклинило",
+gameRestartText:"Ход сбился. Заведи снова.",
+gameScore:"СЧЁТ:",
+
+gameClassicGold:"Классическое золото",
+gameRoseGold:"Розовое золото",
+gamePlatinum:"Платина",
+gameOnyx:"Оникс",
+gameEmerald:"Изумруд",
+gameChrome:"Хром",
+gameInferno:"Инферно",
+gameNebula:"Туманность",
+gameDiamond:"Алмаз",
+gameVoid:"Пустота",
+gameCustom:"Свой рисунок",
 
 gameSelected:"Выбрано",
 gameChoose:"Выбрать",
 gameCoinsWord:"монет",
 
-gameSkinClassic:"Classic Gold",
-gameSkinRose:"Rose Gold",
-gameSkinPlatinum:"Platinum",
-gameSkinOnyx:"Onyx",
-gameSkinEmerald:"Emerald",
-gameSkinChrome:"Chrome",
-gameSkinInferno:"Inferno",
-gameSkinNebula:"Nebula",
-gameSkinDiamond:"Diamond",
-gameSkinVoid:"Void",
-gameSkinCustom:"Свой рисунок",
+gameDrawTitle:"Нарисуй свой скин",
+gameClear:"Очистить",
+gameSave:"Сохранить",
 
-gamePowerMagnet:"🧲 МАГНИТ",
-gamePowerFlight:"🎒 ПОЛЁТ"
+gameMagnet:"МАГНИТ",
+gameFlight:"ПОЛЁТ",
+
+gameSeconds:"с",
+
+gameStartAgain:"Начать снова"
 
 },
 
@@ -146,7 +144,6 @@ en: {
 catalogTitle:"⌚ Watch Catalog",
 productNotFound:"Product not found",
 stockFinished:"This product is out of stock.",
-
 stockAlert:"Only left in stock",
 addedCart:"Added to cart 🛒",
 addedFavorite:"Added to favorites ❤️",
@@ -225,59 +222,58 @@ returnPolicy:"Items cannot be returned after purchase",
 
 footer:"© 2026 brand_outlet.tm",
 
-
-/* =========================
-   CALIBRE RUN
-========================= */
+/* ===== GAME ===== */
 
 gameTitle:"Calibre Run",
+gameBrand:"BRAND OUTLET · TM",
+
+gameMechanism:
+"The mechanism accelerated — the weight broke free from the clockwork.<br>Jump over stuck gears, duck under the pendulum,<br>collect gold and keep your pace: the farther you go, the faster it gets.",
+
 gameStart:"Start",
 gameShop:"Skin Shop",
+gameShopTitle:"Shop",
 gameClose:"Close",
-
-gameDescription:
-"The mechanism has accelerated — the weight broke free from the clock.<br>Jump over stuck gears, duck under the pendulum,<br>collect gold and keep the pace: the farther you go, the faster it gets.",
-
-gameDeadTitle:"Mechanism jammed",
-gameDeadText:"The movement stopped. Wind it up again.",
-
-gameScore:"SCORE:",
-gameBest:"BEST:",
-gameCoins:"COINS:",
-
-gameHint:
-"TAP — JUMP · SWIPE DOWN OR BUTTON — DUCK",
 
 gameJump:"Jump",
 gameDuck:"Duck",
 
-gameShopTitle:"Shop",
-gameDrawSkin:"Draw your own skin",
+gameHint:"TAP — JUMP · SWIPE DOWN OR BUTTON — DUCK",
+
+gameBest:"BEST:",
+gameCoins:"COINS:",
+
+gameCombo:"COMBO",
+gameMechanismBroken:"Mechanism jammed",
+gameRestartText:"The rhythm is broken. Wind it up again.",
+gameScore:"SCORE:",
+
+gameClassicGold:"Classic Gold",
+gameRoseGold:"Rose Gold",
+gamePlatinum:"Platinum",
+gameOnyx:"Onyx",
+gameEmerald:"Emerald",
+gameChrome:"Chrome",
+gameInferno:"Inferno",
+gameNebula:"Nebula",
+gameDiamond:"Diamond",
+gameVoid:"Void",
+gameCustom:"Custom Drawing",
+
+gameSelected:"Selected",
+gameChoose:"Choose",
+gameCoinsWord:"coins",
+
+gameDrawTitle:"Draw Your Skin",
 gameClear:"Clear",
 gameSave:"Save",
 
-gameCombo:"COMBO",
 gameMagnet:"MAGNET",
 gameFlight:"FLIGHT",
 
-gameSelected:"Selected",
-gameChoose:"Select",
-gameCoinsWord:"coins",
+gameSeconds:"s",
 
-gameSkinClassic:"Classic Gold",
-gameSkinRose:"Rose Gold",
-gameSkinPlatinum:"Platinum",
-gameSkinOnyx:"Onyx",
-gameSkinEmerald:"Emerald",
-gameSkinChrome:"Chrome",
-gameSkinInferno:"Inferno",
-gameSkinNebula:"Nebula",
-gameSkinDiamond:"Diamond",
-gameSkinVoid:"Void",
-gameSkinCustom:"Custom Drawing",
-
-gamePowerMagnet:"🧲 MAGNET",
-gamePowerFlight:"🎒 FLIGHT"
+gameStartAgain:"Start Again"
 
 },
 
@@ -287,7 +283,6 @@ tk: {
 catalogTitle:"⌚ Sagatlaryň katalogy",
 productNotFound:"Haryt tapylmady",
 stockFinished:"Bu haryt ammarda galmady.",
-
 stockAlert:"Ammarda diňe galdy",
 addedCart:"Sebede goşuldy 🛒",
 addedFavorite:"Halanlara goşuldy ❤️",
@@ -366,68 +361,64 @@ returnPolicy:"Satyn alnandan soň yzyna kabul edilmeýär",
 
 footer:"© 2026 brand_outlet.tm",
 
-
-/* =========================
-   CALIBRE RUN
-========================= */
+/* ===== OÝUN ===== */
 
 gameTitle:"Calibre Run",
+gameBrand:"BRAND OUTLET · TM",
+
+gameMechanism:
+"Mehanizm tizleşdi — agyrlyk sagadyň mehanizminden çykdy.<br>Dykylan dişli tigirlerden bökmek, maýatnikden aşak egilip geçmek,<br>altyn ýygnamak we tizligi saklamak: näçe uzak gitseňiz, şonça-da çalt bolar.",
+
 gameStart:"Başlamak",
-gameShop:"Skin dükany",
-gameClose:"Ýap",
-
-gameDescription:
-"Mehanizm tizlendi — agram sagadyň hereketinden çykdy.<br>Gysylan dişli çarhlardan bökmek, maýatnikden aşak egilmek,<br>altyn ýygnamak we depgini saklamak: näçe uzak gitseň, şonça-da çaltlaşýar.",
-
-gameDeadTitle:"Mehanizm dykylady",
-gameDeadText:"Hereket saklandy. Ýene-de işledip başla.",
-
-gameScore:"HASAP:",
-gameBest:"IŇ GOWUSY:",
-gameCoins:"TEŇŇE:",
-
-gameHint:
-"TAP — BÖK · AŞA SÜÝŞÜR ÝA-DA DÜWMÄ — AŞAK EGIL",
-
-gameJump:"Bök",
-gameDuck:"Aşak egil",
-
+gameShop:"Skinler dükany",
 gameShopTitle:"Dükan",
-gameDrawSkin:"Öz skiniňi çek",
-gameClear:"Arassala",
-gameSave:"Ýatda sakla",
+gameClose:"Ýapmak",
+
+gameJump:"Böküş",
+gameDuck:"Aşak egilmek",
+
+gameHint:"TAP — BÖKÜŞ · AŞAK SÜÝŞÜRMEK ÝA-DA DÜWMÄ — AŞAK EGILMEK",
+
+gameBest:"IŇ GOWUSY:",
+gameCoins:"ŞAÝLAR:",
 
 gameCombo:"KOMBO",
+gameMechanismBroken:"Mehanizm dykyl",
+gameRestartText:"Ritm bozuldy. Ýene-de işlediň.",
+gameScore:"BAL:",
+
+gameClassicGold:"Klassiki altyn",
+gameRoseGold:"Gül altyny",
+gamePlatinum:"Platina",
+gameOnyx:"Oniks",
+gameEmerald:"Zümrüt",
+gameChrome:"Hrom",
+gameInferno:"Inferno",
+gameNebula:"Nebula",
+gameDiamond:"Göwher",
+gameVoid:"Boşluk",
+gameCustom:"Öz suratyň",
+
+gameSelected:"Saýlandy",
+gameChoose:"Saýlamak",
+gameCoinsWord:"şaý",
+
+gameDrawTitle:"Öz skiniňi çek",
+gameClear:"Arassalamak",
+gameSave:"Saklamak",
+
 gameMagnet:"MAGNIT",
 gameFlight:"UÇUŞ",
 
-gameSelected:"Saýlandy",
-gameChoose:"Saýla",
-gameCoinsWord:"teňňe",
+gameSeconds:"s",
 
-gameSkinClassic:"Classic Gold",
-gameSkinRose:"Rose Gold",
-gameSkinPlatinum:"Platinum",
-gameSkinOnyx:"Onyx",
-gameSkinEmerald:"Emerald",
-gameSkinChrome:"Chrome",
-gameSkinInferno:"Inferno",
-gameSkinNebula:"Nebula",
-gameSkinDiamond:"Diamond",
-gameSkinVoid:"Void",
-gameSkinCustom:"Öz suratyň",
-
-gamePowerMagnet:"🧲 MAGNIT",
-gamePowerFlight:"🎒 UÇUŞ"
+gameStartAgain:"Täzeden başlamak"
 
 }
 
 };
 
 
-/* =========================================
-   ОСНОВНОЙ ПЕРЕВОД САЙТА
-========================================= */
 
 function applyLanguage(){
 
@@ -458,361 +449,16 @@ function applyLanguage(){
 
     });
 
-
-    translateGame(lang);
 }
 
 
-/* =========================================
-   ПЕРЕВОД ИГРЫ
-   САМ ФАЙЛ ИГРЫ НЕ МЕНЯЕМ
-========================================= */
-
-function translateGame(lang){
-
-    const t = translations[lang];
-
-    if(!t) return;
-
-
-    /* Заголовок */
-
-    const gameTitle = document.querySelector("#overlay h1");
-
-    if(gameTitle){
-
-        if(
-            gameTitle.textContent === "Calibre Run" ||
-            gameTitle.textContent === "Механизм заклинило" ||
-            gameTitle.textContent === "Mechanism jammed" ||
-            gameTitle.textContent === "Mehanizm dykylady"
-        ){
-
-            if(gameTitle.textContent === "Механизм заклинило" ||
-               gameTitle.textContent === "Mechanism jammed" ||
-               gameTitle.textContent === "Mehanizm dykylady"){
-
-                gameTitle.textContent = t.gameDeadTitle;
-
-            }else{
-
-                gameTitle.textContent = t.gameTitle;
-
-            }
-
-        }
-
-    }
-
-
-    /* Кнопка начала */
-
-    const startBtn = document.getElementById("startBtn");
-
-    if(startBtn){
-        startBtn.textContent = t.gameStart;
-    }
-
-
-    /* Магазин */
-
-    const shopBtn = document.getElementById("shopBtn");
-
-    if(shopBtn){
-        shopBtn.textContent = t.gameShop;
-    }
-
-
-    const shopTitle = document.querySelector("#shopOverlay h2");
-
-    if(shopTitle){
-        shopTitle.textContent = t.gameShopTitle;
-    }
-
-
-    const closeShopBtn = document.getElementById("closeShopBtn");
-
-    if(closeShopBtn){
-        closeShopBtn.textContent = t.gameClose;
-    }
-
-
-    /* Рисование */
-
-    const drawTitle = document.querySelector("#drawOverlay h2");
-
-    if(drawTitle){
-        drawTitle.textContent = t.gameDrawSkin;
-    }
-
-
-    const clearBtn = document.getElementById("clearDrawBtn");
-
-    if(clearBtn){
-        clearBtn.textContent = t.gameClear;
-    }
-
-
-    const saveBtn = document.getElementById("saveDrawBtn");
-
-    if(saveBtn){
-        saveBtn.textContent = t.gameSave;
-    }
-
-
-    /* Подсказка */
-
-    const hint = document.querySelector(".hint");
-
-    if(hint){
-        hint.textContent = t.gameHint;
-    }
-
-
-    /* Описание игры */
-
-    const overlayText = document.querySelector("#overlay p");
-
-    if(overlayText){
-
-        if(
-            overlayText.innerHTML.includes("Механизм разогнался") ||
-            overlayText.innerHTML.includes("The mechanism has accelerated") ||
-            overlayText.innerHTML.includes("Mehanizm tizlendi") ||
-            overlayText.innerHTML.includes("Ход сбился") ||
-            overlayText.innerHTML.includes("The movement stopped") ||
-            overlayText.innerHTML.includes("Hereket saklandy")
-        ){
-
-            if(
-                overlayText.innerHTML.includes("Ход сбился") ||
-                overlayText.innerHTML.includes("The movement stopped") ||
-                overlayText.innerHTML.includes("Hereket saklandy")
-            ){
-                overlayText.textContent = t.gameDeadText;
-            }else{
-                overlayText.innerHTML = t.gameDescription;
-            }
-
-        }
-
-    }
-
-
-    /* Счёт */
-
-    const score = document.getElementById("score");
-
-    if(score){
-        // Само число не меняем
-    }
-
-
-    /* Лучший результат */
-
-    const best = document.getElementById("best");
-
-    if(best){
-
-        const number = best.textContent.match(/\d+/);
-
-        best.textContent =
-            t.gameBest + " " + (number ? number[0] : "0000");
-
-    }
-
-
-    /* Монеты */
-
-    const wallet = document.getElementById("wallet");
-
-    if(wallet){
-
-        const number = wallet.textContent.match(/\d+/);
-
-        wallet.textContent =
-            t.gameCoins + " " + (number ? number[0] : "0");
-
-    }
-
-
-    const shopWallet = document.getElementById("shopWallet");
-
-    if(shopWallet){
-
-        const number = shopWallet.textContent.match(/\d+/);
-
-        shopWallet.textContent =
-            t.gameCoins + " " + (number ? number[0] : "0");
-
-    }
-
-
-    /* Финальный счёт */
-
-    const finalScore = document.getElementById("finalScoreLine");
-
-    if(finalScore){
-
-        const number = finalScore.textContent.match(/\d+/);
-
-        if(number){
-            finalScore.textContent =
-                t.gameScore + " " + number[0];
-        }
-
-    }
-
-
-    /* Кнопка подката */
-
-    const duckBtn = document.getElementById("duckBtn");
-
-    if(duckBtn){
-        duckBtn.setAttribute("aria-label", t.gameDuck);
-    }
-
-}
-
-
-/* =========================================
-   ПЕРЕВОД ДИНАМИЧЕСКИХ ФРАЗ ИГРЫ
-========================================= */
-
-function translateDynamicGameText(){
-
-    const lang = localStorage.getItem("siteLang") || "ru";
-    const t = translations[lang];
-
-    if(!t) return;
-
-
-    const replacements = {
-
-        "Механизм заклинило": t.gameDeadTitle,
-        "Mechanism jammed": t.gameDeadTitle,
-
-        "Ход сбился. Заведи снова.": t.gameDeadText,
-        "The movement stopped. Wind it up again.": t.gameDeadText,
-
-        "Магазин скинов": t.gameShop,
-        "Skin Shop": t.gameShop,
-
-        "Закрыть": t.gameClose,
-        "Close": t.gameClose,
-
-        "Нарисуй свой скин": t.gameDrawSkin,
-        "Draw your own skin": t.gameDrawSkin,
-
-        "Очистить": t.gameClear,
-        "Clear": t.gameClear,
-
-        "Сохранить": t.gameSave,
-        "Save": t.gameSave,
-
-        "Выбрано": t.gameSelected,
-        "Selected": t.gameSelected,
-
-        "Выбрать": t.gameChoose,
-        "Select": t.gameChoose,
-
-        "Свой рисунок": t.gameSkinCustom,
-        "Custom Drawing": t.gameSkinCustom,
-
-        "монет": t.gameCoinsWord,
-        "coins": t.gameCoinsWord,
-
-        "🧲 МАГНИТ": t.gamePowerMagnet,
-        "🧲 MAGNET": t.gamePowerMagnet,
-
-        "🎒 ПОЛЁТ": t.gamePowerFlight,
-        "🎒 FLIGHT": t.gamePowerFlight
-
-    };
-
-
-    const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT
-    );
-
-
-    const nodes = [];
-
-    while(walker.nextNode()){
-        nodes.push(walker.currentNode);
-    }
-
-
-    nodes.forEach(node=>{
-
-        let text = node.nodeValue.trim();
-
-        if(replacements[text]){
-
-            node.nodeValue =
-                node.nodeValue.replace(text,replacements[text]);
-
-        }
-
-    });
-
-}
-
-
-/* =========================================
-   НАБЛЮДАТЕЛЬ
-   НУЖЕН ПОТОМУ ЧТО ИГРА СОЗДАЁТ
-   ЭЛЕМЕНТЫ МАГАЗИНА ДИНАМИЧЕСКИ
-========================================= */
-
-const gameLanguageObserver =
-new MutationObserver(()=>{
-
-    translateDynamicGameText();
-
-});
-
-
-/* =========================================
-   СОХРАНЯЕМ СТАРЫЕ GLOBAL VARIABLES
-========================================= */
 
 window.applyLanguage = applyLanguage;
 window.translations = translations;
 
 
-/* =========================================
-   ЗАПУСК
-========================================= */
-
 window.addEventListener("DOMContentLoaded",()=>{
 
     applyLanguage();
 
-    gameLanguageObserver.observe(
-        document.body,
-        {
-            childList:true,
-            subtree:true
-        }
-    );
-
 });
-
-
-/* Если language.js загружается после DOM */
-
-if(document.readyState !== "loading"){
-
-    applyLanguage();
-
-    gameLanguageObserver.observe(
-        document.body,
-        {
-            childList:true,
-            subtree:true
-        }
-    );
-
-}
