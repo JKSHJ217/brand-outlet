@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
@@ -41,51 +42,35 @@ text-decoration:none;
 }
 
 .catalog{
-
 padding:40px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
-
 }
 
-
 .card{
-
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 text-align:center;
 cursor:pointer;
-
 }
-
 
 .card img{
-
 width:100%;
 border-radius:15px;
-
 }
-
 
 .card h2{
-
 margin:15px 0;
-
 }
-
 
 .price{
-
 font-size:24px;
 margin:15px;
-
 }
 
-
 button{
-
 width:100%;
 background:white;
 color:black;
@@ -95,23 +80,17 @@ border-radius:10px;
 cursor:pointer;
 font-size:16px;
 margin-top:10px;
-
 }
 
-
 button:hover{
-
 background:#ddd;
-
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -119,49 +98,47 @@ background:#ddd;
 brand_outlet.tm
 </div>
 
-
 <div style="display:flex;gap:20px;">
 
-
 <a href="index.html">
-🏠 Главная
+<span data-lang="home">🏠 Главная</span>
 </a>
-
 
 <a href="favorites.html">
-❤️ Избранное (<span id="favCount">0</span>)
+<span data-lang="favorites">❤️ Избранное</span>
+(<span id="favCount">0</span>)
 </a>
-
 
 <a href="cart.html">
-🛒 Корзина (<span id="cartCount">0</span>)
+<span data-lang="cart">🛒 Корзина</span>
+(<span id="cartCount">0</span>)
 </a>
-
 
 </div>
 
 </header>
 
-
-
 <h1 style="text-align:center;margin:30px;">
-⌚ Каталог часов
+<span data-lang="catalogTitle">⌚ Каталог часов</span>
 </h1>
 
 <div style="padding:20px 40px;">
+
 <input
 id="search"
 type="text"
+data-lang-placeholder="search"
 placeholder="🔍 Поиск часов..."
 oninput="searchWatches()"
 style="width:100%;padding:12px;font-size:16px;border-radius:10px;">
+
 </div>
 
 <section class="catalog" id="catalog">
 
 </section>
 
-
+<script src="language.js"></script>
 
 <script type="module">
 
@@ -177,6 +154,7 @@ getDocs
 const catalog = document.getElementById("catalog");
 
 let allWatches = [];
+
 
 const firebaseConfig={
 
@@ -200,8 +178,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-
-const snapshot = await getDocs(collection(db,"watches"));
+const snapshot = await getDocs(
+collection(db,"watches")
+);
 
 
 allWatches = snapshot.docs.map(doc => ({
@@ -209,20 +188,31 @@ id: doc.id,
 ...doc.data()
 }));
 
+
 window.allWatches = allWatches;
+
 
 searchWatches();
 
 
 function searchWatches(){
 
-let text = document.getElementById("search").value.toLowerCase().trim();
+let text = document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
 
 catalog.innerHTML = "";
 
 
-allWatches.forEach((watch)=>{
+let lang = localStorage.getItem("siteLang") || "ru";
 
+let t = translations[lang];
+
+
+allWatches.forEach((watch)=>{
 
 if(watch.stock <= 0) return;
 
@@ -234,58 +224,43 @@ let description = (watch.description || "").toLowerCase();
 let price = String(watch.price);
 
 
-
 if(
 name.includes(text) ||
 description.includes(text) ||
 price.includes(text)
 ){
 
-
 catalog.innerHTML += `
-
 
 <div class="card" onclick="openWatch('${watch.id}')">
 
-
 <img src="${watch.images ? watch.images[0] : watch.image}">
 
-
 <h2>${watch.name}</h2>
-
 
 <div class="price">
 ${watch.price} TMT
 </div>
 
-
 <p>
 ${watch.description || ""}
 </p>
 
-
-
 <button onclick="event.stopPropagation(); addToCart('${watch.id}')">
-🛒 В корзину
+${t.addCart}
 </button>
-
-
 
 <button onclick="event.stopPropagation(); addToFavorites('${watch.id}')">
-❤️ В избранное
+${t.addFavorite}
 </button>
 
-
 </div>
-
 
 `;
 
 }
 
-
 });
-
 
 }
 
@@ -295,9 +270,7 @@ window.searchWatches = searchWatches;
 
 </script>
 
-
 <script>
-
 
 function openWatch(id){
 
@@ -306,52 +279,65 @@ window.location.href = "watch.html?id=" + id;
 }
 
 
-
 function addToCart(id){
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    let watch = window.allWatches.find(x => x.id === id);
+let watch = window.allWatches.find(x => x.id === id);
 
-    if(!watch){
-        alert("Товар не найден");
-        return;
-    }
 
-    let item = cart.find(x => x.id === id);
+if(!watch){
 
-    if(item){
+let lang = localStorage.getItem("siteLang") || "ru";
 
-        if(item.quantity >= watch.stock){
-            alert("На складе больше нет этого товара.");
-            return;
-        }
+alert(translations[lang].productNotFound);
 
-        item.quantity++;
-
-    }else{
-
-        cart.push({
-            id:id,
-            quantity:1
-        });
-
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert("Добавлено в корзину 🛒");
+return;
 
 }
 
 
+let item = cart.find(x => x.id === id);
 
 
+if(item){
+
+if(item.quantity >= watch.stock){
+
+let lang = localStorage.getItem("siteLang") || "ru";
+
+alert(translations[lang].stockFinished);
+
+return;
+
+}
+
+item.quantity++;
+
+}else{
+
+cart.push({
+id:id,
+quantity:1
+});
+
+}
+
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+
+let lang = localStorage.getItem("siteLang") || "ru";
+
+alert(translations[lang].addedCart);
+
+}
 
 
 function addToFavorites(id){
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+let favorites =
+JSON.parse(localStorage.getItem("favorites")) || [];
 
 
 if(!favorites.includes(id)){
@@ -361,18 +347,17 @@ favorites.push(id);
 }
 
 
-localStorage.setItem("favorites", JSON.stringify(favorites));
+localStorage.setItem(
+"favorites",
+JSON.stringify(favorites)
+);
 
 
+let lang = localStorage.getItem("siteLang") || "ru";
 
-alert("Добавлено в избранное ❤️");
+alert(translations[lang].addedFavorite);
 
 }
-
-
-
-
-
 
 </script>
 
