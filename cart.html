@@ -1,8 +1,8 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -40,7 +40,6 @@ color:white;
 text-decoration:none;
 }
 
-
 .cart{
 max-width:1000px;
 margin:auto;
@@ -50,75 +49,54 @@ flex-direction:column;
 gap:25px;
 }
 
-
 .card{
-
 background:#1c1c1c;
 border-radius:20px;
 padding:20px;
 display:flex;
 align-items:center;
 gap:20px;
-
 }
 
-
 .card img{
-
 width:160px;
 height:160px;
 object-fit:cover;
 border-radius:15px;
-
+cursor:pointer;
 }
-
 
 .info{
-
 flex:1;
-
 }
-
 
 .info h2{
-
 margin-bottom:10px;
-
+cursor:pointer;
 }
-
 
 .price{
-
 font-size:22px;
 margin:10px 0;
-
 }
 
-
 .quantity{
-
 display:flex;
 align-items:center;
 gap:15px;
 margin-top:15px;
-
 }
 
-
 .quantity button{
-
 width:40px;
 height:40px;
 font-size:24px;
 border:none;
 border-radius:10px;
 cursor:pointer;
-
 }
 
-
 .remove{
-
 margin-top:15px;
 background:#ff4444;
 color:white;
@@ -126,12 +104,9 @@ border:none;
 padding:10px 20px;
 border-radius:10px;
 cursor:pointer;
-
 }
 
-
 .total{
-
 max-width:1000px;
 margin:20px auto;
 background:#1c1c1c;
@@ -139,12 +114,9 @@ padding:25px;
 border-radius:20px;
 font-size:25px;
 text-align:right;
-
 }
 
-
 .checkout{
-
 margin-top:20px;
 width:100%;
 padding:15px;
@@ -152,17 +124,59 @@ border:none;
 border-radius:10px;
 font-size:18px;
 cursor:pointer;
-
 }
 
+.empty{
+text-align:center;
+padding:50px;
+}
+
+@media(max-width:600px){
+
+header{
+padding:15px 20px;
+}
+
+.logo{
+font-size:22px;
+}
+
+header div:last-child{
+gap:10px !important;
+font-size:14px;
+}
+
+.cart{
+padding:20px;
+}
+
+.card{
+flex-direction:column;
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:auto;
+max-height:300px;
+}
+
+.info{
+width:100%;
+}
+
+.total{
+margin:20px;
+font-size:20px;
+}
+
+}
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -170,58 +184,64 @@ cursor:pointer;
 brand_outlet.tm
 </div>
 
-
 <div style="display:flex;gap:20px;">
 
-<a href="index.html">
+<a href="index.html" data-lang="home">
 🏠 Главная
 </a>
 
-
-<a href="favorites.html">
+<a href="favorites.html" data-lang="favorites">
 ❤️ Избранное
 </a>
-
 
 </div>
 
 </header>
 
-
-
-<h1 style="text-align:center;margin:30px;">
+<h1
+style="text-align:center;margin:30px;"
+data-lang="cartTitle">
 🛒 Корзина
 </h1>
 
-
-
 <section class="cart" id="cart">
-
 </section>
-
-
 
 <div class="total">
 
+<span data-lang="total">
 Общая сумма:
+</span>
+
 <span id="totalPrice">0</span> TMT
 
+<button
+class="checkout"
+onclick="location.href='checkout.html'"
+data-lang="checkout">
 
-<button class="checkout" onclick="location.href='checkout.html'">
 🛍 Оформить заказ
+
 </button>
 
 </div>
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
 
-apiKey:"AIzaSyCc7DmnpKpSabioJg7F-v7Z3ywUfiTsnPQ",
+apiKey:"AIzaSyCc7DmnpKpSabioJg7F-vZ3ZywUfiTsnPQ",
 
 authDomain:"brand-outlet-tm.firebaseapp.com",
 
@@ -237,20 +257,187 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
 
-const cartBox = document.getElementById("cart");
-const totalPrice = document.getElementById("totalPrice");
+const cartBox =
+document.getElementById("cart");
+
+const totalPrice =
+document.getElementById("totalPrice");
 
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+/* =========================
+   ЯЗЫК
+========================= */
+
+function getLanguage(){
+
+let lang =
+localStorage.getItem("siteLang") || "ru";
+
+if(
+lang !== "ru" &&
+lang !== "en" &&
+lang !== "tk"
+){
+
+lang = "ru";
+
+}
+
+return lang;
+
+}
 
 
+const translations = {
+
+ru:{
+
+home:"🏠 Главная",
+favorites:"❤️ Избранное",
+
+cartTitle:"🛒 Корзина",
+
+total:"Общая сумма:",
+
+checkout:"🛍 Оформить заказ",
+
+price:"Цена:",
+sum:"Итого:",
+
+remove:"🗑 Удалить",
+
+empty:"Корзина пустая 🛒",
+
+currency:"TMT"
+
+},
+
+en:{
+
+home:"🏠 Home",
+favorites:"❤️ Favorites",
+
+cartTitle:"🛒 Cart",
+
+total:"Total:",
+
+checkout:"🛍 Checkout",
+
+price:"Price:",
+sum:"Total:",
+
+remove:"🗑 Remove",
+
+empty:"Cart is empty 🛒",
+
+currency:"TMT"
+
+},
+
+tk:{
+
+home:"🏠 Baş sahypa",
+favorites:"❤️ Halanlarym",
+
+cartTitle:"🛒 Sebet",
+
+total:"Jemi:",
+
+checkout:"🛍 Sargyt bermek",
+
+price:"Bahasy:",
+sum:"Jemi:",
+
+remove:"🗑 Aýyrmak",
+
+empty:"Sebet boş 🛒",
+
+currency:"TMT"
+
+}
+
+};
 
 
-const snapshot = await getDocs(collection(db,"watches"));
+const lang = getLanguage();
 
+const tr = translations[lang];
+
+
+document.documentElement.lang =
+lang === "tk" ? "tk" : lang;
+
+
+document
+.querySelectorAll("[data-lang]")
+.forEach(element=>{
+
+const key =
+element.getAttribute("data-lang");
+
+if(tr[key]){
+
+element.textContent = tr[key];
+
+}
+
+});
+
+
+/* =========================
+   СООБЩЕНИЯ
+========================= */
+
+const messages = {
+
+ru:{
+removed:"Товар удалён из корзины",
+added:"Количество увеличено",
+decreased:"Количество уменьшено"
+},
+
+en:{
+removed:"Product removed from cart",
+added:"Quantity increased",
+decreased:"Quantity decreased"
+},
+
+tk:{
+removed:"Haryt sebetden aýryldy",
+added:"Mukdar köpeldildi",
+decreased:"Mukdar azaldyldy"
+}
+
+};
+
+
+const msg =
+messages[lang] || messages.ru;
+
+
+/* =========================
+   КОРЗИНА
+========================= */
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+
+const snapshot =
+await getDocs(
+collection(db,"watches")
+);
+
+
+/* =========================
+   ОТОБРАЖЕНИЕ
+========================= */
 
 function renderCart(){
 
@@ -258,69 +445,123 @@ cartBox.innerHTML="";
 
 let total=0;
 
+let found=0;
+
 
 snapshot.forEach((doc)=>{
 
-
-let item = cart.find(x=>x.id===doc.id);
-
-
-if(item){
+const item =
+cart.find(x=>x.id===doc.id);
 
 
-let watch = doc.data();
+if(!item){
+
+return;
+
+}
 
 
-let sum = watch.price * item.quantity;
+found++;
+
+
+const watch =
+doc.data();
+
+
+const image =
+watch.images &&
+watch.images.length
+? watch.images[0]
+: watch.image;
+
+
+const price =
+Number(watch.price) || 0;
+
+
+const quantity =
+Number(item.quantity) || 1;
+
+
+const sum =
+price * quantity;
 
 
 total += sum;
-
 
 
 cartBox.innerHTML += `
 
 <div class="card">
 
-<img onclick="openWatch('${doc.id}')" src="${watch.images ? watch.images[0] : watch.image}">
+<img
+onclick="openWatch('${doc.id}')"
+src="${image || ""}"
+alt="${watch.name || ""}"
+>
 
 
 <div class="info">
 
-<h2 onclick="openWatch('${doc.id}')">${watch.name}</h2>
+<h2
+onclick="openWatch('${doc.id}')">
+
+${watch.name || ""}
+
+</h2>
 
 
 <div class="price">
-Цена: ${watch.price} TMT
+
+${tr.price}
+${price}
+${tr.currency}
+
 </div>
 
 
 <div class="price">
-Итого: ${sum} TMT
+
+${tr.sum}
+${sum}
+${tr.currency}
+
 </div>
 
 
 <div class="quantity">
 
-<button onclick="minus('${doc.id}')">
+<button
+onclick="minus('${doc.id}')">
+
 −
+
 </button>
 
 
 <span>
-${item.quantity}
+
+${quantity}
+
 </span>
 
 
-<button onclick="plus('${doc.id}')">
+<button
+onclick="plus('${doc.id}')">
+
 +
+
 </button>
 
 </div>
 
 
-<button class="remove" onclick="removeItem('${doc.id}')">
-🗑 Удалить
+<button
+class="remove"
+onclick="removeItem('${doc.id}')">
+
+${tr.remove}
+
 </button>
 
 
@@ -330,29 +571,43 @@ ${item.quantity}
 
 `;
 
-}
-
-
 });
 
 
-totalPrice.innerText = total;
+totalPrice.innerText =
+total;
 
 
-if(cartBox.innerHTML===""){
+if(found === 0){
 
-cartBox.innerHTML="<h2>Корзина пустая 🛒</h2>";
+cartBox.innerHTML = `
+
+<div class="empty">
+
+<h2>
+
+${tr.empty}
+
+</h2>
+
+</div>
+
+`;
+
+}
 
 }
 
 
-}
+/* =========================
+   + КОЛИЧЕСТВО
+========================= */
 
+window.plus = function(id){
 
+let item =
+cart.find(x=>x.id===id);
 
-window.plus=function(id){
-
-let item = cart.find(x=>x.id===id);
 
 if(item){
 
@@ -360,15 +615,20 @@ item.quantity++;
 
 }
 
-save();
 
-}
+saveCart();
+
+};
 
 
+/* =========================
+   − КОЛИЧЕСТВО
+========================= */
 
-window.minus=function(id){
+window.minus = function(id){
 
-let item = cart.find(x=>x.id===id);
+let item =
+cart.find(x=>x.id===id);
 
 
 if(item){
@@ -376,50 +636,87 @@ if(item){
 item.quantity--;
 
 
-if(item.quantity<=0){
+if(item.quantity <= 0){
 
-cart = cart.filter(x=>x.id!==id);
-
-}
-
-}
-
-
-save();
+cart =
+cart.filter(
+x=>x.id!==id
+);
 
 }
 
-
-
-window.removeItem=function(id){
-
-cart = cart.filter(x=>x.id!==id);
-
-save();
-
 }
 
-window.openWatch=function(id){
 
-window.location.href="watch.html?id="+id;
+saveCart();
 
-}
+};
 
-function save(){
 
-localStorage.setItem("cart",JSON.stringify(cart));
+/* =========================
+   УДАЛИТЬ
+========================= */
 
-window.dispatchEvent(new Event("storage"));
+window.removeItem = function(id){
 
-location.reload();
+cart =
+cart.filter(
+x=>x.id!==id
+);
 
-}
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+
+alert(msg.removed);
+
 
 renderCart();
 
+};
+
+
+/* =========================
+   ОТКРЫТЬ ТОВАР
+========================= */
+
+window.openWatch = function(id){
+
+window.location.href =
+"watch.html?id=" + id;
+
+};
+
+
+/* =========================
+   СОХРАНИТЬ
+========================= */
+
+function saveCart(){
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+
+renderCart();
+
+}
+
+
+/* =========================
+   ЗАПУСК
+========================= */
+
+renderCart();
 
 </script>
 
+<script src="counter.js"></script>
 
 </body>
 
