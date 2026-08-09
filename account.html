@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -133,133 +132,78 @@ background:#444;
 
 <div class="container">
 
-
 <h1>
 👤 <span data-lang="account">Аккаунт</span>
 </h1>
 
 
 <a href="index.html">
-
 <button>
-
 🏠 <span data-lang="home">Главная</span>
-
 </button>
-
 </a>
 
 
-
 <div class="profile">
-
 
 <div class="avatar">
 👤
 </div>
 
-
 <h2 id="userName">
 Гость
 </h2>
-
 
 <p id="userText" data-lang="guestText">
 Войдите, чтобы использовать аккаунт
 </p>
 
-
 <br>
 
-
 <button id="authButton" onclick="location.href='auth.html'">
-
 <span data-lang="login">
 🔑 Войти / Регистрация
 </span>
-
 </button>
 
-
 <button id="logoutButton" style="display:none;" onclick="logout()">
-
 <span data-lang="logout">
 🚪 Выйти
 </span>
-
 </button>
 
-
 </div>
-
-
 
 
 <div class="section">
-
-🛍️ <span data-lang="shopping">
-Покупки
-</span>
-
+🛍️ <span data-lang="shopping">Покупки</span>
 </div>
-
-
 
 
 <a href="cart.html">
-
 <div class="item">
-
-🛒 <span data-lang="cart">
-Корзина
-</span>
-
+🛒 <span data-lang="cart">Корзина</span>
 </div>
-
 </a>
-
-
 
 
 <a href="favorites.html">
-
 <div class="item">
-
-❤️ <span data-lang="favorites">
-Избранное
-</span>
-
+❤️ <span data-lang="favorites">Избранное</span>
 </div>
-
 </a>
-
-
 
 
 <a href="orders.html">
-
 <div class="item">
-
-📦 <span data-lang="orders">
-Мои заказы
-</span>
-
+📦 <span data-lang="orders">Мои заказы</span>
 </div>
-
 </a>
 
 
-
-
 <div class="section">
-
-⚙️ <span data-lang="settings">
-Настройки
-</span>
-
+⚙️ <span data-lang="settings">Настройки</span>
 </div>
-
-
 
 
 <div class="item" onclick="toggleLangMenu()">
@@ -275,29 +219,22 @@ background:#444;
 </div>
 
 
-
-
-<div id="langMenu" style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;">
-
+<div id="langMenu"
+style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;">
 
 <button onclick="setLanguage('ru','Русский')">
 Русский
 </button>
 
-
 <button onclick="setLanguage('en','English')">
 English
 </button>
-
 
 <button onclick="setLanguage('tk','Türkmen')">
 Türkmen
 </button>
 
-
 </div>
-
-
 
 
 <div class="item">
@@ -309,8 +246,6 @@ Türkmen
 </div>
 
 
-
-
 <div class="section">
 
 🔒 <span data-lang="security">
@@ -318,8 +253,6 @@ Türkmen
 </span>
 
 </div>
-
-
 
 
 <div class="item">
@@ -331,8 +264,7 @@ Türkmen
 </div>
 
 
-
-<!-- КНОПКА УСЛОВИЙ -->
+<!-- ===== УСЛОВИЯ ИСПОЛЬЗОВАНИЯ ===== -->
 
 <div class="item" onclick="openTerms()">
 
@@ -341,8 +273,6 @@ Türkmen
 </span>
 
 </div>
-
-
 
 
 <div class="section">
@@ -354,8 +284,6 @@ Türkmen
 </div>
 
 
-
-
 <div class="item">
 
 ℹ️ <span data-lang="about">
@@ -363,7 +291,6 @@ Türkmen
 </span>
 
 </div>
-
 
 
 <div class="item">
@@ -377,8 +304,6 @@ Türkmen
 </div>
 
 
-
-```html
 <!-- ===== ОКНО УСЛОВИЙ ===== -->
 
 <div id="termsModal">
@@ -400,7 +325,9 @@ Türkmen
 </p>
 
 
-<h3 data-lang="termsSection1">1. Общие положения</h3>
+<h3 data-lang="termsSection1">
+1. Общие положения
+</h3>
 
 <p data-lang="terms1_1"></p>
 <p data-lang="terms1_2"></p>
@@ -408,7 +335,9 @@ Türkmen
 <p data-lang="terms1_4"></p>
 
 
-<h3 data-lang="termsSection2">2. Информация о товарах</h3>
+<h3 data-lang="termsSection2">
+2. Информация о товарах
+</h3>
 
 <p data-lang="terms2_1"></p>
 <p data-lang="terms2_2"></p>
@@ -416,14 +345,18 @@ Türkmen
 <p data-lang="terms2_4"></p>
 
 
-<h3 data-lang="termsSection3">3. Цены</h3>
+<h3 data-lang="termsSection3">
+3. Цены
+</h3>
 
 <p data-lang="terms3_1"></p>
 <p data-lang="terms3_2"></p>
 <p data-lang="terms3_3"></p>
 
 
-<h3 data-lang="termsSection4">4. Оформление заказа</h3>
+<h3 data-lang="termsSection4">
+4. Оформление заказа
+</h3>
 
 <p data-lang="terms4_1"></p>
 <p data-lang="terms4_2"></p>
@@ -431,14 +364,18 @@ Türkmen
 <p data-lang="terms4_4"></p>
 
 
-<h3 data-lang="termsSection5">5. Оплата</h3>
+<h3 data-lang="termsSection5">
+5. Оплата
+</h3>
 
 <p data-lang="terms5_1"></p>
 <p data-lang="terms5_2"></p>
 <p data-lang="terms5_3"></p>
 
 
-<h3 data-lang="termsSection6">6. Доставка и получение</h3>
+<h3 data-lang="termsSection6">
+6. Доставка и получение
+</h3>
 
 <p data-lang="terms6_1"></p>
 <p data-lang="terms6_2"></p>
@@ -446,59 +383,77 @@ Türkmen
 <p data-lang="terms6_4"></p>
 
 
-<h3 data-lang="termsSection7">7. Возврат и обмен</h3>
+<h3 data-lang="termsSection7">
+7. Возврат и обмен
+</h3>
 
 <p data-lang="terms7_1"></p>
 <p data-lang="terms7_2"></p>
 <p data-lang="terms7_3"></p>
 
 
-<h3 data-lang="termsSection8">8. Гарантия</h3>
+<h3 data-lang="termsSection8">
+8. Гарантия
+</h3>
 
 <p data-lang="terms8_1"></p>
 <p data-lang="terms8_2"></p>
 <p data-lang="terms8_3"></p>
 
 
-<h3 data-lang="termsSection9">9. Ответственность</h3>
+<h3 data-lang="termsSection9">
+9. Ответственность
+</h3>
 
 <p data-lang="terms9_1"></p>
 <p data-lang="terms9_2"></p>
 <p data-lang="terms9_3"></p>
 
 
-<h3 data-lang="termsSection10">10. Учетная запись</h3>
+<h3 data-lang="termsSection10">
+10. Учетная запись
+</h3>
 
 <p data-lang="terms10_1"></p>
 <p data-lang="terms10_2"></p>
 <p data-lang="terms10_3"></p>
 
 
-<h3 data-lang="termsSection11">11. Интеллектуальная собственность</h3>
+<h3 data-lang="termsSection11">
+11. Интеллектуальная собственность
+</h3>
 
 <p data-lang="terms11_1"></p>
 <p data-lang="terms11_2"></p>
 
 
-<h3 data-lang="termsSection12">12. Конфиденциальность</h3>
+<h3 data-lang="termsSection12">
+12. Конфиденциальность
+</h3>
 
 <p data-lang="terms12_1"></p>
 <p data-lang="terms12_2"></p>
 
 
-<h3 data-lang="termsSection13">13. Изменение условий</h3>
+<h3 data-lang="termsSection13">
+13. Изменение условий
+</h3>
 
 <p data-lang="terms13_1"></p>
 <p data-lang="terms13_2"></p>
 
 
-<h3 data-lang="termsSection14">14. Контакты</h3>
+<h3 data-lang="termsSection14">
+14. Контакты
+</h3>
 
 <p data-lang="terms14Text"></p>
 
 
 <p style="margin-top:20px;">
+
 <b data-lang="termsFinal"></b>
+
 </p>
 
 
@@ -514,23 +469,26 @@ data-lang="termsClose">
 </div>
 
 </div>
-```
 
 
-
+<!-- ===== ЯЗЫКИ ===== -->
 
 <script src="language.js"></script>
 
 
+<!-- ===== FIREBASE ===== -->
+
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 import {
 getAuth,
 onAuthStateChanged,
 signOut
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
 const firebaseConfig = {
@@ -555,27 +513,34 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 
-
 onAuthStateChanged(auth,(user)=>{
+
+const lang =
+localStorage.getItem("siteLang") || "ru";
 
 
 if(user){
-
 
 document.getElementById("userName").innerHTML =
 "👤 " + user.email;
 
 
-document.getElementById("userText").setAttribute("data-lang","loggedIn");
+document.getElementById("userText").setAttribute(
+"data-lang",
+"loggedIn"
+);
+
 
 document.getElementById("userText").innerHTML =
-translations[localStorage.getItem("siteLang") || "ru"].loggedIn;
+window.translations[lang].loggedIn;
 
 
-document.getElementById("authButton").style.display="none";
+document.getElementById("authButton").style.display =
+"none";
 
 
-document.getElementById("logoutButton").style.display="block";
+document.getElementById("logoutButton").style.display =
+"block";
 
 
 }else{
@@ -585,51 +550,43 @@ document.getElementById("userName").innerHTML =
 "Гость";
 
 
-document.getElementById("userText").setAttribute("data-lang","guestText");
+document.getElementById("userText").setAttribute(
+"data-lang",
+"guestText"
+);
+
 
 document.getElementById("userText").innerHTML =
-translations[localStorage.getItem("siteLang") || "ru"].guestText;
+window.translations[lang].guestText;
 
 
-document.getElementById("authButton").style.display="block";
+document.getElementById("authButton").style.display =
+"block";
 
 
-document.getElementById("logoutButton").style.display="none";
-
+document.getElementById("logoutButton").style.display =
+"none";
 
 }
 
-
 });
-
 
 
 window.logout=function(){
 
-
 signOut(auth).then(()=>{
-
 
 location.reload();
 
-
 });
 
-
-}
-
-
-</script>
+};
 
 
+window.toggleLangMenu=function(){
 
-<script>
-
-
-function toggleLangMenu(){
-
-
-const menu=document.getElementById("langMenu");
+const menu =
+document.getElementById("langMenu");
 
 
 menu.style.display =
@@ -639,42 +596,56 @@ menu.style.display==="none"
 :
 "none";
 
-
-}
-
+};
 
 
-function setLanguage(code,label){
-
+window.setLanguage=function(code,label){
 
 localStorage.setItem("siteLang",code);
-
 
 localStorage.setItem("siteLangLabel",label);
 
 
+document.getElementById("currentLang").innerText =
+label;
 
-document.getElementById("currentLang").innerText=label;
 
-
-
-document.getElementById("langMenu").style.display="none";
-
+document.getElementById("langMenu").style.display =
+"none";
 
 
 if(window.applyLanguage){
 
-applyLanguage();
+window.applyLanguage();
 
 }
 
+};
 
-}
 
+window.openTerms=function(){
+
+document.getElementById("termsModal").style.display =
+"block";
+
+document.body.style.overflow =
+"hidden";
+
+};
+
+
+window.closeTerms=function(){
+
+document.getElementById("termsModal").style.display =
+"none";
+
+document.body.style.overflow =
+"auto";
+
+};
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-
 
 const savedLabel =
 localStorage.getItem("siteLangLabel")
@@ -682,39 +653,21 @@ localStorage.getItem("siteLangLabel")
 "Русский";
 
 
-document.getElementById("currentLang").innerText=savedLabel;
+document.getElementById("currentLang").innerText =
+savedLabel;
 
+
+if(window.applyLanguage){
+
+window.applyLanguage();
+
+}
 
 });
 
-
-
-/* ===== УСЛОВИЯ ===== */
-
-function openTerms(){
-
-document.getElementById("termsModal").style.display="block";
-
-document.body.style.overflow="hidden";
-
-}
-
-
-function closeTerms(){
-
-document.getElementById("termsModal").style.display="none";
-
-document.body.style.overflow="auto";
-
-}
-
-
 </script>
-
-
 
 
 </body>
 
 </html>
-```
