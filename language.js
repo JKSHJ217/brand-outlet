@@ -1,4 +1,3 @@
-```javascript
 const translations = {
 
 ru: {
@@ -535,4 +534,3 @@ window.addEventListener("DOMContentLoaded",()=>{
 applyLanguage();
 
 });
-```
