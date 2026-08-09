@@ -1377,9 +1377,69 @@ document.body.style.overflow =
    ОЦЕНКА
 ========================= */
 
-window.rateSite=function(){
+window.openRating = function(){
 
-alert("Спасибо за желание оценить сайт! ⭐");
+    document.getElementById("ratingModal").style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+};
+
+
+window.closeRating = function(){
+
+    document.getElementById("ratingModal").style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+};
+
+
+let selectedRating = 0;
+
+
+document.querySelectorAll(".ratingStar").forEach(star => {
+
+    star.addEventListener("click", function(){
+
+        selectedRating = Number(this.dataset.rating);
+
+        document.querySelectorAll(".ratingStar").forEach(s => {
+
+            s.classList.toggle(
+                "active",
+                Number(s.dataset.rating) <= selectedRating
+            );
+
+        });
+
+        document.getElementById("ratingText").innerText =
+            "Ваша оценка: " + selectedRating + " ⭐";
+
+    });
+
+});
+
+
+window.submitRating = function(){
+
+    if(selectedRating === 0){
+
+        alert("Пожалуйста, выберите оценку ⭐");
+
+        return;
+
+    }
+
+    const comment =
+        document.getElementById("ratingComment").value.trim();
+
+    console.log("Оценка:", selectedRating);
+    console.log("Комментарий:", comment);
+
+    alert("Спасибо за вашу оценку! ❤️");
+
+    closeRating();
 
 };
 
