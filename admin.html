@@ -210,6 +210,13 @@ display:none;
 ➕ Добавить часы
 </button>
 
+<h2 style="margin-top:50px;">
+    ⭐ Отзывы покупателей
+</h2>
+
+<div id="ratings">
+    Загрузка отзывов...
+</div>
 
 <h2>
 📦 Все часы
@@ -287,6 +294,7 @@ document.getElementById("adminPanel").classList.remove("hidden");
 
 
 loadWatches();
+loadRatings();
 
 
 }else{
@@ -470,7 +478,89 @@ searchAdmin();
 
 }
 
+/* =========================
+   ОТЗЫВЫ
+========================= */
 
+async function loadRatings(){
+
+    const box = document.getElementById("ratings");
+
+    box.innerHTML = "Загрузка отзывов...";
+
+    try{
+
+        const snap = await getDocs(
+            collection(db, "ratings")
+        );
+
+        box.innerHTML = "";
+
+        if(snap.empty){
+
+            box.innerHTML = `
+                <div class="item">
+                    Пока отзывов нет ⭐
+                </div>
+            `;
+
+            return;
+        }
+
+        snap.forEach((item)=>{
+
+            const rating = item.data();
+
+            const score = Number(rating.rating) || 0;
+
+            const stars =
+                "★".repeat(score) +
+                "☆".repeat(5 - score);
+
+            const email =
+                rating.email || "Гость";
+
+            const comment =
+                rating.comment || "Без комментария";
+
+            box.innerHTML += `
+
+                <div class="item">
+
+                    <p>
+                        👤 ${email}
+                    </p>
+
+                    <h3 style="color:#ffd700;margin-top:10px;">
+                        ${stars}
+                    </h3>
+
+                    <p style="margin-top:10px;color:#ccc;">
+                        💬 ${comment}
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "Ошибка загрузки отзывов:",
+            error
+        );
+
+        box.innerHTML = `
+            <div class="item">
+                ❌ Не удалось загрузить отзывы
+            </div>
+        `;
+
+    }
+
+}
 
 window.deleteWatch = async function(id){
 
