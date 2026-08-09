@@ -11,116 +11,146 @@
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:#111;
-color:white;
-padding:20px;
+    background:#111;
+    color:white;
+    padding:20px;
 }
 
 .container{
-max-width:600px;
-margin:auto;
+    max-width:600px;
+    margin:auto;
 }
 
 h1{
-text-align:center;
-margin-bottom:30px;
+    text-align:center;
+    margin-bottom:30px;
 }
 
 .profile{
-background:#1c1c1c;
-padding:25px;
-border-radius:20px;
-text-align:center;
-margin-bottom:20px;
+    background:#1c1c1c;
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    margin-bottom:20px;
 }
 
 .avatar{
-font-size:60px;
+    font-size:60px;
 }
 
-button,.item{
-width:100%;
-background:#1c1c1c;
-color:white;
-border:none;
-padding:18px;
-margin:8px 0;
-border-radius:15px;
-font-size:17px;
-text-align:left;
-cursor:pointer;
+button,
+.item{
+    width:100%;
+    background:#1c1c1c;
+    color:white;
+    border:none;
+    padding:18px;
+    margin:8px 0;
+    border-radius:15px;
+    font-size:17px;
+    text-align:left;
+    cursor:pointer;
 }
 
-.item:hover{
-background:#292929;
+.item:hover,
+button:hover{
+    background:#292929;
 }
 
 .section{
-margin-top:25px;
-font-size:14px;
-color:#aaa;
+    margin-top:25px;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#aaa;
 }
 
 a{
-color:white;
-text-decoration:none;
+    color:white;
+    text-decoration:none;
 }
 
+/* =========================
+   МОДАЛЬНЫЕ ОКНА
+========================= */
 
-/* ===== ОКНО УСЛОВИЙ ===== */
-
-#termsModal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-z-index:9999;
-overflow-y:auto;
-padding:20px;
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.88);
+    z-index:9999;
+    overflow-y:auto;
+    padding:20px;
 }
 
-.termsBox{
-max-width:700px;
-margin:30px auto;
-background:#1c1c1c;
-border-radius:20px;
-padding:25px;
-line-height:1.6;
+.modalBox{
+    max-width:700px;
+    margin:30px auto;
+    background:#1c1c1c;
+    border-radius:20px;
+    padding:25px;
+    line-height:1.6;
 }
 
-.termsBox h2{
-text-align:center;
-margin-bottom:20px;
+.modalBox h2{
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.termsBox h3{
-margin-top:25px;
-margin-bottom:8px;
+.modalBox h3{
+    margin-top:25px;
+    margin-bottom:8px;
+    color:white;
 }
 
-.termsBox p{
-color:#ddd;
-margin-bottom:8px;
+.modalBox p{
+    color:#ddd;
+    margin-bottom:9px;
 }
 
-.closeTerms{
-background:#333;
-text-align:center;
-margin-top:25px;
+.modalBox .intro{
+    color:#fff;
+    margin-bottom:20px;
 }
 
-.closeTerms:hover{
-background:#444;
+.modalBox .finalText{
+    margin-top:25px;
+    padding:16px;
+    background:#292929;
+    border-radius:12px;
+    color:white;
+}
+
+.closeButton{
+    background:#333;
+    text-align:center;
+    margin-top:25px;
+}
+
+.closeButton:hover{
+    background:#444;
+}
+
+.langMenu{
+    display:none;
+    background:#1c1c1c;
+    padding:15px;
+    border-radius:15px;
+}
+
+.langMenu button{
+    background:#292929;
+    margin:5px 0;
 }
 
 </style>
@@ -137,12 +167,18 @@ background:#444;
 </h1>
 
 
+<!-- ГЛАВНАЯ -->
+
 <a href="index.html">
+
 <button>
 🏠 <span data-lang="home">Главная</span>
 </button>
+
 </a>
 
+
+<!-- ПРОФИЛЬ -->
 
 <div class="profile">
 
@@ -160,20 +196,32 @@ background:#444;
 
 <br>
 
-<button id="authButton" onclick="location.href='auth.html'">
+<button
+id="authButton"
+onclick="location.href='auth.html'">
+
 <span data-lang="login">
 🔑 Войти / Регистрация
 </span>
+
 </button>
 
-<button id="logoutButton" style="display:none;" onclick="logout()">
+
+<button
+id="logoutButton"
+style="display:none;"
+onclick="logout()">
+
 <span data-lang="logout">
 🚪 Выйти
 </span>
+
 </button>
 
 </div>
 
+
+<!-- ПОКУПКИ -->
 
 <div class="section">
 🛍️ <span data-lang="shopping">Покупки</span>
@@ -181,63 +229,86 @@ background:#444;
 
 
 <a href="cart.html">
+
 <div class="item">
 🛒 <span data-lang="cart">Корзина</span>
 </div>
+
 </a>
 
 
 <a href="favorites.html">
+
 <div class="item">
 ❤️ <span data-lang="favorites">Избранное</span>
 </div>
+
 </a>
 
 
 <a href="orders.html">
+
 <div class="item">
 📦 <span data-lang="orders">Мои заказы</span>
 </div>
+
 </a>
 
+
+<!-- НАСТРОЙКИ -->
 
 <div class="section">
 ⚙️ <span data-lang="settings">Настройки</span>
 </div>
 
 
-<div class="item" onclick="toggleLangMenu()">
+<!-- ЯЗЫК -->
 
-🌐 <span data-lang="language">
+<div
+class="item"
+onclick="toggleLangMenu()">
+
+🌐
+
+<span data-lang="language">
 Язык
 </span>
 
-<span id="currentLang" style="float:right;color:#aaa;">
+<span
+id="currentLang"
+style="float:right;color:#aaa;">
+
 Русский
+
 </span>
 
 </div>
 
 
-<div id="langMenu"
-style="display:none;background:#1c1c1c;padding:15px;border-radius:15px;">
+<div
+id="langMenu"
+class="langMenu">
 
 <button onclick="setLanguage('ru','Русский')">
-Русский
+🇷🇺 Русский
 </button>
 
 <button onclick="setLanguage('en','English')">
-English
+🇬🇧 English
 </button>
 
 <button onclick="setLanguage('tk','Türkmen')">
-Türkmen
+🇹🇲 Türkmen
 </button>
 
 </div>
 
 
-<div class="item">
+<!-- ОФОРМЛЕНИЕ -->
+
+<div
+class="item"
+onclick="openDesign()">
 
 🎨 <span data-lang="design">
 Оформление
@@ -245,6 +316,8 @@ Türkmen
 
 </div>
 
+
+<!-- БЕЗОПАСНОСТЬ -->
 
 <div class="section">
 
@@ -255,7 +328,11 @@ Türkmen
 </div>
 
 
-<div class="item">
+<!-- КОНФИДЕНЦИАЛЬНОСТЬ -->
+
+<div
+class="item"
+onclick="openPrivacy()">
 
 🔐 <span data-lang="privacy">
 Конфиденциальность
@@ -264,9 +341,11 @@ Türkmen
 </div>
 
 
-<!-- ===== УСЛОВИЯ ИСПОЛЬЗОВАНИЯ ===== -->
+<!-- УСЛОВИЯ -->
 
-<div class="item" onclick="openTerms()">
+<div
+class="item"
+onclick="openTerms()">
 
 📜 <span data-lang="terms">
 Условия использования
@@ -274,6 +353,8 @@ Türkmen
 
 </div>
 
+
+<!-- ИНФОРМАЦИЯ -->
 
 <div class="section">
 
@@ -284,7 +365,11 @@ Türkmen
 </div>
 
 
-<div class="item">
+<!-- О ПРИЛОЖЕНИИ -->
+
+<div
+class="item"
+onclick="openAbout()">
 
 ℹ️ <span data-lang="about">
 О приложении
@@ -293,7 +378,11 @@ Türkmen
 </div>
 
 
-<div class="item">
+<!-- ОЦЕНИТЬ -->
+
+<div
+class="item"
+onclick="rateSite()">
 
 ⭐ <span data-lang="rate">
 Оценить сайт
@@ -304,15 +393,23 @@ Türkmen
 </div>
 
 
-<!-- ===== ОКНО УСЛОВИЙ ===== -->
 
-<div id="termsModal">
+<!-- =====================================================
+     УСЛОВИЯ ИСПОЛЬЗОВАНИЯ
+===================================================== -->
 
-<div class="termsBox">
+<div
+id="termsModal"
+class="modal">
 
-<h2 data-lang="termsTitle">
-📜 Условия использования
+<div class="modalBox">
+
+<h2>
+📜 <span data-lang="termsTitle">
+Условия использования
+</span>
 </h2>
+
 
 <p>
 <b data-lang="termsUpdated">
@@ -320,8 +417,15 @@ Türkmen
 </b>
 </p>
 
-<p data-lang="termsIntro">
-Добро пожаловать на сайт brand_outlet.tm. Используя данный сайт и оформляя заказ, вы соглашаетесь с настоящими Условиями использования.
+
+<p
+class="intro"
+data-lang="termsIntro">
+
+Добро пожаловать на сайт brand_outlet.tm.
+Используя данный сайт и оформляя заказ,
+вы соглашаетесь с настоящими Условиями использования.
+
 </p>
 
 
@@ -329,136 +433,247 @@ Türkmen
 1. Общие положения
 </h3>
 
-<p data-lang="terms1_1"></p>
-<p data-lang="terms1_2"></p>
-<p data-lang="terms1_3"></p>
-<p data-lang="terms1_4"></p>
+<p data-lang="terms1_1">
+1.1. Сайт brand_outlet.tm предоставляет пользователям возможность ознакомиться с товарами и оформить заказ.
+</p>
+
+<p data-lang="terms1_2">
+1.2. Пользователь обязан предоставлять достоверную информацию при оформлении заказа.
+</p>
+
+<p data-lang="terms1_3">
+1.3. Администрация сайта может изменять ассортимент, цены, описания, фотографии и другие сведения о товарах без предварительного уведомления.
+</p>
+
+<p data-lang="terms1_4">
+1.4. Условия могут обновляться. Актуальная версия всегда размещается на данной странице.
+</p>
 
 
 <h3 data-lang="termsSection2">
 2. Информация о товарах
 </h3>
 
-<p data-lang="terms2_1"></p>
-<p data-lang="terms2_2"></p>
-<p data-lang="terms2_3"></p>
-<p data-lang="terms2_4"></p>
+<p data-lang="terms2_1">
+2.1. Мы стараемся указывать точные названия, характеристики, фотографии и цены товаров.
+</p>
+
+<p data-lang="terms2_2">
+2.2. Цвет товара на фотографии может незначительно отличаться от фактического из-за настроек экрана устройства и условий съёмки.
+</p>
+
+<p data-lang="terms2_3">
+2.3. Наличие товара отображается на сайте и может изменяться.
+</p>
+
+<p data-lang="terms2_4">
+2.4. Если товар оказался недоступен после оформления заказа, мы сообщим об этом покупателю.
+</p>
 
 
 <h3 data-lang="termsSection3">
 3. Цены
 </h3>
 
-<p data-lang="terms3_1"></p>
-<p data-lang="terms3_2"></p>
-<p data-lang="terms3_3"></p>
+<p data-lang="terms3_1">
+3.1. Все цены на сайте указываются в туркменских манатах (TMT), если не указано иное.
+</p>
+
+<p data-lang="terms3_2">
+3.2. Цена товара может измениться до момента оформления заказа.
+</p>
+
+<p data-lang="terms3_3">
+3.3. Стоимость доставки, если она предусмотрена, может рассчитываться отдельно.
+</p>
 
 
 <h3 data-lang="termsSection4">
 4. Оформление заказа
 </h3>
 
-<p data-lang="terms4_1"></p>
-<p data-lang="terms4_2"></p>
-<p data-lang="terms4_3"></p>
-<p data-lang="terms4_4"></p>
+<p data-lang="terms4_1">
+4.1. Пользователь самостоятельно проверяет выбранные товары, количество и данные для доставки перед подтверждением заказа.
+</p>
+
+<p data-lang="terms4_2">
+4.2. После оформления заказа предоставленные пользователем данные могут использоваться для связи с ним по поводу заказа.
+</p>
+
+<p data-lang="terms4_3">
+4.3. Заказ считается принятым после подтверждения со стороны магазина.
+</p>
+
+<p data-lang="terms4_4">
+4.4. Мы можем связаться с покупателем для уточнения данных заказа.
+</p>
 
 
 <h3 data-lang="termsSection5">
 5. Оплата
 </h3>
 
-<p data-lang="terms5_1"></p>
-<p data-lang="terms5_2"></p>
-<p data-lang="terms5_3"></p>
+<p data-lang="terms5_1">
+5.1. Оплата производится только наличными при получении заказа.
+</p>
+
+<p data-lang="terms5_2">
+5.2. Покупатель оплачивает полную стоимость заказа при его получении.
+</p>
+
+<p data-lang="terms5_3">
+5.3. До получения заказа предварительная оплата не требуется, если иное не согласовано с покупателем отдельно.
+</p>
 
 
 <h3 data-lang="termsSection6">
 6. Доставка и получение
 </h3>
 
-<p data-lang="terms6_1"></p>
-<p data-lang="terms6_2"></p>
-<p data-lang="terms6_3"></p>
-<p data-lang="terms6_4"></p>
+<p data-lang="terms6_1">
+6.1. Срок и способ доставки зависят от места получения и выбранного способа доставки.
+</p>
+
+<p data-lang="terms6_2">
+6.2. Покупатель обязан указать правильный номер телефона и адрес или другую необходимую информацию для получения заказа.
+</p>
+
+<p data-lang="terms6_3">
+6.3. Если покупатель предоставил неправильные данные или не может получить заказ, доставка может быть перенесена или отменена.
+</p>
+
+<p data-lang="terms6_4">
+6.4. После получения товара покупателю рекомендуется проверить его состояние.
+</p>
 
 
 <h3 data-lang="termsSection7">
 7. Возврат и обмен
 </h3>
 
-<p data-lang="terms7_1"></p>
-<p data-lang="terms7_2"></p>
-<p data-lang="terms7_3"></p>
+<p data-lang="terms7_1">
+7.1. Возврат и обмен товаров не предусмотрены, за исключением случаев, когда иное прямо требуется применимым законодательством.
+</p>
+
+<p data-lang="terms7_2">
+7.2. Перед оформлением заказа покупателю рекомендуется внимательно ознакомиться с описанием, фотографиями и характеристиками товара.
+</p>
+
+<p data-lang="terms7_3">
+7.3. Оформляя заказ, покупатель подтверждает, что ознакомился с информацией о товаре.
+</p>
 
 
 <h3 data-lang="termsSection8">
 8. Гарантия
 </h3>
 
-<p data-lang="terms8_1"></p>
-<p data-lang="terms8_2"></p>
-<p data-lang="terms8_3"></p>
+<p data-lang="terms8_1">
+8.1. Дополнительная гарантия от brand_outlet.tm на товары не предоставляется, за исключением случаев, когда иное прямо требуется применимым законодательством.
+</p>
+
+<p data-lang="terms8_2">
+8.2. Покупателю рекомендуется проверить товар при получении.
+</p>
+
+<p data-lang="terms8_3">
+8.3. Данные условия не ограничивают обязательные права покупателя, которые могут предоставляться законом.
+</p>
 
 
 <h3 data-lang="termsSection9">
 9. Ответственность
 </h3>
 
-<p data-lang="terms9_1"></p>
-<p data-lang="terms9_2"></p>
-<p data-lang="terms9_3"></p>
+<p data-lang="terms9_1">
+9.1. Пользователь несёт ответственность за достоверность предоставленной им информации.
+</p>
+
+<p data-lang="terms9_2">
+9.2. Пользователь не должен использовать сайт для незаконных целей или действий, которые могут нарушить работу сайта.
+</p>
+
+<p data-lang="terms9_3">
+9.3. Администрация сайта не несёт ответственности за временную недоступность сайта, вызванную техническими неполадками, обслуживанием или обстоятельствами, находящимися вне нашего контроля.
+</p>
 
 
 <h3 data-lang="termsSection10">
 10. Учетная запись
 </h3>
 
-<p data-lang="terms10_1"></p>
-<p data-lang="terms10_2"></p>
-<p data-lang="terms10_3"></p>
+<p data-lang="terms10_1">
+10.1. Если на сайте доступна регистрация, пользователь обязан сохранять конфиденциальность данных своей учетной записи.
+</p>
+
+<p data-lang="terms10_2">
+10.2. Пользователь не должен предоставлять доступ к своей учетной записи другим лицам.
+</p>
+
+<p data-lang="terms10_3">
+10.3. При обнаружении подозрительной активности пользователь должен прекратить использование учетной записи и обратиться к администрации сайта.
+</p>
 
 
 <h3 data-lang="termsSection11">
 11. Интеллектуальная собственность
 </h3>
 
-<p data-lang="terms11_1"></p>
-<p data-lang="terms11_2"></p>
+<p data-lang="terms11_1">
+11.1. Дизайн сайта, логотип, тексты и другие материалы сайта могут принадлежать brand_outlet.tm или использоваться на законных основаниях.
+</p>
+
+<p data-lang="terms11_2">
+11.2. Копирование, изменение или распространение материалов сайта без разрешения владельца сайта не допускается, если иное не предусмотрено законом.
+</p>
 
 
 <h3 data-lang="termsSection12">
 12. Конфиденциальность
 </h3>
 
-<p data-lang="terms12_1"></p>
-<p data-lang="terms12_2"></p>
+<p data-lang="terms12_1">
+12.1. Персональные данные пользователей используются для работы сайта, обработки заказов, связи с покупателями и других необходимых целей.
+</p>
+
+<p data-lang="terms12_2">
+12.2. Пользователь должен ознакомиться с отдельной Политикой конфиденциальности, размещённой на сайте.
+</p>
 
 
 <h3 data-lang="termsSection13">
 13. Изменение условий
 </h3>
 
-<p data-lang="terms13_1"></p>
-<p data-lang="terms13_2"></p>
+<p data-lang="terms13_1">
+13.1. Администрация сайта оставляет за собой право изменять настоящие Условия использования.
+</p>
+
+<p data-lang="terms13_2">
+13.2. Новая версия вступает в силу после публикации на сайте, если в ней не указано иное.
+</p>
 
 
 <h3 data-lang="termsSection14">
 14. Контакты
 </h3>
 
-<p data-lang="terms14Text"></p>
+<p data-lang="terms14Text">
+По вопросам, связанным с заказами, товарами или использованием сайта, пользователь может обратиться через указанные на сайте контактные данные.
+</p>
 
 
-<p style="margin-top:20px;">
+<p class="finalText">
 
-<b data-lang="termsFinal"></b>
+<b data-lang="termsFinal">
+Используя сайт brand_outlet.tm и оформляя заказ, пользователь подтверждает, что ознакомился с настоящими Условиями использования.
+</b>
 
 </p>
 
 
 <button
-class="closeTerms"
+class="closeButton"
 onclick="closeTerms()"
 data-lang="termsClose">
 
@@ -467,27 +682,270 @@ data-lang="termsClose">
 </button>
 
 </div>
-
 </div>
 
 
-<!-- ===== ЯЗЫКИ ===== -->
+
+<!-- =====================================================
+     КОНФИДЕНЦИАЛЬНОСТЬ
+===================================================== -->
+
+<div
+id="privacyModal"
+class="modal">
+
+<div class="modalBox">
+
+<h2>
+🔐 <span data-lang="privacyTitle">
+Политика конфиденциальности
+</span>
+</h2>
+
+
+<p>
+<b data-lang="privacyUpdated">
+Последнее обновление: 9 августа 2026 года
+</b>
+</p>
+
+
+<h3 data-lang="privacySection1">
+1. Общая информация
+</h3>
+
+<p data-lang="privacy1_1">
+Мы уважаем конфиденциальность пользователей сайта brand_outlet.tm и стараемся ответственно обращаться с предоставленной информацией.
+</p>
+
+<p data-lang="privacy1_2">
+Настоящая политика объясняет, какая информация может использоваться при работе сайта и оформлении заказов.
+</p>
+
+
+<h3 data-lang="privacySection2">
+2. Какие данные могут предоставляться
+</h3>
+
+<p data-lang="privacy2_1">
+При оформлении заказа пользователь может предоставить имя, номер телефона, адрес доставки и другую информацию, необходимую для выполнения заказа.
+</p>
+
+<p data-lang="privacy2_2">
+При регистрации аккаунта может использоваться адрес электронной почты и данные учетной записи.
+</p>
+
+
+<h3 data-lang="privacySection3">
+3. Использование информации
+</h3>
+
+<p data-lang="privacy3_1">
+Предоставленная информация может использоваться для обработки и подтверждения заказов.
+</p>
+
+<p data-lang="privacy3_2">
+Информация может использоваться для связи с покупателем по вопросам заказа и доставки.
+</p>
+
+<p data-lang="privacy3_3">
+Мы не используем предоставленные данные для целей, не связанных с работой сайта и обслуживанием заказов, без соответствующих оснований.
+</p>
+
+
+<h3 data-lang="privacySection4">
+4. Защита данных
+</h3>
+
+<p data-lang="privacy4_1">
+Мы принимаем разумные меры для защиты информации пользователей от несанкционированного доступа, изменения или раскрытия.
+</p>
+
+<p data-lang="privacy4_2">
+При этом ни один способ хранения или передачи данных через интернет не может гарантировать абсолютную безопасность.
+</p>
+
+
+<h3 data-lang="privacySection5">
+5. Передача информации
+</h3>
+
+<p data-lang="privacy5_1">
+Информация может передаваться только в случаях, необходимых для обработки заказа, доставки, работы используемых сервисов или выполнения требований закона.
+</p>
+
+
+<h3 data-lang="privacySection6">
+6. Учетная запись
+</h3>
+
+<p data-lang="privacy6_1">
+Пользователь отвечает за сохранность данных своей учетной записи и не должен передавать доступ к ней другим лицам.
+</p>
+
+
+<h3 data-lang="privacySection7">
+7. Изменения политики
+</h3>
+
+<p data-lang="privacy7_1">
+Политика конфиденциальности может обновляться. Новая версия публикуется на этой странице.
+</p>
+
+
+<h3 data-lang="privacySection8">
+8. Контакты
+</h3>
+
+<p data-lang="privacy8_1">
+По вопросам конфиденциальности пользователь может обратиться через контактные данные, указанные на сайте.
+</p>
+
+
+<button
+class="closeButton"
+onclick="closePrivacy()"
+data-lang="privacyClose">
+
+Закрыть
+
+</button>
+
+</div>
+</div>
+
+
+
+<!-- =====================================================
+     О ПРИЛОЖЕНИИ
+===================================================== -->
+
+<div
+id="aboutModal"
+class="modal">
+
+<div class="modalBox">
+
+<h2>
+ℹ️ <span data-lang="aboutTitle">
+О приложении
+</span>
+</h2>
+
+
+<h3 data-lang="aboutName">
+brand_outlet.tm
+</h3>
+
+
+<p data-lang="aboutText1">
+Онлайн-магазин, созданный для просмотра товаров и оформления заказов.
+</p>
+
+
+<p data-lang="aboutText2">
+На сайте пользователи могут просматривать каталог, добавлять товары в корзину, сохранять товары в избранное и оформлять заказы.
+</p>
+
+
+<h3 data-lang="aboutVersion">
+Версия
+</h3>
+
+<p>
+1.0
+</p>
+
+
+<h3 data-lang="aboutFeatures">
+Возможности
+</h3>
+
+<p data-lang="aboutFeaturesText">
+Каталог товаров, поиск, корзина, избранное, аккаунт, авторизация и система заказов.
+</p>
+
+
+<p
+class="finalText"
+data-lang="aboutFooter">
+
+Спасибо, что пользуетесь brand_outlet.tm ❤️
+
+</p>
+
+
+<button
+class="closeButton"
+onclick="closeAbout()"
+data-lang="aboutClose">
+
+Закрыть
+
+</button>
+
+</div>
+</div>
+
+
+
+<!-- =====================================================
+     ОФОРМЛЕНИЕ
+===================================================== -->
+
+<div
+id="designModal"
+class="modal">
+
+<div class="modalBox">
+
+<h2>
+🎨 <span data-lang="designTitle">
+Оформление
+</span>
+</h2>
+
+
+<p data-lang="designText">
+Настройки оформления будут доступны здесь.
+</p>
+
+
+<button
+class="closeButton"
+onclick="closeDesign()"
+data-lang="designClose">
+
+Закрыть
+
+</button>
+
+</div>
+</div>
+
+
+
+<!-- LANGUAGE -->
 
 <script src="language.js"></script>
 
 
-<!-- ===== FIREBASE ===== -->
+
+<!-- FIREBASE -->
 
 <script type="module">
 
 import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
 
 import {
 getAuth,
 onAuthStateChanged,
 signOut
 }
+
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
@@ -508,10 +966,17 @@ appId:"1:1083598839585:web:31d6c55768a25a60732860"
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+getAuth(app);
 
+
+
+/* =========================
+   АККАУНТ
+========================= */
 
 onAuthStateChanged(auth,(user)=>{
 
@@ -531,20 +996,26 @@ document.getElementById("userText").setAttribute(
 );
 
 
+if(
+window.translations &&
+window.translations[lang] &&
+window.translations[lang].loggedIn
+){
+
 document.getElementById("userText").innerHTML =
 window.translations[lang].loggedIn;
+
+}
 
 
 document.getElementById("authButton").style.display =
 "none";
-
 
 document.getElementById("logoutButton").style.display =
 "block";
 
 
 }else{
-
 
 document.getElementById("userName").innerHTML =
 "Гость";
@@ -556,13 +1027,20 @@ document.getElementById("userText").setAttribute(
 );
 
 
+if(
+window.translations &&
+window.translations[lang] &&
+window.translations[lang].guestText
+){
+
 document.getElementById("userText").innerHTML =
 window.translations[lang].guestText;
+
+}
 
 
 document.getElementById("authButton").style.display =
 "block";
-
 
 document.getElementById("logoutButton").style.display =
 "none";
@@ -572,16 +1050,32 @@ document.getElementById("logoutButton").style.display =
 });
 
 
+
+/* =========================
+   ВЫХОД
+========================= */
+
 window.logout=function(){
 
-signOut(auth).then(()=>{
+signOut(auth)
+.then(()=>{
 
 location.reload();
+
+})
+.catch((error)=>{
+
+console.error(error);
 
 });
 
 };
 
+
+
+/* =========================
+   ЯЗЫК
+========================= */
 
 window.toggleLangMenu=function(){
 
@@ -599,18 +1093,29 @@ menu.style.display==="none"
 };
 
 
+
 window.setLanguage=function(code,label){
 
-localStorage.setItem("siteLang",code);
+localStorage.setItem(
+"siteLang",
+code
+);
 
-localStorage.setItem("siteLangLabel",label);
+localStorage.setItem(
+"siteLangLabel",
+label
+);
 
 
-document.getElementById("currentLang").innerText =
+document.getElementById(
+"currentLang"
+).innerText =
 label;
 
 
-document.getElementById("langMenu").style.display =
+document.getElementById(
+"langMenu"
+).style.display =
 "none";
 
 
@@ -623,10 +1128,18 @@ window.applyLanguage();
 };
 
 
+
+/* =========================
+   УСЛОВИЯ
+========================= */
+
 window.openTerms=function(){
 
-document.getElementById("termsModal").style.display =
+document.getElementById(
+"termsModal"
+).style.display =
 "block";
+
 
 document.body.style.overflow =
 "hidden";
@@ -636,8 +1149,11 @@ document.body.style.overflow =
 
 window.closeTerms=function(){
 
-document.getElementById("termsModal").style.display =
+document.getElementById(
+"termsModal"
+).style.display =
 "none";
+
 
 document.body.style.overflow =
 "auto";
@@ -645,15 +1161,162 @@ document.body.style.overflow =
 };
 
 
-document.addEventListener("DOMContentLoaded",()=>{
+
+/* =========================
+   КОНФИДЕНЦИАЛЬНОСТЬ
+========================= */
+
+window.openPrivacy=function(){
+
+document.getElementById(
+"privacyModal"
+).style.display =
+"block";
+
+
+document.body.style.overflow =
+"hidden";
+
+};
+
+
+window.closePrivacy=function(){
+
+document.getElementById(
+"privacyModal"
+).style.display =
+"none";
+
+
+document.body.style.overflow =
+"auto";
+
+};
+
+
+
+/* =========================
+   О ПРИЛОЖЕНИИ
+========================= */
+
+window.openAbout=function(){
+
+document.getElementById(
+"aboutModal"
+).style.display =
+"block";
+
+
+document.body.style.overflow =
+"hidden";
+
+};
+
+
+window.closeAbout=function(){
+
+document.getElementById(
+"aboutModal"
+).style.display =
+"none";
+
+
+document.body.style.overflow =
+"auto";
+
+};
+
+
+
+/* =========================
+   ОФОРМЛЕНИЕ
+========================= */
+
+window.openDesign=function(){
+
+document.getElementById(
+"designModal"
+).style.display =
+"block";
+
+
+document.body.style.overflow =
+"hidden";
+
+};
+
+
+window.closeDesign=function(){
+
+document.getElementById(
+"designModal"
+).style.display =
+"none";
+
+
+document.body.style.overflow =
+"auto";
+
+};
+
+
+
+/* =========================
+   ОЦЕНКА
+========================= */
+
+window.rateSite=function(){
+
+alert("Спасибо за желание оценить сайт! ⭐");
+
+};
+
+
+
+/* =========================
+   ESC — ЗАКРЫТЬ ОКНО
+========================= */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Escape"){
+
+document.querySelectorAll(".modal")
+.forEach(modal=>{
+
+modal.style.display="none";
+
+});
+
+document.body.style.overflow="auto";
+
+}
+
+});
+
+
+
+/* =========================
+   ЗАГРУЗКА
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 const savedLabel =
-localStorage.getItem("siteLangLabel")
+localStorage.getItem(
+"siteLangLabel"
+)
 ||
 "Русский";
 
 
-document.getElementById("currentLang").innerText =
+document.getElementById(
+"currentLang"
+).innerText =
 savedLabel;
 
 
@@ -667,7 +1330,5 @@ window.applyLanguage();
 
 </script>
 
-
 </body>
-
 </html>
