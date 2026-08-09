@@ -1405,7 +1405,6 @@ window.closeRating = function(){
 
 let selectedRating = 0;
 
-
 document.querySelectorAll(".ratingStar").forEach(star => {
 
     star.addEventListener("click", function(){
@@ -1413,16 +1412,19 @@ document.querySelectorAll(".ratingStar").forEach(star => {
         selectedRating = Number(this.dataset.rating);
 
         document.querySelectorAll(".ratingStar").forEach(s => {
+            s.classList.remove("active");
+        });
 
-            s.classList.toggle(
-                "active",
-                Number(s.dataset.rating) <= selectedRating
-            );
+        document.querySelectorAll(".ratingStar").forEach(s => {
+
+            if(Number(s.dataset.rating) <= selectedRating){
+                s.classList.add("active");
+            }
 
         });
 
         document.getElementById("ratingText").innerText =
-            "Ваша оценка: " + selectedRating + " ⭐";
+            selectedRating + " из 5 ⭐";
 
     });
 
@@ -1478,7 +1480,7 @@ window.submitRating = async function(){
         );
 
         alert(
-            "Не удалось отправить отзыв. Попробуйте ещё раз."
+            "Ошибка: " + error.message
         );
 
     }
