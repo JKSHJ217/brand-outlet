@@ -1053,13 +1053,19 @@ from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
 import {
-getAuth,
-onAuthStateChanged,
-signOut
+    getAuth,
+    onAuthStateChanged,
+    signOut
 }
-
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const firebaseConfig = {
 
@@ -1084,6 +1090,8 @@ initializeApp(firebaseConfig);
 const auth =
 getAuth(app);
 
+const db =
+getFirestore(app);
 
 
 /* =========================
@@ -1421,25 +1429,59 @@ document.querySelectorAll(".ratingStar").forEach(star => {
 });
 
 
-window.submitRating = function(){
+window.submitRating = async function(){
 
     if(selectedRating === 0){
 
         alert("Пожалуйста, выберите оценку ⭐");
 
         return;
-
     }
 
     const comment =
         document.getElementById("ratingComment").value.trim();
 
-    console.log("Оценка:", selectedRating);
-    console.log("Комментарий:", comment);
+    const user = auth.currentUser;
 
-    alert("Спасибо за вашу оценку! ❤️");
+    try{
 
-    closeRating();
+        await addDoc(
+            collection(db, "ratings"),
+            {
+                rating: selectedRating,
+                comment: comment,
+                email: user ? user.email : "Гость",
+                createdAt: serverTimestamp()
+            }
+        );
+
+        alert("Спасибо за вашу оценку! ❤️");
+
+        document.getElementById("ratingComment").value = "";
+
+        document.querySelectorAll(".ratingStar").forEach(star=>{
+            star.classList.remove("active");
+        });
+
+        selectedRating = 0;
+
+        document.getElementById("ratingText").innerText =
+            "Выберите оценку";
+
+        closeRating();
+
+    }catch(error){
+
+        console.error(
+            "Ошибка сохранения отзыва:",
+            error
+        );
+
+        alert(
+            "Не удалось отправить отзыв. Попробуйте ещё раз."
+        );
+
+    }
 
 };
 
