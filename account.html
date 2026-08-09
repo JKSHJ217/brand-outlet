@@ -153,6 +153,25 @@ a{
     margin:5px 0;
 }
 
+/* =========================
+   ЗВЁЗДЫ ОЦЕНКИ
+========================= */
+
+.ratingStar{
+    font-size:42px;
+    color:#444;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.ratingStar:hover{
+    transform:scale(1.15);
+}
+
+.ratingStar.active{
+    color:#ffd700;
+}
+
 </style>
 
 </head>
@@ -395,7 +414,7 @@ onclick="openAbout()">
 
 <div
 class="item"
-onclick="rateSite()">
+onclick="openRating()">
 
 ⭐ <span data-lang="rate">
 Оценить сайт
@@ -936,7 +955,87 @@ data-lang="designClose">
 </div>
 </div>
 
+<!-- ОЦЕНКА САЙТА -->
 
+<div id="ratingModal" class="modal">
+
+    <div class="modalBox">
+
+        <h2>⭐ Оценить сайт</h2>
+
+        <p style="text-align:center;color:#aaa;">
+            Оцените ваш опыт использования сайта
+        </p>
+
+        <div
+            id="stars"
+            style="
+                display:flex;
+                justify-content:center;
+                gap:8px;
+                margin:25px 0;
+            "
+        >
+
+            <span class="ratingStar" data-rating="1">★</span>
+            <span class="ratingStar" data-rating="2">★</span>
+            <span class="ratingStar" data-rating="3">★</span>
+            <span class="ratingStar" data-rating="4">★</span>
+            <span class="ratingStar" data-rating="5">★</span>
+
+        </div>
+
+        <p
+            id="ratingText"
+            style="
+                text-align:center;
+                color:#aaa;
+                margin-bottom:15px;
+            "
+        >
+            Выберите оценку
+        </p>
+
+        <textarea
+            id="ratingComment"
+            placeholder="💬 Напишите комментарий..."
+            maxlength="500"
+            style="
+                width:100%;
+                min-height:120px;
+                background:#111;
+                color:white;
+                border:1px solid #333;
+                border-radius:12px;
+                padding:15px;
+                resize:vertical;
+                font-size:16px;
+                outline:none;
+            "
+        ></textarea>
+
+        <button
+            onclick="submitRating()"
+            style="
+                text-align:center;
+                background:#fff;
+                color:#111;
+                font-weight:bold;
+            "
+        >
+            Отправить
+        </button>
+
+        <button
+            class="closeButton"
+            onclick="closeRating()"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
 
 <!-- LANGUAGE -->
 
