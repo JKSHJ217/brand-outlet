@@ -172,6 +172,47 @@ a{
     color:#ffd700;
 }
 
+/* =========================
+   FAQ
+========================= */
+
+.faqItem{
+    margin-bottom:10px;
+}
+
+.faqQuestion{
+    width:100%;
+    background:#292929;
+    color:white;
+    border:none;
+    padding:16px;
+    border-radius:12px;
+    font-size:16px;
+    text-align:left;
+    cursor:pointer;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.faqQuestion:hover{
+    background:#333;
+}
+
+.faqAnswer{
+    display:none;
+    background:#111;
+    color:#ccc;
+    padding:15px;
+    border-radius:0 0 12px 12px;
+    line-height:1.6;
+}
+
+.faqAnswer.open{
+    display:block;
+}
+
 </style>
 
 </head>
@@ -378,6 +419,10 @@ onclick="openTerms()">
 🆘 Помощь
 </div>
 
+<div class="item" onclick="openFAQ()">
+📚 Частые вопросы (FAQ)
+</div>
+
 <div class="item">
 🆘 Поддержка
 </div>
@@ -385,7 +430,6 @@ onclick="openTerms()">
 <div class="item" onclick="openChat()">
 💬 Чат
 </div>
-
 <!-- ИНФОРМАЦИЯ -->
 
 <div class="section">
@@ -1093,6 +1137,56 @@ getAuth(app);
 const db =
 getFirestore(app);
 
+/* =========================
+   FAQ
+========================= */
+
+window.openFAQ = function(){
+
+    document.getElementById("faqModal").style.display = "block";
+    document.body.style.overflow = "hidden";
+
+};
+
+window.closeFAQ = function(){
+
+    document.getElementById("faqModal").style.display = "none";
+    document.body.style.overflow = "auto";
+
+};
+
+window.toggleFAQ = function(index){
+
+    const answers =
+        document.querySelectorAll(".faqAnswer");
+
+    const questions =
+        document.querySelectorAll(".faqQuestion");
+
+    const answer = answers[index];
+
+    const icon =
+        questions[index].querySelector("span");
+
+    const isOpen =
+        answer.classList.contains("open");
+
+    answers.forEach((item)=>{
+        item.classList.remove("open");
+    });
+
+    questions.forEach((question)=>{
+        question.querySelector("span").innerText = "＋";
+    });
+
+    if(!isOpen){
+
+        answer.classList.add("open");
+        icon.innerText = "−";
+
+    }
+
+};
 
 /* =========================
    АККАУНТ
@@ -1545,6 +1639,135 @@ window.applyLanguage();
 });
 
 </script>
+
+<!-- FAQ -->
+
+<div id="faqModal" class="modal">
+
+    <div class="modalBox">
+
+        <h2>📚 Частые вопросы</h2>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(0)">
+                Как оформить заказ?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Выберите нужный товар, откройте его страницу,
+                выберите количество и добавьте товар в корзину.
+                После этого перейдите в корзину и оформите заказ.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(1)">
+                Как узнать наличие товара?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Актуальное количество товара отображается
+                на странице товара.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(2)">
+                В какой валюте указаны цены?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Все цены на сайте указаны в туркменских манатах (TMT).
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(3)">
+                Как производится оплата?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Способ оплаты указывается при оформлении заказа.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(4)">
+                Как осуществляется доставка?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Способ и срок доставки зависят от места получения заказа.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(5)">
+                Можно ли изменить заказ?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Если нужно изменить заказ, обратитесь в поддержку
+                как можно скорее.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(6)">
+                Можно ли вернуть товар?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Возврат и обмен осуществляются в соответствии
+                с условиями магазина и применимыми правилами.
+            </div>
+
+        </div>
+
+        <div class="faqItem">
+
+            <button class="faqQuestion" onclick="toggleFAQ(7)">
+                Как связаться с поддержкой?
+                <span>＋</span>
+            </button>
+
+            <div class="faqAnswer">
+                Вы можете воспользоваться разделом
+                «🆘 Поддержка» или написать нам через «💬 Чат».
+            </div>
+
+        </div>
+
+        <button
+            class="closeButton"
+            onclick="closeFAQ()"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
 
 </body>
 </html>
