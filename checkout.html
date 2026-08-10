@@ -154,6 +154,60 @@ placeholder="Ваш адрес"></textarea>
 
 </p>
 
+<div style="
+    margin-top:20px;
+    background:#111;
+    padding:18px;
+    border-radius:15px;
+">
+
+    <h3 style="
+        margin-bottom:10px;
+        text-align:center;
+    ">
+        💵 Оплата
+    </h3>
+
+    <p style="
+        text-align:center;
+        color:#ccc;
+        font-size:15px;
+    ">
+        Оплата производится наличными при получении заказа.
+    </p>
+
+</div>
+
+
+<label style="
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:20px;
+    color:#ccc;
+    font-size:14px;
+    line-height:1.5;
+    cursor:pointer;
+">
+
+    <input
+        type="checkbox"
+        id="orderAgreement"
+        style="
+            width:20px;
+            height:20px;
+            margin:0;
+            flex-shrink:0;
+            cursor:pointer;
+        "
+    >
+
+    <span>
+        Я подтверждаю заказ и согласен с условиями покупки.
+        Оплата производится наличными при получении.
+    </span>
+
+</label>
 
 <button onclick="makeOrder()">
 
@@ -391,7 +445,16 @@ return;
 
 }
 
+const agreement =
+    document.getElementById("orderAgreement").checked;
 
+if(!agreement){
+
+    alert("Пожалуйста, подтвердите условия заказа ☑️");
+
+    return;
+
+}
 
 let cart=JSON.parse(localStorage.getItem("cart")) || [];
 
