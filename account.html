@@ -423,7 +423,7 @@ onclick="openTerms()">
 📚 Частые вопросы (FAQ)
 </div>
 
-<div class="item">
+<div class="item" onclick="openSupport()">
 🆘 Поддержка
 </div>
 
@@ -1138,6 +1138,27 @@ const db =
 getFirestore(app);
 
 /* =========================
+   ПОДДЕРЖКА
+========================= */
+
+window.openSupport = function(){
+
+    document.getElementById("supportModal").style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+};
+
+
+window.closeSupport = function(){
+
+    document.getElementById("supportModal").style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+};
+
+/* =========================
    FAQ
 ========================= */
 
@@ -1759,6 +1780,122 @@ window.applyLanguage();
         <button
             class="closeButton"
             onclick="closeFAQ()"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ПОДДЕРЖКА -->
+
+<div id="supportModal" class="modal">
+
+    <div class="modalBox">
+
+        <h2>🆘 Поддержка</h2>
+
+        <p style="text-align:center;color:#aaa;">
+            Опишите вашу проблему или вопрос
+        </p>
+
+        <input
+            id="supportName"
+            placeholder="Ваше имя"
+            style="
+                width:100%;
+                padding:14px;
+                margin-top:15px;
+                background:#111;
+                color:white;
+                border:1px solid #333;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+        <input
+            id="supportPhone"
+            placeholder="Ваш телефон"
+            style="
+                width:100%;
+                padding:14px;
+                margin-top:10px;
+                background:#111;
+                color:white;
+                border:1px solid #333;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+        <select
+            id="supportTopic"
+            style="
+                width:100%;
+                padding:14px;
+                margin-top:10px;
+                background:#111;
+                color:white;
+                border:1px solid #333;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+            <option value="Заказ">
+                📦 Вопрос по заказу
+            </option>
+
+            <option value="Товар">
+                ⌚ Вопрос о товаре
+            </option>
+
+            <option value="Доставка">
+                🚚 Вопрос о доставке
+            </option>
+
+            <option value="Другое">
+                💬 Другое
+            </option>
+
+        </select>
+
+        <textarea
+            id="supportMessage"
+            placeholder="Напишите сообщение..."
+            maxlength="1000"
+            style="
+                width:100%;
+                min-height:140px;
+                margin-top:10px;
+                background:#111;
+                color:white;
+                border:1px solid #333;
+                border-radius:10px;
+                padding:14px;
+                font-size:16px;
+                resize:vertical;
+                outline:none;
+            "
+        ></textarea>
+
+        <button
+            onclick="sendSupport()"
+            style="
+                background:white;
+                color:#111;
+                font-weight:bold;
+                text-align:center;
+            "
+        >
+            📩 Отправить обращение
+        </button>
+
+        <button
+            class="closeButton"
+            onclick="closeSupport()"
         >
             Закрыть
         </button>
