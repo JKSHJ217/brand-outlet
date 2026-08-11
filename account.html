@@ -1158,6 +1158,67 @@ window.closeSupport = function(){
 
 };
 
+window.sendSupport = async function(){
+
+    const name =
+        document.getElementById("supportName").value.trim();
+
+    const phone =
+        document.getElementById("supportPhone").value.trim();
+
+    const topic =
+        document.getElementById("supportTopic").value;
+
+    const message =
+        document.getElementById("supportMessage").value.trim();
+
+    const user = auth.currentUser;
+
+    if(!name || !phone || !message){
+
+        alert("Пожалуйста, заполните все поля.");
+
+        return;
+
+    }
+
+    try{
+
+        await addDoc(
+            collection(db, "support"),
+            {
+                name: name,
+                phone: phone,
+                topic: topic,
+                message: message,
+                email: user ? user.email : "Гость",
+                createdAt: serverTimestamp()
+            }
+        );
+
+        alert("Ваше обращение отправлено! ❤️");
+
+        document.getElementById("supportName").value = "";
+        document.getElementById("supportPhone").value = "";
+        document.getElementById("supportMessage").value = "";
+
+        closeSupport();
+
+    }catch(error){
+
+        console.error(
+            "Ошибка отправки обращения:",
+            error
+        );
+
+        alert(
+            "Не удалось отправить обращение. Попробуйте ещё раз."
+        );
+
+    }
+
+};
+
 /* =========================
    FAQ
 ========================= */
