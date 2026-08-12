@@ -625,36 +625,43 @@ async function loadSupport(){
                 support.message || "Без сообщения";
 
 
-            box.innerHTML += `
+box.innerHTML += `
 
-                <div class="item">
+    <div class="item">
 
-                    <p>
-                        👤 <strong>${name}</strong>
-                    </p>
+        <p>
+            👤 <strong>${name}</strong>
+        </p>
 
-                    <p style="margin-top:8px;">
-                        📱 ${phone}
-                    </p>
+        <p style="margin-top:8px;">
+            📱 ${phone}
+        </p>
 
-                    <p style="margin-top:8px;">
-                        📧 ${email}
-                    </p>
+        <p style="margin-top:8px;">
+            📧 ${email}
+        </p>
 
-                    <p style="margin-top:8px;">
-                        📌 ${topic}
-                    </p>
+        <p style="margin-top:8px;">
+            📌 ${topic}
+        </p>
 
-                    <p style="
-                        margin-top:12px;
-                        color:#ccc;
-                    ">
-                        💬 ${message}
-                    </p>
+        <p style="
+            margin-top:12px;
+            color:#ccc;
+        ">
+            💬 ${message}
+        </p>
 
-                </div>
+        <button
+            class="delete"
+            onclick="deleteSupport('${item.id}')"
+        >
+            🗑️ Удалить обращение
+        </button>
 
-            `;
+    </div>
+
+`;
 
         });
 
@@ -674,6 +681,39 @@ async function loadSupport(){
     }
 
 }
+
+window.deleteSupport = async function(id){
+
+    const ok = confirm(
+        "Удалить это обращение?"
+    );
+
+    if(!ok) return;
+
+    try{
+
+        await deleteDoc(
+            doc(db, "support", id)
+        );
+
+        alert("Обращение удалено 🗑️");
+
+        loadSupport();
+
+    }catch(error){
+
+        console.error(
+            "Ошибка удаления обращения:",
+            error
+        );
+
+        alert(
+            "Не удалось удалить обращение."
+        );
+
+    }
+
+};
 
 window.deleteWatch = async function(id){
 
