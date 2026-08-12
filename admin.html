@@ -218,6 +218,14 @@ display:none;
     Загрузка отзывов...
 </div>
 
+<h2 style="margin-top:50px;">
+    🆘 Обращения в поддержку
+</h2>
+
+<div id="support">
+    Загрузка обращений...
+</div>
+
 <h2>
 📦 Все часы
 </h2>
@@ -295,6 +303,7 @@ document.getElementById("adminPanel").classList.remove("hidden");
 
 loadWatches();
 loadRatings();
+loadSupport();
 
 
 }else{
@@ -555,6 +564,110 @@ async function loadRatings(){
         box.innerHTML = `
             <div class="item">
                 ❌ Не удалось загрузить отзывы
+            </div>
+        `;
+
+    }
+
+}
+
+/* =========================
+   ПОДДЕРЖКА
+========================= */
+
+async function loadSupport(){
+
+    const box =
+        document.getElementById("support");
+
+    box.innerHTML =
+        "Загрузка обращений...";
+
+    try{
+
+        const snap =
+            await getDocs(
+                collection(db, "support")
+            );
+
+        box.innerHTML = "";
+
+        if(snap.empty){
+
+            box.innerHTML = `
+                <div class="item">
+                    Пока обращений нет 🆘
+                </div>
+            `;
+
+            return;
+
+        }
+
+        snap.forEach((item)=>{
+
+            const support =
+                item.data();
+
+            const name =
+                support.name || "Не указано";
+
+            const phone =
+                support.phone || "Не указан";
+
+            const email =
+                support.email || "Гость";
+
+            const topic =
+                support.topic || "Другое";
+
+            const message =
+                support.message || "Без сообщения";
+
+
+            box.innerHTML += `
+
+                <div class="item">
+
+                    <p>
+                        👤 <strong>${name}</strong>
+                    </p>
+
+                    <p style="margin-top:8px;">
+                        📱 ${phone}
+                    </p>
+
+                    <p style="margin-top:8px;">
+                        📧 ${email}
+                    </p>
+
+                    <p style="margin-top:8px;">
+                        📌 ${topic}
+                    </p>
+
+                    <p style="
+                        margin-top:12px;
+                        color:#ccc;
+                    ">
+                        💬 ${message}
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+    }catch(error){
+
+        console.error(
+            "Ошибка загрузки поддержки:",
+            error
+        );
+
+        box.innerHTML = `
+            <div class="item">
+                ❌ Не удалось загрузить обращения
             </div>
         `;
 
