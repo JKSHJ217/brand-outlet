@@ -1137,6 +1137,23 @@ getAuth(app);
 const db =
 getFirestore(app);
 
+window.openAppearance = function(){
+
+    document.getElementById("appearanceModal").style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+};
+
+
+window.closeAppearance = function(){
+
+    document.getElementById("appearanceModal").style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+};
+
 /* =========================
    ПОДДЕРЖКА
 ========================= */
@@ -1957,6 +1974,106 @@ window.applyLanguage();
         <button
             class="closeButton"
             onclick="closeSupport()"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ОФОРМЛЕНИЕ -->
+
+<div id="appearanceModal" class="modal">
+
+    <div class="modalBox">
+
+        <h2>🎨 Оформление</h2>
+
+        <p style="text-align:center;color:#aaa;">
+            Выберите оформление сайта
+        </p>
+
+        <button
+            onclick="setTheme('dark')"
+            style="
+                background:#111;
+                color:white;
+                text-align:center;
+            "
+        >
+            🌙 Тёмная тема
+        </button>
+
+        <button
+            onclick="setTheme('light')"
+            style="
+                background:#f5f5f5;
+                color:#111;
+                text-align:center;
+            "
+        >
+            ☀️ Светлая тема
+        </button>
+
+        <h3 style="margin-top:25px;">
+            🎨 Цвет темы
+        </h3>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-top:15px;
+        ">
+
+            <button
+                onclick="setTheme('red')"
+                style="background:#d32f2f;color:white;text-align:center;"
+            >
+                🔴 Красный
+            </button>
+
+            <button
+                onclick="setTheme('blue')"
+                style="background:#1976d2;color:white;text-align:center;"
+            >
+                🔵 Синий
+            </button>
+
+            <button
+                onclick="setTheme('green')"
+                style="background:#2e7d32;color:white;text-align:center;"
+            >
+                🟢 Зелёный
+            </button>
+
+            <button
+                onclick="setTheme('yellow')"
+                style="background:#f9a825;color:#111;text-align:center;"
+            >
+                🟡 Жёлтый
+            </button>
+
+            <button
+                onclick="setTheme('purple')"
+                style="background:#7b1fa2;color:white;text-align:center;"
+            >
+                🟣 Фиолетовый
+            </button>
+
+            <button
+                onclick="setTheme('pink')"
+                style="background:#e91e63;color:white;text-align:center;"
+            >
+                🩷 Розовый
+            </button>
+
+        </div>
+
+        <button
+            class="closeButton"
+            onclick="closeAppearance()"
         >
             Закрыть
         </button>
