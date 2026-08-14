@@ -213,6 +213,168 @@ a{
     display:block;
 }
 
+/* =========================
+   ТЕМЫ ОФОРМЛЕНИЯ
+========================= */
+
+body,
+.profile,
+.item,
+button,
+.modalBox,
+.langMenu,
+.faqAnswer,
+.faqQuestion{
+    transition:
+        background-color .3s,
+        color .3s,
+        border-color .3s;
+}
+
+/* СВЕТЛАЯ */
+
+body.theme-light{
+    background:#f5f5f5;
+    color:#111;
+}
+
+body.theme-light .profile,
+body.theme-light .item,
+body.theme-light button,
+body.theme-light .modalBox,
+body.theme-light .langMenu{
+    background:#fff;
+    color:#111;
+}
+
+body.theme-light .item:hover,
+body.theme-light button:hover{
+    background:#e8e8e8;
+}
+
+body.theme-light .section{
+    color:#666;
+}
+
+body.theme-light .modal{
+    background:rgba(255,255,255,.88);
+}
+
+body.theme-light .modalBox p{
+    color:#444;
+}
+
+body.theme-light .modalBox .finalText{
+    background:#eee;
+    color:#111;
+}
+
+body.theme-light .faqAnswer{
+    background:#f5f5f5;
+    color:#444;
+}
+
+body.theme-light .faqQuestion{
+    background:#e8e8e8;
+    color:#111;
+}
+
+
+/* КРАСНЫЙ */
+
+body.theme-red{
+    --theme-color:#d32f2f;
+}
+
+body.theme-red .profile,
+body.theme-red .item{
+    border-left:4px solid #d32f2f;
+}
+
+body.theme-red .section{
+    color:#ff6b6b;
+}
+
+
+/* СИНИЙ */
+
+body.theme-blue{
+    --theme-color:#1976d2;
+}
+
+body.theme-blue .profile,
+body.theme-blue .item{
+    border-left:4px solid #1976d2;
+}
+
+body.theme-blue .section{
+    color:#64b5f6;
+}
+
+
+/* ЗЕЛЁНЫЙ */
+
+body.theme-green{
+    --theme-color:#2e7d32;
+}
+
+body.theme-green .profile,
+body.theme-green .item{
+    border-left:4px solid #2e7d32;
+}
+
+body.theme-green .section{
+    color:#66bb6a;
+}
+
+
+/* ЖЁЛТЫЙ */
+
+body.theme-yellow{
+    --theme-color:#f9a825;
+}
+
+body.theme-yellow .profile,
+body.theme-yellow .item{
+    border-left:4px solid #f9a825;
+}
+
+body.theme-yellow .section{
+    color:#fdd835;
+}
+
+
+/* ФИОЛЕТОВЫЙ */
+
+body.theme-purple{
+    --theme-color:#7b1fa2;
+}
+
+body.theme-purple .profile,
+body.theme-purple .item{
+    border-left:4px solid #7b1fa2;
+}
+
+body.theme-purple .section{
+    color:#ba68c8;
+}
+
+
+/* РОЗОВЫЙ */
+
+body.theme-pink{
+    --theme-color:#e91e63;
+}
+
+body.theme-pink .profile,
+body.theme-pink .item{
+    border-left:4px solid #e91e63;
+}
+
+body.theme-pink .section{
+    color:#f06292;
+}
+
 </style>
 
 </head>
@@ -1538,7 +1700,40 @@ document.body.style.overflow =
 
 };
 
+/* =========================
+   РАБОТА ОФОРМЛЕНИЯ
+========================= */
 
+window.setTheme = function(theme){
+
+    document.body.classList.remove(
+        "theme-light",
+        "theme-dark",
+        "theme-red",
+        "theme-blue",
+        "theme-green",
+        "theme-yellow",
+        "theme-purple",
+        "theme-pink"
+    );
+
+    document.body.classList.add("theme-" + theme);
+
+    localStorage.setItem("siteTheme", theme);
+
+};
+
+
+/* ЗАГРУЗКА СОХРАНЁННОЙ ТЕМЫ */
+
+window.loadTheme = function(){
+
+    const savedTheme =
+        localStorage.getItem("siteTheme") || "dark";
+
+    setTheme(savedTheme);
+
+};
 
 /* =========================
    ОЦЕНКА
@@ -1698,6 +1893,12 @@ savedLabel;
 if(window.applyLanguage){
 
 window.applyLanguage();
+
+}
+
+if(window.loadTheme){
+
+window.loadTheme();
 
 }
 
